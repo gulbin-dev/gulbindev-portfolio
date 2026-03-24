@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.0.2...v1.1.0) (2026-03-24)
+
+
+### Features
+
+* added footer ([64848e2](https://github.com/gulbin-dev/portfolio-website-2/commit/64848e2b029f6b9bb0f9b93028a5591d79c15a62))
+
 ## [1.0.2](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.0.1...v1.0.2) (2026-03-24)
 
 
