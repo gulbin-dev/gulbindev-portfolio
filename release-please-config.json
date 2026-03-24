@@ -1,10 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "branch": "master",
+  "branch": "pre-release",
   "packages": {
     ".": {
       "release-type": "node",
-      "prerelease": false,
+      "prerelease": true,
+      "prerelease-type": "beta",
       "changelog-sections": [
         { "type": "feat", "section": "Features" },
         { "type": "fix", "section": "Bug Fixes" },
