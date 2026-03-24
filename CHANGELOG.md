@@ -1,17 +1,5 @@
 # Changelog
 
-## [1.1.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.1.0...v1.1.0-beta.0) (2026-03-24)
-
-
-### Features
-
-* added header component ([8def41b](https://github.com/gulbin-dev/portfolio-website-2/commit/8def41ba41c0ce7e1923354f9860252704ae5214))
-
-
-### Bug Fixes
-
-* update yml config ([ee96d19](https://github.com/gulbin-dev/portfolio-website-2/commit/ee96d19c564f8c35a54d0fee7322ce1f531231bd))
-
 ## [1.1.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.0.2...v1.1.0) (2026-03-24)
 
 
