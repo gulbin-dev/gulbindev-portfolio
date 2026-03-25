@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.1-beta.1](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.6.0-beta.1...v1.6.1-beta.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* global css content ([fce078f](https://github.com/gulbin-dev/portfolio-website-2/commit/fce078f28d4ed66afc11174b2e60c86b346d0013))
+* import pathing ([aa8eece](https://github.com/gulbin-dev/portfolio-website-2/commit/aa8eece3aa60e3f36e70bec27c58e930cefbbbec))
+
 ## [1.6.0-beta.1](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.6.0-beta.0...v1.6.0-beta.1) (2026-03-25)
 
 
