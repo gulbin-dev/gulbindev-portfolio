@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.6.0-beta.0...v1.7.0-beta.0) (2026-03-25)
+
+
+### Features
+
+* added aditional components ([09ae050](https://github.com/gulbin-dev/portfolio-website-2/commit/09ae050977d36a87d647f5d04f363e001f34cb33))
+
+
+### Bug Fixes
+
+* update layout and home page content ([3012538](https://github.com/gulbin-dev/portfolio-website-2/commit/3012538ffbfe536106ebd43beb2ed9b8428ca34f))
+
 ## [1.6.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.5.0...v1.6.0-beta.0) (2026-03-25)
 
 
