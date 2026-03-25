@@ -2,6 +2,19 @@
 
 ## [1.5.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.4.0-beta.0...v1.5.0) (2026-03-25)
 
+
+### Features
+
+* added discover page and gsap hook ([824dbfa](https://github.com/gulbin-dev/portfolio-website-2/commit/824dbfa15fc796e32bdf442cdc00bded4ff80422))
+* added global custom gsap hook ([a5874a9](https://github.com/gulbin-dev/portfolio-website-2/commit/a5874a9d89c7857706f7cdfbfb9109c7acff38d3))
+
+
+### Bug Fixes
+
+* release type ([7abfecf](https://github.com/gulbin-dev/portfolio-website-2/commit/7abfecfa16c48a1ee75feac4fcc1c6da0c8c38c9))
+
+## [1.5.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.4.0-beta.0...v1.5.0) (2026-03-25)
+
 ### Features
 
 - added global custom gsap hook ([a5874a9](https://github.com/gulbin-dev/portfolio-website-2/commit/a5874a9d89c7857706f7cdfbfb9109c7acff38d3))
