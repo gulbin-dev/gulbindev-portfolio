@@ -3,7 +3,8 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "prerelease": false,
+      "prerelease": true,
+      "prerelease-type": "beta",
       "changelog-sections": [
         { "type": "feat", "section": "Features" },
         { "type": "fix", "section": "Bug Fixes" },

@@ -1,51 +1,50 @@
 # Changelog
 
-## [1.4.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.3.0-beta.0...v1.4.0-beta.0) (2026-03-25)
-
+## [1.5.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.4.0-beta.0...v1.5.0) (2026-03-25)
 
 ### Features
 
-* added gsap animation ([7d69cd3](https://github.com/gulbin-dev/portfolio-website-2/commit/7d69cd3350a029cd7e718fc199c7f84acbebe9e7))
+- added global custom gsap hook ([a5874a9](https://github.com/gulbin-dev/portfolio-website-2/commit/a5874a9d89c7857706f7cdfbfb9109c7acff38d3))
+
+## [1.4.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.3.0-beta.0...v1.4.0-beta.0) (2026-03-25)
+
+### Features
+
+- added gsap animation ([7d69cd3](https://github.com/gulbin-dev/portfolio-website-2/commit/7d69cd3350a029cd7e718fc199c7f84acbebe9e7))
 
 ## [1.3.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.2.0-beta.0...v1.3.0-beta.0) (2026-03-25)
 
-
 ### Features
 
-* added styles.css ([31cb2b9](https://github.com/gulbin-dev/portfolio-website-2/commit/31cb2b9b907ead115cee10a2abafab9ab614adee))
+- added styles.css ([31cb2b9](https://github.com/gulbin-dev/portfolio-website-2/commit/31cb2b9b907ead115cee10a2abafab9ab614adee))
 
 ## [1.2.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.1.0-beta.0...v1.2.0-beta.0) (2026-03-25)
 
-
 ### Features
 
-* added asset files ([201d3d1](https://github.com/gulbin-dev/portfolio-website-2/commit/201d3d105f477af12c985dbdf1811b65c758c2e0))
-* added asset files ([7625c07](https://github.com/gulbin-dev/portfolio-website-2/commit/7625c07b2313aa779324bdf9d76fdc84f5c2f167))
+- added asset files ([201d3d1](https://github.com/gulbin-dev/portfolio-website-2/commit/201d3d105f477af12c985dbdf1811b65c758c2e0))
+- added asset files ([7625c07](https://github.com/gulbin-dev/portfolio-website-2/commit/7625c07b2313aa779324bdf9d76fdc84f5c2f167))
 
 ## [1.1.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.0.2...v1.1.0) (2026-03-24)
 
-
 ### Features
 
-* added footer ([64848e2](https://github.com/gulbin-dev/portfolio-website-2/commit/64848e2b029f6b9bb0f9b93028a5591d79c15a62))
+- added footer ([64848e2](https://github.com/gulbin-dev/portfolio-website-2/commit/64848e2b029f6b9bb0f9b93028a5591d79c15a62))
 
 ## [1.0.2](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.0.1...v1.0.2) (2026-03-24)
 
-
 ### Bug Fixes
 
-* RP config ([f8f3146](https://github.com/gulbin-dev/portfolio-website-2/commit/f8f3146144f865e0f81b158365b2bddc7c9cab46))
+- RP config ([f8f3146](https://github.com/gulbin-dev/portfolio-website-2/commit/f8f3146144f865e0f81b158365b2bddc7c9cab46))
 
 ## [1.0.1](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.0.0...v1.0.1) (2026-03-24)
 
-
 ### Bug Fixes
 
-* yml ([83b7080](https://github.com/gulbin-dev/portfolio-website-2/commit/83b7080c7b66e0d0e821d347342b1c1137b88895))
+- yml ([83b7080](https://github.com/gulbin-dev/portfolio-website-2/commit/83b7080c7b66e0d0e821d347342b1c1137b88895))
 
 ## 1.0.0 (2026-03-24)
 
-
 ### Bug Fixes
 
-* ts pathing ([cb479f6](https://github.com/gulbin-dev/portfolio-website-2/commit/cb479f6279e969dbc7a4c4029ba4f156fe861bd8))
+- ts pathing ([cb479f6](https://github.com/gulbin-dev/portfolio-website-2/commit/cb479f6279e969dbc7a4c4029ba4f156fe861bd8))
