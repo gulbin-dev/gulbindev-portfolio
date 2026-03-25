@@ -10,7 +10,6 @@
 
 ## [1.6.0-beta.1](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.6.0-beta.0...v1.6.0-beta.1) (2026-03-25)
 
-
 ### Features
 
 * added aditional components ([09ae050](https://github.com/gulbin-dev/portfolio-website-2/commit/09ae050977d36a87d647f5d04f363e001f34cb33))
@@ -21,7 +20,6 @@
 * update layout and home page content ([3012538](https://github.com/gulbin-dev/portfolio-website-2/commit/3012538ffbfe536106ebd43beb2ed9b8428ca34f))
 
 ## [1.6.0-beta.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.5.0...v1.6.0-beta.0) (2026-03-25)
-
 
 ### Features
 
@@ -47,7 +45,6 @@
 
 ## [1.5.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.5.0...v1.5.0) (2026-03-25)
 
-
 ### Features
 
 * added asset files ([201d3d1](https://github.com/gulbin-dev/portfolio-website-2/commit/201d3d105f477af12c985dbdf1811b65c758c2e0))
@@ -70,7 +67,6 @@
 * yml ([83b7080](https://github.com/gulbin-dev/portfolio-website-2/commit/83b7080c7b66e0d0e821d347342b1c1137b88895))
 
 ## [1.5.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.4.0-beta.0...v1.5.0) (2026-03-25)
-
 
 ### Features
 
