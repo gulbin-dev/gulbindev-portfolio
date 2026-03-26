@@ -3,7 +3,7 @@ import VsCodeUI from "./components/VsCodeUI";
 import CardSkill from "./components/CardSkill";
 import HireMe from "./components/HireMe";
 import HeroSection from "./components/HeroSection";
-import useGlobalGSAP from "@hooks/useGlobalGSAP";
+import useGlobalGSAP from "@/app/hooks/useHomePageGSAP";
 
 export default function Home() {
   useGlobalGSAP();
