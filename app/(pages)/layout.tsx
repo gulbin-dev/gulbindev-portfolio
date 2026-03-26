@@ -4,6 +4,8 @@ import Header from "@components/Header";
 import { Poppins, Roboto } from "next/font/google";
 import Footer from "@components/Footer";
 import PagesWrapper from "./PagesWrapper";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 export const metadata: Metadata = {
   title: "GulbinDev | Frontend React Web Developer Portfolio",
   description:
@@ -63,6 +65,8 @@ export default async function PageLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable} `}>
       <body>
+        <SpeedInsights />
+        <Analytics />
         <Header />
         <PagesWrapper>
           {children}
