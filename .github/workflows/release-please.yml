@@ -5,6 +5,10 @@ on:
     branches:
       - master
       - pre-release
+  pull_request:
+    branches:
+      - master
+      - pre-release
 
 permissions:
   contents: write
@@ -14,7 +18,7 @@ permissions:
 
 jobs:
   release-stable:
-    if: github.base_ref == 'master'
+    if: github.base_ref == 'master' || github.ref_name == 'master'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
@@ -28,7 +32,7 @@ jobs:
           manifest-file: .release-please-manifest.json
 
   release-beta:
-    if: github.base_ref == 'pre-release'
+    if: github.base_ref == 'pre-release' || github.ref_name == 'pre-release'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
