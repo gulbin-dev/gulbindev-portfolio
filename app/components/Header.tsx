@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
 import Link from "next/link";
-
 export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   useEffect(() => {
@@ -27,7 +26,6 @@ export default function Header() {
           <button
             onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
             className="flex flex-col gap-1  tablet:hidden"
-            aria-label="Navigation menu button"
           >
             <span className="hamburger-icon"></span>
             <span className="hamburger-icon"></span>

@@ -20,9 +20,10 @@ export default function Footer() {
           </ul>
         </nav>
         <button>Download CV</button>
-        <p>Quick Links</p>
-        <NavLinks navStyle="flex flex-col gap-2" anchorStyle="underline" />
-
+        <ul>
+          <p>Quick Links</p>
+          <NavLinks navStyle="flex flex-col gap-2" anchorStyle="underline" />
+        </ul>
         <p>
           &copy; 2026 GulbinDev - Frontend React Web Developer. All rights
           reserved.

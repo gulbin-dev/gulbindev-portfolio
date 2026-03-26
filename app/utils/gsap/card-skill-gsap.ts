@@ -10,6 +10,7 @@ export default function cardSkillGSAP(context: gsap.Context) {
         start: "top top",
         end: "bottom+=2000 top",
         scrub: 1,
+        markers: true,
         id: "pin-section",
         invalidateOnRefresh: true,
       },
