@@ -86,7 +86,7 @@ export default function heroSectionGSAP(context: gsap.Context) {
         defaults: { duration: 1 },
         repeat: -1,
       });
-      const target = ["#m-profile-1"];
+      const target = "#m-profile-1";
       timeline
         .to(target, {
           morphSVG: "#m-profile-2",
