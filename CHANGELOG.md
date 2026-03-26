@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.7.0...v1.8.0) (2026-03-26)
+
+
+### Features
+
+* added vercel analytics and speed insights ([#32](https://github.com/gulbin-dev/portfolio-website-2/issues/32)) ([ebea40e](https://github.com/gulbin-dev/portfolio-website-2/commit/ebea40e310fa769687b82d3b900b8fc885308bb7))
+
 ## [1.7.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.6.2...v1.7.0) (2026-03-26)
 
 
