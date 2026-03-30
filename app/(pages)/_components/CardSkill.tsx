@@ -34,6 +34,7 @@ export default function CardSkill() {
                   time.
                 </p>
               </div>
+              <video src="/responsive.webm" autoPlay loop muted></video>
             </div>
           </li>
           <li className="list-card-skill">
