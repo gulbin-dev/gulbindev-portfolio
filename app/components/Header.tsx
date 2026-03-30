@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
 import Link from "next/link";
+import Image from "next/image";
+
 export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   useEffect(() => {
@@ -16,16 +18,22 @@ export default function Header() {
     <>
       <header
         id="header"
-        className="fixed! z-100 left-0 top-0! w-full  max-h-12 tablet:max-h-9 bg-secondary-color "
+        className="fixed! z-100 left-0 top-0 w-full  max-h-12 tablet:max-h-9 bg-secondary-color "
       >
-        <div className="max-w-180 w-full h-full flex justify-between items-center place-self-center px-3 py-3">
-          <Link href="/" className="text-heading-xl px-0! text-white">
-            GulbinDev
+        <div className="max-w-180 w-full h-full flex justify-between items-center place-self-center px-3 py-3 tablet:py-0">
+          <Link href="/" className="px-0 text-white">
+            <Image
+              src="/logo.svg"
+              alt="logo"
+              width={100}
+              height={58}
+              loading="eager"
+            />
           </Link>
-          <NavLinks navStyle="hidden tablet:flex gap-6" />
+          <NavLinks navStyle="hidden header-nav gap-6 mr-8 tablet:flex" />
           <button
             onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-            className="flex flex-col gap-1  tablet:hidden"
+            className="flex flex-col gap-1 tablet:hidden"
           >
             <span className="hamburger-icon"></span>
             <span className="hamburger-icon"></span>

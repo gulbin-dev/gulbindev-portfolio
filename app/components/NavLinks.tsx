@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { Dispatch, SetStateAction } from "react";
 export default function NavLinks({
   navStyle,
@@ -12,46 +13,34 @@ export default function NavLinks({
   updateState?: Dispatch<SetStateAction<boolean>> | undefined;
 }) {
   const pathName = usePathname();
-  function handleStateUpdate() {
-    if (updateState !== undefined) {
-      const prev = updateState;
-      updateState(!prev);
-    }
-  }
+  console.log(pathName);
+
   return (
     <nav>
       <ul className={navStyle}>
-        <li>
+        <li className={`relative ${pathName === "/" ? "active" : ""}`}>
           <Link
             className={anchorStyle}
-            href={pathName === "/#home-top" ? "#home-top" : "/#home-top"}
-            onClick={handleStateUpdate}
+            href="/"
+            onClick={() => updateState?.(false)}
           >
             Home
           </Link>
         </li>
-        <li>
+        <li className={`relative ${pathName === "/discover" ? "active" : ""}`}>
           <Link
             className={anchorStyle}
-            href={
-              pathName === "/discover#discover-top"
-                ? "#discover-top"
-                : "/discover#discover-top"
-            }
-            onClick={handleStateUpdate}
+            href="/discover"
+            onClick={() => updateState?.(false)}
           >
             Discover
           </Link>
         </li>
-        <li>
+        <li className={`relative ${pathName === "/about" ? "active" : ""}`}>
           <Link
             className={anchorStyle}
-            href={
-              pathName === "/about#about-top"
-                ? "#about-top"
-                : "/about#about-top"
-            }
-            onClick={handleStateUpdate}
+            href="/about"
+            onClick={() => updateState?.(false)}
           >
             About
           </Link>

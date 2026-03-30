@@ -72,6 +72,25 @@
 *
 *****************************/
 @layer utilities {
+  li::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: var(--color-action-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-out;
+  }
+  li.active {
+    font-weight: bold;
+  }
+  li.active::after {
+    transform: scaleX(1);
+  }
+
   .hero-img {
     position: relative;
     z-index: 2;

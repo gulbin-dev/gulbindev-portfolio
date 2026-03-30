@@ -3,6 +3,7 @@ import { gsap, SplitText } from "@utils/gsap/gsap";
 export default function heroSectionGSAP(context: gsap.Context) {
   context.add(() => {
     const { reduceMotion } = context.conditions ?? {};
+
     const animateCTA = () => {
       const keyframes = reduceMotion
         ? {
@@ -19,7 +20,7 @@ export default function heroSectionGSAP(context: gsap.Context) {
         keyframes: keyframes,
         scrollTrigger: {
           trigger: ".list-discover-button",
-          start: "top 85%",
+          start: "top 95%",
         },
       });
 
@@ -28,7 +29,7 @@ export default function heroSectionGSAP(context: gsap.Context) {
         keyframes: keyframes,
         scrollTrigger: {
           trigger: ".list-about-me-button",
-          start: "top 85%",
+          start: "top 95%",
         },
       });
       return () => {
@@ -80,26 +81,51 @@ export default function heroSectionGSAP(context: gsap.Context) {
         }
       });
     };
+    const scrollableHeroImage = () => {
+      /**
+       *  set 46 count instead of 47 since the first image has '1' instead of '0'
+       *  it is intended to be able to 'add' a value when 'onUpdate' on ScrollTrigger
+       *  runs
+       */
+      const frameCount = 47;
+      const canvas = document.getElementById("hero-canvas");
+      canvas?.setAttribute("width", "600px");
+      canvas?.setAttribute("height", "1200px");
+      const ctx = (canvas as HTMLCanvasElement).getContext("2d");
+      const images: HTMLImageElement[] = [];
+      const heroImage = {
+        frame: 0,
+      };
+      for (let i = 1; i < frameCount; i++) {
+        const img = new Image();
+        img.src = `/home-page/home-page_${i}.png`;
+        images.push(img);
+      }
+      images[0].onload = () => ctx?.drawImage(images[0], -350, 0);
+      //  handles canvas drawing when scrolling
+      const updateImage = () => {
+        const img = images[Math.round(heroImage.frame)];
+        if (img && ctx) {
+          ctx.clearRect(0, 0, 600, 1200);
+          ctx.drawImage(img, -350, 0);
+        }
+      };
 
-    const animateProfileMorph = () => {
-      const timeline = gsap.timeline({
-        defaults: { duration: 1 },
-        repeat: -1,
+      gsap.to(heroImage, {
+        frame: images.length - 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#hero-canvas",
+          start: "top center",
+          end: "bottom 90%",
+          scrub: true,
+          onUpdate: updateImage,
+        },
       });
-      const target = ["#m-profile-1"];
-      timeline
-        .to(target, {
-          morphSVG: "#m-profile-2",
-        })
-        .to(target, {
-          morphSVG: "#m-profile-3",
-        })
-        .to(target, {
-          morphSVG: "#m-profile-1",
-        });
     };
+
     animateSplitText();
+    scrollableHeroImage();
     animateCTA();
-    animateProfileMorph();
   });
 }

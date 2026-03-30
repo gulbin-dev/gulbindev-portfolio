@@ -25,27 +25,26 @@ export default function vsCodeSectionGSAP(context: gsap.Context) {
     codeBlocks.forEach((codeBlock) => {
       const lines: HTMLElement[] = gsap.utils.toArray("p", codeBlock);
       lines.forEach((line, index) => {
-        const split = SplitText.create(line, {
+        SplitText.create(line, {
           type: "chars",
-          deepSlice: true,
           autoSplit: true,
-        });
-
-        gsap.from(split.chars, {
-          autoAlpha: 0,
-          scale: reduceMotion ? 1 : 1.5,
-          ease: reduceMotion ? "none" : "power4.in",
-
-          stagger: {
-            amount: 0.5,
-            from: "start",
+          onSplit: (self) => {
+            return gsap.from(self.chars, {
+              autoAlpha: 0,
+              scale: reduceMotion ? 1 : 1.5,
+              ease: reduceMotion ? "none" : "power4.in",
+              stagger: {
+                amount: 0.5,
+                from: "start",
+              },
+              scrollTrigger: {
+                trigger: self.chars[index],
+                start: "top 80%",
+                end: "max",
+              },
+              onComplete: () => self.revert(),
+            });
           },
-          scrollTrigger: {
-            trigger: split.chars[index],
-            start: "top 80%",
-            end: "max",
-          },
-          onComplete: () => split.revert(),
         });
       });
     });

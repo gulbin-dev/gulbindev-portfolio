@@ -3,6 +3,7 @@ import { gsap, SplitText } from "./gsap";
 export default function cardSkillGSAP(context: gsap.Context) {
   context.add(() => {
     const { isSmallScreen, reduceMotion } = context.conditions ?? {};
+    //  initialize timeline
     const globalTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: "#pin-trigger",
@@ -10,11 +11,12 @@ export default function cardSkillGSAP(context: gsap.Context) {
         start: "top top",
         end: "bottom+=2000 top",
         scrub: 1,
-        markers: true,
         id: "pin-section",
         invalidateOnRefresh: true,
       },
     });
+
+    //  wait for fonts to be loaded before animating SplitText
     document.fonts.ready.then(() => {
       const cardSkillP = SplitText.create(".card-skill-p", {
         type: "words",
@@ -22,6 +24,7 @@ export default function cardSkillGSAP(context: gsap.Context) {
         mask: "words",
       });
 
+      //  function to animate Section Header & Paragraph (entry)
       const animateEntry_HeaderParagraph = (): gsap.core.Timeline => {
         const timeline = gsap.timeline();
         timeline
@@ -42,6 +45,8 @@ export default function cardSkillGSAP(context: gsap.Context) {
           });
         return timeline;
       };
+      //  function to animate Section Header & Paragraph (exit)
+      //  and first Card (entry)
       const animateEntry_CardSkill_and_ExitHeaderParagraph =
         (): gsap.core.Timeline => {
           const timeline = gsap.timeline();

@@ -1,10 +1,12 @@
 "use client";
-import VsCodeUI from "./components/VsCodeUI";
-import CardSkill from "./components/CardSkill";
-import HireMe from "./components/HireMe";
-import HeroSection from "./components/HeroSection";
+import VsCodeUI from "./_components/VsCodeUI";
+import CardSkill from "./_components/CardSkill";
+import HireMe from "./_components/HireMe";
+import HeroSection from "./_components/HeroSection";
+import useGlobalGSAP from "@/app/hooks/useHomePageGSAP";
 
 export default function Home() {
+  useGlobalGSAP();
   return (
     <main>
       {/* hero-section */}
