@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.9.0...v1.9.1) (2026-04-10)
+
+
+### Bug Fixes
+
+* bug fix ([43ee2ad](https://github.com/gulbin-dev/portfolio-website-2/commit/43ee2adad4e7a72ff07a3cc96faffbdff314b10a))
+
 ## [1.9.0](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.8.0...v1.9.0) (2026-04-10)
 
 
