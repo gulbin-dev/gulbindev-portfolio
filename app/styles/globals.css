@@ -27,6 +27,7 @@
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: auto !important;
   }
 
   img,
@@ -85,13 +86,14 @@
   --color-dark-foreground: #1a1a1a;
   --color-primary-color: #7a00ff;
   --color-primary-color-darker: #3f0084;
-  --color-secondary-color: #0079f6;
+  --color-secondary-color: #0062ff;
   --color-action-color: #ffc400;
   --color-col-neutral-1: #ac62ff;
   --color-col-neutral-2: #8b008b;
   --text-heading-xl: clamp(1.8em, 3vw, 3.6em);
   --text-heading-lg: clamp(1.4em, 3vw, 3.2em);
   --text-heading-md: clamp(0.8em, 3vw, 2.8em);
+  --breakpoint-mobile: 440px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1024px;
 }

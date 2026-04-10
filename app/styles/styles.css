@@ -72,7 +72,13 @@
 *
 *****************************/
 @layer utilities {
-  li::after {
+  #header {
+    will-change: transform;
+  }
+  #vs-code-header {
+    will-change: transform;
+  }
+  .header-nav li::after {
     content: "";
     position: absolute;
     bottom: -5px;
@@ -84,10 +90,10 @@
     transform-origin: left;
     transition: transform 0.3s ease-out;
   }
-  li.active {
+  .header-nav li.active {
     font-weight: bold;
   }
-  li.active::after {
+  .header-nav li.active::after {
     transform: scaleX(1);
   }
 
@@ -160,6 +166,89 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--color-neutral-color1);
+    background-color: var(--color-col-neutral-1);
+  }
+
+  .clip {
+    overflow: hidden;
+  }
+  .story-container {
+    overflow: hidden;
+    width: 100%;
+  }
+  .lift-words {
+    margin-bottom: 12px;
+  }
+  .frontend-bg-linear {
+    background-image: linear-gradient(
+      to right top,
+      #3959e7 0%,
+      var(--color-secondary-color) 20%,
+
+      #58b1ff 100%
+    );
+  }
+  .developer-bg-linear {
+    --developer-grad-angle: 205deg;
+    background-image: linear-gradient(
+      var(--developer-grad-angle),
+      #2b0356 0%,
+      var(--color-primary-color-darker) 20%,
+      #cf55ff 100%
+    );
+  }
+  .building-bg-linear {
+    --building-grad-angle: 0deg;
+    background-image: linear-gradient(
+      var(--building-grad-angle),
+      #5e034f 0%,
+      var(--color-col-neutral-2) 40%,
+      #fc5dff 100%
+    );
+  }
+  .unicode {
+    color: var(--color-col-neutral-1);
+  }
+  .post-scramble {
+    color: var(--color-action-color);
+    text-wrap: balance;
+  }
+  .tech-stack {
+    padding: 1rem 0.5rem;
+    border-radius: 4px;
+    background-color: rgb(123, 80, 129);
+    filter: blur(50%);
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .after-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+  }
+  .frontend-after::after {
+    background-color: var(--color-secondary-color);
+  }
+  .developer-after::after {
+    background-color: var(--color-col-neutral-1);
+  }
+  .building-after::after {
+    background-color: var(--color-col-neutral-2);
+  }
+  .javascript-after::after {
+    background-color: var(--color-action-color);
+  }
+  .typescript-after::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-secondary-color);
   }
 }
