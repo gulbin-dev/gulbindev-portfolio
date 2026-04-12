@@ -4,8 +4,8 @@ import { RiTeamFill } from "react-icons/ri";
 import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import useHireMeGSAP from "@/app/hooks/home-page-gsap/useHireMeGSAP";
-export default function HireMe() {
-  useHireMeGSAP();
+export default function HireMe({ windowSize }: { windowSize: number }) {
+  useHireMeGSAP(windowSize);
   return (
     <section className="section snap w-full h-full bg-primary-color-darker py-7 px-3">
       <h2 className="fade-entry text-heading-xl text-center">

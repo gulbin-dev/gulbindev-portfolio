@@ -1,8 +1,8 @@
 "use client";
-
 import React from "react";
 
 import useSmoothScroll from "@hooks/useSmoothScroll";
+import useWindowSizeListener from "../hooks/useWindowSizeListener";
 /**
  * A wrapper component that helps implement the SmoothScroll from GSAP.
  * This component will render a div with an id of "smooth-wrapper" and
@@ -15,7 +15,8 @@ export default function PagesWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  useSmoothScroll();
+  const windowSize = useWindowSizeListener();
+  useSmoothScroll(windowSize);
   return (
     <div id="smooth-wrapper">
       <div id="smooth-content" className="bg-primary-color-darker">

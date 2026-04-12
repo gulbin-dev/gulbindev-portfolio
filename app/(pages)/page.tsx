@@ -3,19 +3,23 @@ import VsCodeUI from "./_components/VsCodeUI";
 import CardSkill from "./_components/CardSkill";
 import HireMe from "./_components/HireMe";
 import HeroSection from "./_components/HeroSection";
+import { ScrollTrigger } from "@utils/gsap/gsap";
+import useWindowSizeListener from "../hooks/useWindowSizeListener";
 
 /** Home page content */
 export default function Home() {
+  ScrollTrigger.refresh();
+  const windowSize = useWindowSizeListener();
   return (
     <main>
       {/* hero-section */}
-      <HeroSection />
+      <HeroSection windowSize={windowSize} />
       {/* card-skill-section */}
-      <CardSkill />
+      <CardSkill windowSize={windowSize} />
       {/* VS code mimic */}
-      <VsCodeUI />
+      <VsCodeUI windowSize={windowSize} />
       {/* Hire me */}
-      <HireMe />
+      <HireMe windowSize={windowSize} />
     </main>
   );
 }
