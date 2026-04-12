@@ -33,10 +33,14 @@
   .profile-img {
     margin: 0 auto !important;
   }
+  .list-card-skill {
+    @apply tablet:w-90 desktop:w-130 pt-5 tablet:pt-9;
+  }
   .card-skill {
-    border-radius: 12px;
-    background-color: var(--color-neutral-color1);
-    margin: 0 24px !important;
+    @apply: flex flex-col items-center;
+  }
+  .card-description {
+    @apply mb-1;
   }
 
   .section3-bg {
@@ -84,10 +88,10 @@
     transform-origin: left;
     transition: transform 0.3s ease-out;
   }
-  li.active {
+  .header-nav li.active {
     font-weight: bold;
   }
-  li.active::after {
+  .header-nav li.active::after {
     transform: scaleX(1);
   }
 

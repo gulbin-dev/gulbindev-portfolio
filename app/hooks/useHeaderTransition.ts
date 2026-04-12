@@ -1,4 +1,3 @@
-"use client";
 import { gsap, ScrollTrigger } from "@utils/gsap/gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -18,10 +17,13 @@ export default function useHeaderTransition() {
         start: 0,
         end: "max",
         onUpdate: (self) => {
-          if (self.direction === -1 && isScrollingDown) {
+          const velocity = self.getVelocity();
+          if (Math.abs(velocity) < 15) return;
+
+          if (velocity < 0 && isScrollingDown) {
             isScrollingDown = false;
             showHeaderAnim.reverse();
-          } else if (self.direction === 1 && !isScrollingDown) {
+          } else if (velocity > 0 && !isScrollingDown) {
             isScrollingDown = true;
             showHeaderAnim.play();
           }

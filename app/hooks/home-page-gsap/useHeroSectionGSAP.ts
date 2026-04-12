@@ -1,4 +1,3 @@
-"use client";
 import {
   gsap,
   mediaQueries,
@@ -6,11 +5,9 @@ import {
   ScrollSmoother,
 } from "@utils/gsap/gsap";
 import { useGSAP } from "@gsap/react";
-import useWindowSizeListener from "../useWindowSizeListener";
 
 /** Custom hook to handle GSAP animations in hero-section in the Home page */
-export default function useHeroSectionGSAP() {
-  const resizeKey = useWindowSizeListener();
+export default function useHeroSectionGSAP(windowSize: number) {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -59,13 +56,11 @@ export default function useHeroSectionGSAP() {
           /** handle animation of SplitText */
           const animateSplitText = () => {
             document.fonts.ready.then(() => {
-              // 1. Split the text
               const split_h1 = SplitText.create(".split-words", {
                 type: "words",
                 autoSplit: true,
               });
 
-              // 2. Initialize Timeline
               const timeline = gsap.timeline({
                 scrollTrigger: {
                   trigger: ".split-words",
@@ -73,7 +68,6 @@ export default function useHeroSectionGSAP() {
                 },
               });
 
-              // 3. Add Text Animation to Timeline
               if (isReduceMotion) {
                 timeline.from(".split-words", {
                   y: 100,
@@ -105,42 +99,59 @@ export default function useHeroSectionGSAP() {
           /** handle animation of hero image */
           const scrollableHeroImage = () => {
             const frameCount = 47;
+            const imageURLS = new Array(frameCount)
+              .fill(0)
+              .map((o, i) => `/home-page/home-page_${i + 1}.png`);
             const canvas = document.getElementById("hero-canvas");
             canvas?.setAttribute("width", "600px");
             canvas?.setAttribute("height", "1200px");
-            const ctx = (canvas as HTMLCanvasElement).getContext("2d");
-            const images: HTMLImageElement[] = [];
-            const heroImage = {
-              frame: 0,
-            };
-            // load all images and draw the first one
-            for (let i = 1; i < frameCount; i++) {
-              const img = new Image();
-              img.src = `/home-page/home-page_${i}.png`;
-              img.loading = "eager";
-              images.push(img);
+
+            interface ImageSequenceConfig {
+              urls: string[];
+              canvas: string | HTMLCanvasElement;
+              scrollTrigger: gsap.plugins.ScrollTrigger["Vars"];
+              onUpdate?: () => void;
             }
-            images[0].onload = () => ctx?.drawImage(images[0], -350, 0);
 
-            /** handles canvas drawing when scrolling */
-            const updateImage = () => {
-              const img = images[Math.round(heroImage.frame)];
-              if (img && ctx) {
-                ctx.clearRect(0, 0, 600, 1200);
-                ctx.drawImage(img, -350, 0);
-              }
-            };
+            function imageSequence(config: ImageSequenceConfig) {
+              const playhead = { frame: 0 };
+              const canvasElement = gsap.utils.toArray(
+                config.canvas,
+              )[0] as HTMLCanvasElement;
+              const ctx = canvasElement.getContext("2d");
+              const onUpdate = config.onUpdate;
+              const updateImage = () => {
+                ctx!.clearRect(0, 0, 600, 1200);
 
-            // animate the canvas based on scroll position
-            gsap.to(heroImage, {
-              frame: images.length - 1,
-              ease: "none",
+                ctx!.drawImage(images[Math.round(playhead.frame)], -350, 0);
+                if (onUpdate) {
+                  onUpdate();
+                }
+              };
+              const images: HTMLImageElement[] = config.urls.map((url, i) => {
+                const img = new Image();
+                img.src = url;
+                if (i === 0) {
+                  img.onload = updateImage;
+                }
+                return img;
+              });
+
+              return gsap.to(playhead, {
+                frame: images.length - 1,
+                ease: "none",
+                onUpdate: updateImage,
+                scrollTrigger: config.scrollTrigger,
+              });
+            }
+            imageSequence({
+              urls: imageURLS, // Array of image URLs
+              canvas: "#hero-canvas", // <canvas> object to draw images to
               scrollTrigger: {
                 trigger: "#hero-canvas",
                 start: "top center",
                 end: "bottom 90%",
                 scrub: true,
-                onUpdate: updateImage,
                 invalidateOnRefresh: true,
               },
             });
@@ -153,6 +164,6 @@ export default function useHeroSectionGSAP() {
       );
     },
 
-    { dependencies: [resizeKey], revertOnUpdate: true },
+    { dependencies: [windowSize], revertOnUpdate: true },
   );
 }

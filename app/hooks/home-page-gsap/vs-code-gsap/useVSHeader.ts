@@ -1,10 +1,6 @@
-"use client";
 import { useGSAP } from "@gsap/react";
 import { gsap, mediaQueries } from "@utils/gsap/gsap";
-import useWindowSizeListener from "@hooks/useWindowSizeListener";
-export default function useVSHeader() {
-  const resizeKey = useWindowSizeListener();
-
+export default function useVSHeader(windowSize: number) {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -31,6 +27,6 @@ export default function useVSHeader() {
         },
       );
     },
-    { dependencies: [resizeKey], revertOnUpdate: true },
+    { dependencies: [windowSize], revertOnUpdate: true },
   );
 }

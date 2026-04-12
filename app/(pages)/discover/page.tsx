@@ -1,5 +1,3 @@
-"use client";
-
 import { LuFilter } from "react-icons/lu";
 
 /** Discover page content */

@@ -1,11 +1,8 @@
-"use client";
 import { gsap, mediaQueries, ScrollTrigger } from "@utils/gsap/gsap";
 import { useGSAP } from "@gsap/react";
-import useWindowSizeListener from "@hooks/useWindowSizeListener";
 
 /** Custom hook to handle GSAP animations in VS Code mimic section in the Home page */
-export default function useTasks() {
-  const resizeKey = useWindowSizeListener();
+export default function useTasks(windowSize: number) {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -37,6 +34,6 @@ export default function useTasks() {
       );
     },
 
-    { dependencies: [resizeKey], revertOnUpdate: true },
+    { dependencies: [windowSize], revertOnUpdate: true },
   );
 }

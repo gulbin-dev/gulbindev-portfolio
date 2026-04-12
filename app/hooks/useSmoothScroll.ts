@@ -1,11 +1,8 @@
-"use client";
 import { useGSAP } from "@gsap/react";
 import { gsap, mediaQueries, ScrollSmoother } from "@utils/gsap/gsap";
-import useWindowSizeListener from "./useWindowSizeListener";
 
 /** Custom hook to handle ScrollSmoother in the Home page */
-export default function useSmoothScroll() {
-  const resizeKey = useWindowSizeListener();
+export default function useSmoothScroll(windowSize: number) {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -24,6 +21,6 @@ export default function useSmoothScroll() {
       );
     },
 
-    { dependencies: [resizeKey], revertOnUpdate: true },
+    { dependencies: [windowSize], revertOnUpdate: true },
   );
 }

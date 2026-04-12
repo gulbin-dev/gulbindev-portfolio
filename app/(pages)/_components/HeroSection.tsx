@@ -1,10 +1,11 @@
-"use client";
+import useHeroSectionGSAP from "@/app/hooks/home-page-gsap/useHeroSectionGSAP";
 import Link from "next/link";
-export default function HeroSection() {
+export default function HeroSection({ windowSize }: { windowSize: number }) {
+  useHeroSectionGSAP(windowSize);
   return (
     <section
       id="home-top"
-      className="section snap w-full h-full overflow-y-hidden relative pt-10  linear-bg z-0 tablet:pt-1 tablet:h-screen"
+      className="section w-full h-full overflow-hidden relative pt-10 linear-bg z-0 tablet:pt-1 tablet:h-screen"
     >
       <div className=" place-self-center max-w-180 tablet:flex">
         <div className="relative z-1 px-3 tablet:mt-10">
@@ -78,10 +79,10 @@ export default function HeroSection() {
             </li>
           </ul>
         </div>
-        <div className="relative  h-60 w-full z-1 overflow-hidden tablet:h-150">
+        <div className="relative h-60 w-full z-1  tablet:h-150 overflow-hidden">
           <canvas
             id="hero-canvas"
-            className="absolute top-35 left-0 tablet:top-45"
+            className="absolute top-35 left-0 tablet:bottom-0"
             data-speed="0.5"
           ></canvas>
         </div>

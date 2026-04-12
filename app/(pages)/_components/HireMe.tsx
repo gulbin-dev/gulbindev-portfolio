@@ -1,11 +1,14 @@
-import { FaMapLocationDot } from "react-icons/fa6";
-import { MdEmail } from "react-icons/md";
-import { RiTeamFill } from "react-icons/ri";
-import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import useHireMeGSAP from "@/app/hooks/home-page-gsap/useHireMeGSAP";
-export default function HireMe() {
-  useHireMeGSAP();
+import {
+  FaMapLocationDot,
+  MdEmail,
+  RiTeamFill,
+  FaLinkedin,
+} from "@utils/react-icons";
+
+export default function HireMe({ windowSize }: { windowSize: number }) {
+  useHireMeGSAP(windowSize);
   return (
     <section className="section snap w-full h-full bg-primary-color-darker py-7 px-3">
       <h2 className="fade-entry text-heading-xl text-center">
@@ -14,7 +17,7 @@ export default function HireMe() {
       <div className="max-w-180 place-self-center">
         <ul className="flex flex-col gap-8 mt-6 tablet:flex-row">
           <li className="card-container">
-            <FaMapLocationDot className="location icons" aria-hidden />
+            <FaMapLocationDot className="icons" aria-hidden />
             <div className="content-container">
               <h3 className="fade-entry text-heading-lg">Location</h3>
               <h4 className="fade-entry">Remote/Worldwide</h4>
@@ -24,7 +27,7 @@ export default function HireMe() {
             </div>
           </li>
           <li className="card-container">
-            <RiTeamFill className="job-preference icons" aria-hidden />
+            <RiTeamFill className="icons" aria-hidden />
             <div className="content-container">
               <h3 className="fade-entry text-heading-lg">Job Preference</h3>
               <h4 className="fade-entry">Flexible</h4>
