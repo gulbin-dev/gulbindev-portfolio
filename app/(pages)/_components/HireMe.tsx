@@ -1,9 +1,12 @@
-import { FaMapLocationDot } from "react-icons/fa6";
-import { MdEmail } from "react-icons/md";
-import { RiTeamFill } from "react-icons/ri";
-import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import useHireMeGSAP from "@/app/hooks/home-page-gsap/useHireMeGSAP";
+import {
+  FaMapLocationDot,
+  MdEmail,
+  RiTeamFill,
+  FaLinkedin,
+} from "@utils/react-icons";
+
 export default function HireMe({ windowSize }: { windowSize: number }) {
   useHireMeGSAP(windowSize);
   return (

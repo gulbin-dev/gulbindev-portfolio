@@ -3,11 +3,13 @@
 import useWindowSizeListener from "@hooks/useWindowSizeListener";
 import useAboutImage from "@hooks/about-page-gsap/useAboutImage";
 import useDescription from "@hooks/about-page-gsap/useDescription";
-import { FaHandPaper } from "react-icons/fa";
-import { FaPaperPlane } from "react-icons/fa";
 import { useEffect, useRef } from "react";
-import { FaGithubSquare } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
+import {
+  FaHandPaper,
+  FaPaperPlane,
+  FaGithubSquare,
+  FaLinkedin,
+} from "@utils/react-icons";
 /** About page content */
 export default function About() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
