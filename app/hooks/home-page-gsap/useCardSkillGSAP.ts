@@ -22,31 +22,31 @@ export default function useCardSkillGSAP(
             window.document &&
             (document?.querySelector(".list-card-skill") as HTMLElement)
               .offsetHeight;
-          const snapCardSkill = gsap.to(listCardSkills, {
-            yPercent: -100 * (listCardSkills.length - 1),
-            opacity: 1,
-            ease: "none",
-          });
-          console.log(cardHeight);
-          ScrollTrigger.create({
-            animation: snapCardSkill,
-            anticipatePin: 0.5,
-            trigger: ".container-cards",
-            pin: true,
-            pinSpacing: true,
-            pinSpacer: scopeRef.current,
-            scrub: 1,
-            snap: !isSmallScreen
-              ? {
-                  snapTo: 1 / (listCardSkills.length - 1),
-                  duration: 0.25,
-                  ease: "power1.out",
-                  directional: false,
-                  delay: 0.3,
-                }
-              : undefined,
-            end: "+=" + cardHeight * (listCardSkills.length - 1),
-          });
+          const snapCardSkill =
+            !isSmallScreen &&
+            gsap.to(listCardSkills, {
+              yPercent: -100 * (listCardSkills.length - 1),
+              opacity: 1,
+              ease: "none",
+            });
+          if (!isSmallScreen)
+            ScrollTrigger.create({
+              animation: snapCardSkill || undefined,
+              anticipatePin: 0.5,
+              trigger: ".container-cards",
+              pin: true,
+              pinSpacing: true,
+              pinSpacer: scopeRef.current,
+              scrub: 1,
+              snap: {
+                snapTo: 1 / (listCardSkills.length - 1),
+                duration: 0.25,
+                ease: "power1.out",
+                directional: false,
+                delay: 0.3,
+              },
+              end: "+=" + cardHeight * (listCardSkills.length - 1),
+            });
 
           //  wait for fonts to be loaded before animating SplitText
           document.fonts.ready.then(() => {
