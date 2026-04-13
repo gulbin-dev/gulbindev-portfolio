@@ -9,45 +9,12 @@ export default function useCardSkillGSAP(
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-
       mm.add(
         // media queries conditions giving a responsive animation
         // based on screen size and reduce motion
         mediaQueries,
         (context) => {
           const { reduceMotion, isSmallScreen } = context.conditions ?? {};
-
-          const listCardSkills = gsap.utils.toArray(".list-card-skill");
-          const cardHeight =
-            window.document &&
-            (document?.querySelector(".list-card-skill") as HTMLElement)
-              .offsetHeight;
-          const snapCardSkill =
-            !isSmallScreen &&
-            gsap.to(listCardSkills, {
-              yPercent: -100 * (listCardSkills.length - 1),
-              opacity: 1,
-              ease: "none",
-            });
-          if (!isSmallScreen)
-            ScrollTrigger.create({
-              animation: snapCardSkill || undefined,
-              anticipatePin: 0.5,
-              trigger: ".container-cards",
-              pin: true,
-              pinSpacing: true,
-              pinSpacer: scopeRef.current,
-              scrub: 1,
-              snap: {
-                snapTo: 1 / (listCardSkills.length - 1),
-                duration: 0.25,
-                ease: "power1.out",
-                directional: false,
-                delay: 0.3,
-              },
-              end: "+=" + cardHeight * (listCardSkills.length - 1),
-            });
-
           //  wait for fonts to be loaded before animating SplitText
           document.fonts.ready.then(() => {
             const cardSkillP = SplitText.create(".card-skill-p", {
@@ -63,12 +30,17 @@ export default function useCardSkillGSAP(
               },
             });
             timeline
-              .from(".card-skill-header", {
-                y: -100,
-                opacity: 0,
-                duration: 1,
-                lazy: false,
-              })
+              .fromTo(
+                ".card-skill-header",
+                {
+                  y: -100,
+                  opacity: 0,
+                },
+                {
+                  y: 0,
+                  opacity: 1,
+                },
+              )
               .from(
                 cardSkillP.words,
                 {
@@ -85,6 +57,37 @@ export default function useCardSkillGSAP(
                 "-=0.5",
               );
           });
+
+          const listCardSkills =
+            gsap.utils.toArray<HTMLElement>(".list-card-skill");
+          const cardHeight =
+            window.document &&
+            (document?.querySelector(".list-card-skill") as HTMLElement)
+              .offsetHeight;
+          const snapCardSkill =
+            !isSmallScreen &&
+            gsap.to(listCardSkills, {
+              yPercent: -100 * (listCardSkills.length - 1),
+              opacity: 1,
+              ease: "none",
+            });
+          if (!isSmallScreen)
+            ScrollTrigger.create({
+              animation: snapCardSkill || undefined,
+              trigger: ".container-cards",
+              start: "top top",
+              end: "+=" + cardHeight * (listCardSkills.length - 1),
+              pin: true,
+              pinSpacing: true,
+              scrub: 1,
+              snap: {
+                snapTo: [0, 0.57, 1],
+                duration: 0.25,
+                ease: "power1.out",
+                directional: false,
+                delay: 0.2,
+              },
+            });
         },
       );
     },
