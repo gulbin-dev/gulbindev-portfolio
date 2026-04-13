@@ -15,7 +15,7 @@ export default function HireMe() {
         Available for Hire
       </h2>
       <div className="max-w-180 place-self-center">
-        <ul className="flex flex-col gap-8 mt-6 tablet:flex-row">
+        <ul className="flex flex-col gap-8 mt-6 tablet:flex-row items-center">
           <li className="card-container">
             <FaMapLocationDot className="icons" aria-hidden />
             <div className="content-container">
@@ -43,7 +43,7 @@ export default function HireMe() {
         <p className="fade-entry mt-2 text-center">
           You can reach me and let&apos;s work together
         </p>
-        <ul className="flex flex-col gap-8 mt-6 tablet:flex-row">
+        <ul className="flex flex-col gap-8 mt-6 tablet:flex-row tablet:justify-center">
           <li className="card-container">
             <FaLinkedin className="icons" />
             <div className="content-container">
