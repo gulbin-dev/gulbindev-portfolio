@@ -14,61 +14,7 @@ export default function useCardSkillGSAP(
         mediaQueries,
         (context) => {
           ScrollTrigger.normalizeScroll(true);
-          const { reduceMotion, isSmallScreen } = context.conditions ?? {};
-          ScrollTrigger.refresh();
-
-          const listCardSkills =
-            gsap.utils.toArray<HTMLElement>(".list-card-skill");
-          const firstCard = listCardSkills[0];
-          const lastCard = listCardSkills[listCardSkills.length - 1];
-          const totalDistance =
-            firstCard && lastCard
-              ? lastCard.offsetTop - firstCard.offsetTop
-              : 0;
-          const snapPoints =
-            listCardSkills.length > 1
-              ? listCardSkills.map((card) =>
-                  totalDistance
-                    ? (card.offsetTop - firstCard.offsetTop) / totalDistance
-                    : 0,
-                )
-              : [0];
-
-          console.log("CardSkill snap values:", {
-            count: listCardSkills.length,
-            firstOffset: firstCard?.offsetTop,
-            lastOffset: lastCard?.offsetTop,
-            totalDistance,
-            snapPoints,
-            isSmallScreen,
-          });
-
-          const snapCardSkill =
-            !isSmallScreen &&
-            gsap.to(listCardSkills, {
-              y: -totalDistance,
-              opacity: 1,
-              ease: "none",
-              overwrite: true,
-            });
-
-          if (!isSmallScreen)
-            ScrollTrigger.create({
-              animation: snapCardSkill || undefined,
-              trigger: ".container-cards",
-              start: "top top",
-              end: "+=" + totalDistance,
-              pin: true,
-              pinSpacing: true,
-              scrub: 1,
-              snap: {
-                snapTo: snapPoints,
-                duration: 0.25,
-                ease: "power1.out",
-                directional: false,
-                delay: 0.2,
-              },
-            });
+          const { reduceMotion } = context.conditions ?? {};
 
           //  wait for fonts to be loaded before animating SplitText
           document.fonts.ready.then(() => {
