@@ -96,47 +96,48 @@ export default function useDescription() {
               },
             })
           : gsap.timeline();
-        timeline
-          .to(".name1", {
-            scrambleText: {
-              text: "Joshua",
-              chars: "▘●▞",
-              oldClass: "unicode",
-              newClass: "post-scramble",
-              speed: 0.2,
-              tweenLength: false,
-            },
-          })
-          .to(".name2", {
-            scrambleText: {
-              text: "Glenn",
-              chars: "▘●▞",
-              oldClass: "unicode",
-              newClass: "post-scramble",
-              speed: 0.2,
-              tweenLength: false,
-            },
-          })
-          .to(".name3", {
-            scrambleText: {
-              text: "R.",
-              chars: "▘●▞",
-              oldClass: "unicode",
-              newClass: "post-scramble",
-              speed: 0.2,
-              tweenLength: false,
-            },
-          })
-          .to(".name4", {
-            scrambleText: {
-              text: "Gulbin",
-              chars: "▘●▞",
-              oldClass: "unicode",
-              newClass: "post-scramble",
-              speed: 0.2,
-              tweenLength: false,
-            },
-          });
+        timeline.to(".name1", {
+          duration: 2,
+          scrambleText: {
+            text: "Joshua Glenn R. Gulbin",
+            chars: "01 ",
+            oldClass: "unicode",
+            newClass: "post-scramble",
+            speed: 0.5,
+            revealDelay: 1,
+            tweenLength: false,
+          },
+        });
+        // .to(".name2", {
+        //   scrambleText: {
+        //     text: "Glenn",
+        //     chars: "▘●▞",
+        //     oldClass: "unicode",
+        //     newClass: "post-scramble",
+        //     speed: 0.2,
+        //     tweenLength: false,
+        //   },
+        // })
+        // .to(".name3", {
+        //   scrambleText: {
+        //     text: "R.",
+        //     chars: "▘●▞",
+        //     oldClass: "unicode",
+        //     newClass: "post-scramble",
+        //     speed: 0.2,
+        //     tweenLength: false,
+        //   },
+        // })
+        // .to(".name4", {
+        //   scrambleText: {
+        //     text: "Gulbin",
+        //     chars: "▘●▞",
+        //     oldClass: "unicode",
+        //     newClass: "post-scramble",
+        //     speed: 0.2,
+        //     tweenLength: false,
+        //   },
+        // });
       };
 
       /**

@@ -62,18 +62,7 @@ export default function About() {
                 <span className="hidden tablet:block">
                   {" "}
                   <span className="">I&apos;m</span>{" "}
-                  <span className="name1 inline-block font-bold min-w-6">
-                    ▞ ▘●
-                  </span>{" "}
-                  <span className="name2 inline-block font-bold min-w-5">
-                    ▟ ▘●
-                  </span>{" "}
-                  <span className="name3 inline-block font-bold min-w-1">
-                    ▞ ▟
-                  </span>{" "}
-                  <span className="name4 inline-block font-bold min-w-12">
-                    ◣ ◄ ▀
-                  </span>{" "}
+                  <span className="name1 text-col-neutral-1 inline-block font-bold min-w-50 overflow-clip"></span>{" "}
                 </span>
               </p>
               <p
