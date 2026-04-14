@@ -11,11 +11,13 @@ export default function useSmoothScroll(windowSize: number) {
         // media queries conditions giving a responsive animation
         // based on screen size and reduce motion
         mediaQueries,
-        () => {
+        (context) => {
+          const { isSmallScreen } = context.conditions ?? {};
           ScrollSmoother.create({
             smooth: 1.5,
             effects: true,
             smoothTouch: 0.1,
+            speed: isSmallScreen ? 1 : 0.5,
           });
         },
       );
