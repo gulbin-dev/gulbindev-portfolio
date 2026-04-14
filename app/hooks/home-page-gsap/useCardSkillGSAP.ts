@@ -9,7 +9,7 @@ export default function useCardSkillGSAP() {
       // based on screen size and reduce motion
       mediaQueries,
       (context) => {
-        const { reduceMotion } = context.conditions ?? {};
+        const { reduceMotion, isSmallScreen } = context.conditions ?? {};
 
         const listCardSkills =
           gsap.utils.toArray<HTMLElement[]>(".list-card-skill");
@@ -20,7 +20,7 @@ export default function useCardSkillGSAP() {
             opacity: 1,
             scrollTrigger: {
               trigger: listCardSkills[i],
-              start: "30% 60%",
+              start: isSmallScreen ? "20% 60%" : "30% 60%",
               end: "bottom 20%",
             },
           }),
