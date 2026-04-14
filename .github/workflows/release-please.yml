@@ -18,11 +18,12 @@ permissions:
 
 jobs:
   release-stable:
-    if: github.base_ref == 'master' || github.ref_name == 'master'
+    if: github.ref_name == 'master' || github.base_ref == 'master'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
+      - uses: actions/checkout@v4
       - uses: googleapis/release-please-action@v4
         id: release
         with:
@@ -32,11 +33,12 @@ jobs:
           manifest-file: .release-please-manifest.json
 
   release-beta:
-    if: github.base_ref == 'pre-release' || github.ref_name == 'pre-release'
+    if: github.ref_name == 'pre-release' || github.base_ref == 'pre-release'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
+      - uses: actions/checkout@v4
       - uses: googleapis/release-please-action@v4
         id: release
         with:
