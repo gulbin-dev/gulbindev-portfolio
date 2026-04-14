@@ -210,7 +210,7 @@
   .tech-stack {
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    background-color: rgb(190, 100, 202);
+    background-color: var(--color-secondary-color);
     filter: blur(50%);
   }
 }
