@@ -12,59 +12,43 @@ export default function useHeroSectionGSAP(windowSize: number) {
     () => {
       const mm = gsap.matchMedia();
 
-    mm.add(
-      // media queries conditions giving a responsive animation
-      // based on screen size and reduce motion
-      mediaQueries,
-      (context) => {
-        const smoother = ScrollSmoother.get();
-        if (smoother) smoother.effects().forEach((t) => t.kill());
-        smoother?.effects("[data-speed], [data-lag]");
+      mm.add(
+        // media queries conditions giving a responsive animation
+        // based on screen size and reduce motion
+        mediaQueries,
+        (context) => {
+          const smoother = ScrollSmoother.get();
+          if (smoother) smoother.effects().forEach((t) => t.kill());
+          smoother?.effects("[data-speed], [data-lag]");
 
-        const { isReduceMotion } = context.conditions ?? {};
-        /** handle animation of CTA buttons */
-        const animateCTA = () => {
-          const keyframes = isReduceMotion
-            ? {
-                "0%": { opacity: 0 },
-                "100%": { opacity: 1 },
-              }
-            : {
-                "0%": { opacity: 0, scaleX: 0, scaleY: 0 },
-                "75%": { opacity: 1, scaleX: 1.2, scaleY: 1.2 },
-                "100%": { opacity: 1, scaleX: 1, scaleY: 1 },
-              };
-          gsap.to(".list-discover-button", {
-            duration: 0.5,
-            keyframes: keyframes,
-            scrollTrigger: {
-              trigger: ".list-discover-button",
-              start: "top 95%",
-            },
-          });
-
-          gsap.to(".list-about-me-button", {
-            duration: 0.8,
-            keyframes: keyframes,
-            scrollTrigger: {
-              trigger: ".list-about-me-button",
-              start: "top 95%",
-            },
-          });
-        };
-
-        /** handle animation of SplitText */
-        const animateSplitText = () => {
-          document.fonts.ready.then(() => {
-            const split_h1 = SplitText.create(".split-words", {
-              type: "words",
-              autoSplit: true,
+          const { isReduceMotion } = context.conditions ?? {};
+          /** handle animation of CTA buttons */
+          const animateCTA = () => {
+            const keyframes = isReduceMotion
+              ? {
+                  "0%": { opacity: 0 },
+                  "100%": { opacity: 1 },
+                }
+              : {
+                  "0%": { opacity: 0, scaleX: 0, scaleY: 0 },
+                  "75%": { opacity: 1, scaleX: 1.2, scaleY: 1.2 },
+                  "100%": { opacity: 1, scaleX: 1, scaleY: 1 },
+                };
+            gsap.to(".list-discover-button", {
+              duration: 0.5,
+              keyframes: keyframes,
+              scrollTrigger: {
+                trigger: ".list-discover-button",
+                start: "top 95%",
+              },
             });
 
-            const timeline = gsap.timeline({
+            gsap.to(".list-about-me-button", {
+              duration: 0.8,
+              keyframes: keyframes,
               scrollTrigger: {
-                trigger: ".split-words",
-                start: "top 85%",
+                trigger: ".list-about-me-button",
+                start: "top 95%",
               },
             });
           };
@@ -83,43 +67,6 @@ export default function useHeroSectionGSAP(windowSize: number) {
                   start: "top 85%",
                 },
               });
-
-              if (isReduceMotion) {
-                timeline.from(".split-words", {
-                  y: 100,
-                  autoAlpha: 0,
-                  stagger: {
-                    amount: 1,
-                    from: "random",
-                    ease: "power4.in",
-                  },
-                })
-                .from("#line", {
-                  drawSVG: "100% 100%",
-                  autoAlpha: 0,
-                  duration: 1,
-                  ease: "expo.out",
-                  onComplete: () => split_h1.revert(),
-                });
-              } else {
-                timeline
-                  .from(split_h1.words, {
-                    y: 100,
-                    autoAlpha: 0,
-                    stagger: {
-                      amount: 1,
-                      from: "random",
-                      ease: "power4.in",
-                    },
-                  })
-                  .from("#line", {
-                    drawSVG: "100% 100%",
-                    autoAlpha: 0,
-                    duration: 1,
-                    ease: "expo.out",
-                    onComplete: () => split_h1.revert(),
-                  });
-              }
             });
           };
 
@@ -182,20 +129,13 @@ export default function useHeroSectionGSAP(windowSize: number) {
                 invalidateOnRefresh: true,
               },
             });
-          }
-          imageSequence({
-            urls: imageURLS, // Array of image URLs
-            canvas: "#hero-canvas", // <canvas> object to draw images to
-            scrollTrigger: {
-              trigger: "#hero-canvas",
-              start: "top center",
-              end: "bottom 90%",
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          });
-        };
-
+          };
+          animateCTA();
+          animateSplitText();
+          scrollableHeroImage();
+        },
+      );
+    },
     { dependencies: [windowSize], revertOnUpdate: true },
   );
 }
