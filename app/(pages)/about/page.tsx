@@ -117,7 +117,7 @@ export default function About() {
                 responsive,{" "}
               </span>
               <span className="container-state-driven grid grid-cols-[repeat(4,50px)] clip content-start mb-0.75  rounded-lg">
-                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-0.5 pl-1.5 flex gap-1.5 items-center z-1">
+                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-0.5 pl-1.5 flex gap-1.5 items-center z-2">
                   state{" "}
                   <span className="story-telling hyphen w-0.5 h-[3px] block bg-dark-foreground"></span>
                 </span>
@@ -149,9 +149,8 @@ export default function About() {
               </span>{" "}
               <span className="story-telling slash">/</span>
               <span className="story-telling relative pb-0.5 typescript-after TypeScript">
-                TypeScript
+                TypeScript.
               </span>
-              <span className="story-telling period">.</span>
             </div>
           </div>{" "}
           {/* this <p> is used only for screen readers */}
