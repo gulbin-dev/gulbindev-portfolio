@@ -60,8 +60,6 @@ export default function useDescription() {
           xPercent: -15 * (storyTellingElements.length - 1),
           ease: "none",
           scrollTrigger: {
-            markers: true,
-            id: "horizontal-pin",
             trigger: ".tablet-pinned",
             pin: true,
             start: "top top",
@@ -79,8 +77,6 @@ export default function useDescription() {
 
       if (!isSmallScreen) {
         ScrollTrigger.create({
-          markers: true,
-          id: "image",
           trigger: ".canvas-container",
           pin: true,
           start: 0,
@@ -254,7 +250,7 @@ export default function useDescription() {
               start: `right ${
                 isMediumScreen ? "80%" : isLargeScreen ? "center" : "center"
               }`,
-              end: "right left",
+              end: "right 60%",
             },
           });
 
