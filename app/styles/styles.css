@@ -1,6 +1,6 @@
 /****************************
 *
-* Component classes 
+* Component classes
 *
 *****************************/
 @layer components {
@@ -9,6 +9,7 @@
     height: 8px;
     background-color: #ededed;
   }
+
   .cta-button {
     border-radius: 8px;
     /* Update your transition property */
@@ -27,18 +28,25 @@
       var(--color-primary-color-darker) 54%
     );
   }
-  .hero-linear-bg.z-2 {
-    clip-path: polygon(0px 705px, 0px 630px, 130px 630px, 130px 705px);
+
+  .hero-linear-bg {
+    &.z-2 {
+      clip-path: polygon(0px 705px, 0px 630px, 130px 630px, 130px 705px);
+    }
   }
+
   .profile-img {
     margin: 0 auto !important;
   }
+
   .list-card-skill {
     @apply pt-5 tablet:pt-9;
   }
+
   .card-skill {
     @apply: flex flex-col items-center;
   }
+
   .card-description {
     @apply mb-1;
   }
@@ -49,20 +57,24 @@
       #7a00ff 70%
     );
   }
+
   .icons {
     width: 80px;
     height: 80px;
   }
+
   .icons-large-screen {
     width: 80px;
     height: 80px;
   }
+
   .card-container {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
     align-items: center;
   }
+
   .content-container {
     text-align: center;
     display: flex;
@@ -70,29 +82,36 @@
     gap: 1rem;
   }
 }
+
 /****************************
 *
-* Utility classes 
+* Utility classes
 *
 *****************************/
 @layer utilities {
-  li::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: var(--color-action-color);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease-out;
-  }
-  .header-nav li.active {
-    font-weight: bold;
-  }
-  .header-nav li.active::after {
-    transform: scaleX(1);
+  .header-nav {
+    li {
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: var(--color-action-color);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease-out;
+      }
+
+      &.active {
+        font-weight: bold;
+
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+    }
   }
 
   .hero-img {
@@ -113,6 +132,7 @@
     padding: 16px;
     margin: 0 auto !important;
   }
+
   .bg-linear-transparent {
     background-image: linear-gradient(
       var(--color-primary-color-darker) 0%,
@@ -120,6 +140,7 @@
       #ffffff00 94%
     );
   }
+
   .bg-radial-section {
     background-image: radial-gradient(
       ellipse at center 80%,
@@ -129,36 +150,47 @@
       var(--color-primary-color-darker) 100%
     );
   }
+
   .vs-code-header {
     will-change: transform;
   }
+
   .code-darkgray {
     color: #3a3c4e;
   }
+
   .code-userdefined {
     color: #b9b4b7;
   }
+
   .code-reserved-name {
     color: #cd70d6;
   }
+
   .code-string {
     color: #b7de8a;
   }
+
   .code-number {
     color: #f78c6c;
   }
+
   .code-func-prop {
     color: #63aaff;
   }
+
   .code-reserved-syntax {
     color: #81d3f8;
   }
+
   .code-casing {
     color: #ffd700;
   }
+
   .code-inner-casing {
     color: #c790e8;
   }
+
   .ui-circle {
     @apply bg-col-neutral-1 rounded-[50%] block w-1 h-1 tablet:w-1.5 tablet:h-1.5 desktop:w-2 desktop:h-2;
   }
@@ -166,22 +198,25 @@
   .clip {
     overflow: hidden;
   }
+
   .story-container {
     overflow: hidden;
     width: 100%;
   }
+
   .lift-words {
     margin-bottom: 12px;
   }
+
   .frontend-bg-linear {
     background-image: linear-gradient(
       to right top,
       #3959e7 0%,
       var(--color-secondary-color) 20%,
-
       #58b1ff 100%
     );
   }
+
   .developer-bg-linear {
     --developer-grad-angle: 205deg;
     background-image: linear-gradient(
@@ -191,6 +226,7 @@
       #cf55ff 100%
     );
   }
+
   .building-bg-linear {
     --building-grad-angle: 0deg;
     background-image: linear-gradient(
@@ -200,49 +236,83 @@
       #fc5dff 100%
     );
   }
+
+  .container-state-driven {
+    --animate-background: transparent;
+    background-color: var(--animate-background);
+  }
+
   .unicode {
     color: var(--color-col-neutral-1);
   }
+
   .post-scramble {
     color: var(--color-action-color);
     text-wrap: balance;
   }
+
   .tech-stack {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     background-color: var(--color-secondary-color);
     filter: blur(50%);
   }
-}
 
-@media screen and (max-width: 440px) {
-  .after-line::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    width: 100%;
+  .after-line {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 100%;
+    }
   }
-  .frontend-after::after {
-    background-color: var(--color-secondary-color);
+
+  .frontend-after {
+    &::after {
+      @media screen and (max-width: 440px) {
+        background-color: var(--color-secondary-color);
+      }
+    }
   }
-  .developer-after::after {
-    background-color: var(--color-col-neutral-1);
+
+  .developer-after {
+    &::after {
+      @media screen and (max-width: 440px) {
+        background-color: var(--color-col-neutral-1);
+      }
+    }
   }
-  .building-after::after {
-    background-color: var(--color-col-neutral-2);
+
+  .building-after {
+    &::after {
+      @media screen and (max-width: 440px) {
+        background-color: var(--color-col-neutral-2);
+      }
+    }
   }
-  .javascript-after::after {
-    background-color: var(--color-action-color);
+
+  .javascript-after {
+    &::after {
+      @media screen and (max-width: 440px) {
+        background-color: var(--color-action-color);
+      }
+    }
   }
-  .typescript-after::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    width: 100%;
-    background-color: var(--color-secondary-color);
+
+  .typescript-after {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 100%;
+
+      @media screen and (max-width: 440px) {
+        background-color: var(--color-secondary-color);
+      }
+    }
   }
 }
