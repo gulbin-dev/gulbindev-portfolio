@@ -101,7 +101,7 @@ export default function About() {
                   a
                 </span>{" "}
               </span>
-              <span className="grid grid-cols-[repeat(10,50px)] gap-0.5 relative justify-baseline clip">
+              <span className="grid grid-cols-[repeat(9,50px)] gap-0.5 relative justify-baseline clip">
                 <span className="story-telling frontend py-1.5 px-2.5 rounded-2xl frontend-bg-linear col-start-1 col-span-3 row-start-1">
                   <span>frontend</span>
                 </span>
@@ -116,10 +116,15 @@ export default function About() {
                 {" "}
                 responsive,{" "}
               </span>
-              <span>
-                <span className="story-telling state lift-words">state</span>
-                <span className="story-telling hyphen lift-words">-</span>
-                <span className="story-telling driven lift-words">driven</span>
+              <span className="container-state-driven grid grid-cols-[repeat(4,50px)] clip content-start mb-0.75  rounded-lg">
+                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-0.5 pl-1.5 flex gap-1.5 items-center z-1">
+                  state{" "}
+                  <span className="story-telling hyphen w-0.5 h-[3px] block bg-dark-foreground"></span>
+                </span>
+
+                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-0.5 pl-0.5 pr-1.5 rounded-r-sm block z-1">
+                  driven
+                </span>
               </span>{" "}
               {/*  SVG paper plane */}
               <div className="hidden tablet:block absolute left-90 top-25 min-w-20 min-h-30">

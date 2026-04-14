@@ -46,15 +46,22 @@ export default function useDescription() {
             y: 30,
             scaleY: 0,
           });
+          gsap.set(".hyphen", {
+            transformOrigin: "center",
+            rotate: 90,
+            scaleX: 10,
+          });
         }
       };
 
       const scrollHorizontal =
         !isSmallScreen &&
         gsap.to(".tablet-pinned", {
-          xPercent: -14 * (storyTellingElements.length - 1),
+          xPercent: -15 * (storyTellingElements.length - 1),
           ease: "none",
           scrollTrigger: {
+            markers: true,
+            id: "horizontal-pin",
             trigger: ".tablet-pinned",
             pin: true,
             start: "top top",
@@ -62,7 +69,7 @@ export default function useDescription() {
               "bottom+=" +
               ((document.querySelector(".tablet-pinned") as HTMLDivElement)
                 ?.offsetWidth +
-                1500) +
+                1600) +
               "top",
             pinSpacing: true,
             scrub: 1,
@@ -72,6 +79,8 @@ export default function useDescription() {
 
       if (!isSmallScreen) {
         ScrollTrigger.create({
+          markers: true,
+          id: "image",
           trigger: ".canvas-container",
           pin: true,
           start: 0,
@@ -79,7 +88,7 @@ export default function useDescription() {
             "bottom+=" +
             ((document.querySelector(".tablet-pinned") as HTMLDivElement)
               ?.offsetWidth +
-              1000) +
+              1343) +
             "top",
         });
         console.log("log");
@@ -190,52 +199,86 @@ export default function useDescription() {
       };
 
       const animateStory = () => {
-        const timeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".a",
-            containerAnimation: scrollHorizontal || undefined,
-            start: `right ${
-              isMediumScreen ? "80%" : isLargeScreen ? "center" : "center"
-            }`,
-            end: "right left",
-          },
-        });
-
-        timeline
-          .to(".a", {
-            x: 0,
-            duration: 0.5,
-          })
-
-          .to(".frontend", {
-            xPercent: 0,
-          })
-          .to(".developer", {
-            rotate: 0,
-            y: 0,
-            autoAlpha: 1,
-          })
-          .to(".developer-bg-linear", {
-            "--developer-grad-angle": "375deg",
-            duration: 1,
-          })
-          .to(
-            ".building",
-            {
-              scaleY: 1,
+        const animateFrontendDeveloperBuilding = () => {
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".a",
+              containerAnimation: scrollHorizontal || undefined,
+              start: `right ${
+                isMediumScreen ? "80%" : isLargeScreen ? "center" : "center"
+              }`,
+              end: "right left",
+            },
+          });
+          timeline
+            .to(".a", {
+              x: 0,
+              duration: 0.5,
+            })
+            .to(".frontend", {
+              xPercent: 0,
+            })
+            .to(".developer", {
+              rotate: 0,
               y: 0,
-              ease: "bounce.out",
-            },
-            "<",
-          )
-          .to(
-            ".building-bg-linear",
-            {
-              "--building-grad-angle": "45deg",
+              autoAlpha: 1,
+            })
+            .to(".developer-bg-linear", {
+              "--developer-grad-angle": "375deg",
               duration: 1,
+            })
+            .to(
+              ".building",
+              {
+                scaleY: 1,
+                y: 0,
+                ease: "bounce.out",
+              },
+              "<",
+            )
+            .to(
+              ".building-bg-linear",
+              {
+                "--building-grad-angle": "45deg",
+                duration: 1,
+              },
+              "-=0.5",
+            );
+        };
+
+        const animateStateDriven = () => {
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".state",
+              containerAnimation: scrollHorizontal || undefined,
+              start: `right ${
+                isMediumScreen ? "80%" : isLargeScreen ? "center" : "center"
+              }`,
+              end: "right left",
             },
-            "-=0.5",
-          );
+          });
+
+          timeline
+            .from(".state", {
+              x: -100,
+            })
+            .from(".driven", {
+              x: -230,
+            })
+            .to(".container-state-driven", {
+              "--animate-background": "#ffc400",
+            })
+            .to(
+              ".hyphen",
+              {
+                rotate: 0,
+                scaleX: 3,
+              },
+              "<",
+            );
+        };
+        animateFrontendDeveloperBuilding();
+        animateStateDriven();
       };
       gsapSetStyles();
       animateIntro();
