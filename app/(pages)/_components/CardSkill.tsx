@@ -25,7 +25,7 @@ export default function CardSkill() {
           codebase.
         </p>
       </div>
-      <div className="container-cards mt-0 tablet:mt-10! max-w-180 place-self-center">
+      <div className="container-cards mt-0  max-w-180 place-self-center">
         <ul className=" flex flex-col px-3 items-center tablet:max-w-80 desktop:max-w-100">
           <li className="list-card-skill">
             <div className="card-skill">

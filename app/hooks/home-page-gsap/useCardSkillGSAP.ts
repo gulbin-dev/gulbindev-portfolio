@@ -11,6 +11,21 @@ export default function useCardSkillGSAP() {
       (context) => {
         const { reduceMotion } = context.conditions ?? {};
 
+        const listCardSkills =
+          gsap.utils.toArray<HTMLElement[]>(".list-card-skill");
+        gsap.set(listCardSkills, { y: 100, opacity: 0 });
+        listCardSkills.forEach((el, i) =>
+          gsap.to(el, {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+              trigger: listCardSkills[i],
+              start: "30% 60%",
+              end: "bottom 20%",
+            },
+          }),
+        );
+
         //  wait for fonts to be loaded before animating SplitText
         document.fonts.ready.then(() => {
           const cardSkillP = SplitText.create(".card-skill-p", {
@@ -26,12 +41,14 @@ export default function useCardSkillGSAP() {
             },
           });
           timeline
-            .from(".card-skill-header", {
-              y: -100,
-              opacity: 0,
-              duration: 1,
-              lazy: false,
-            })
+            .fromTo(
+              ".card-skill-header",
+              {
+                y: -100,
+                opacity: 0,
+              },
+              { y: 0, opacity: 1 },
+            )
             .from(
               cardSkillP.words,
               {
@@ -40,7 +57,7 @@ export default function useCardSkillGSAP() {
                 autoAlpha: 0,
                 lazy: false,
                 stagger: {
-                  amount: 1,
+                  amount: 0.8,
                   from: "random",
                   ease: reduceMotion ? "none" : "power4.in",
                 },
