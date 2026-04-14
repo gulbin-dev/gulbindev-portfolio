@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.2](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.9.1...v1.9.2) (2026-04-14)
+
+
+### Bug Fixes
+
+* update the release-please yml ([#45](https://github.com/gulbin-dev/portfolio-website-2/issues/45)) ([0c638bd](https://github.com/gulbin-dev/portfolio-website-2/commit/0c638bdb8c59302d97e535100d7fc7c3c6d9b2f3))
+
 ## [1.9.1](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.9.0...v1.9.1) (2026-04-10)
 
 
