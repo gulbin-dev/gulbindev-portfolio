@@ -1,4 +1,4 @@
-import { gsap, mediaQueries, useGSAP } from "@utils/gsap/gsap";
+import { gsap, mediaQueries, useGSAP, ScrollSmoother } from "@utils/gsap/gsap";
 
 /** Custom hook to handle GSAP animations in the About page */
 export default function useAboutImage() {
@@ -11,6 +11,9 @@ export default function useAboutImage() {
       mediaQueries,
       (context) => {
         const { isSmallScreen } = context.conditions ?? {};
+        const smoother = ScrollSmoother.get();
+        if (smoother) smoother.effects().forEach((t) => t.kill());
+        smoother?.effects("[data-speed], [data-lag]");
 
         const scrollableHeroImage = () => {
           const frameCount = 47;
