@@ -23,6 +23,7 @@ export default function NavLinks({
             className={anchorStyle}
             href="/"
             onClick={() => updateState?.(false)}
+            scroll={false}
           >
             Home
           </Link>
@@ -32,6 +33,7 @@ export default function NavLinks({
             className={anchorStyle}
             href="/discover"
             onClick={() => updateState?.(false)}
+            scroll={false}
           >
             Discover
           </Link>
@@ -41,6 +43,7 @@ export default function NavLinks({
             className={anchorStyle}
             href="/about"
             onClick={() => updateState?.(false)}
+            scroll={false}
           >
             About
           </Link>
