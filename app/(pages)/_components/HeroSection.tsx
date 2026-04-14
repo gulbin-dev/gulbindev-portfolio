@@ -1,7 +1,7 @@
 import useHeroSectionGSAP from "@/app/hooks/home-page-gsap/useHeroSectionGSAP";
 import Link from "next/link";
-export default function HeroSection({ windowSize }: { windowSize: number }) {
-  useHeroSectionGSAP(windowSize);
+export default function HeroSection() {
+  useHeroSectionGSAP();
   return (
     <section
       id="home-top"

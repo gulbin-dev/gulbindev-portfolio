@@ -7,8 +7,8 @@ import {
   FaLinkedin,
 } from "@utils/react-icons";
 
-export default function HireMe({ windowSize }: { windowSize: number }) {
-  useHireMeGSAP(windowSize);
+export default function HireMe() {
+  useHireMeGSAP();
   return (
     <section className="section snap w-full h-full bg-primary-color-darker py-7 px-3">
       <h2 className="fade-entry text-heading-xl text-center">

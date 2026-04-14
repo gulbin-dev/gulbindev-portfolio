@@ -1,15 +1,12 @@
 import useCardSkillGSAP from "@/app/hooks/home-page-gsap/useCardSkillGSAP";
 import Image from "next/image";
-import { useRef } from "react";
 import Video from "./_cardskill-components/Video";
 /** card-skill component */
-export default function CardSkill({ windowSize }: { windowSize: number }) {
-  const scopeRef = useRef<HTMLElement>(null);
-  useCardSkillGSAP(windowSize, scopeRef);
+export default function CardSkill() {
+  useCardSkillGSAP();
   return (
     <section
       id="pin-section"
-      ref={scopeRef}
       className="section w-full! h-full relative mt-0! overflow-hidden linear-bg pb-8 text-light-foreground"
     >
       <div className="overflow-hidden">
@@ -29,7 +26,7 @@ export default function CardSkill({ windowSize }: { windowSize: number }) {
         </p>
       </div>
       <div className="container-cards mt-0 tablet:mt-10! max-w-180 place-self-center">
-        <ul className=" flex flex-col px-3 items-center">
+        <ul className=" flex flex-col px-3 items-center tablet:max-w-80 desktop:max-w-100">
           <li className="list-card-skill">
             <div className="card-skill">
               <div className="card-description">

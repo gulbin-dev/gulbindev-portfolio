@@ -3,11 +3,11 @@ import useCodeBlocks from "@hooks/home-page-gsap/vs-code-gsap/useCodeBlocks";
 import useCircles from "@hooks/home-page-gsap/vs-code-gsap/useCircles";
 import useTasks from "@hooks/home-page-gsap/vs-code-gsap/useTasks";
 import useVSHeader from "@/app/hooks/home-page-gsap/vs-code-gsap/useVSHeader";
-export default function VsCodeUI({ windowSize }: { windowSize: number }) {
-  useCodeBlocks(windowSize);
-  useCircles(windowSize);
-  useTasks(windowSize);
-  useVSHeader(windowSize);
+export default function VsCodeUI() {
+  useCodeBlocks();
+  useCircles();
+  useTasks();
+  useVSHeader();
   return (
     <section
       aria-hidden="true"
