@@ -58,7 +58,7 @@ export default function CardSkill() {
                 alt=""
                 width={800}
                 height={500}
-                className="tablet:max-w-80 desktop:max-w-100"
+                className="tablet:max-w-80 desktop:max-w-100 object-cover aspect-video"
               />
               <div className="container-video"></div>
             </div>

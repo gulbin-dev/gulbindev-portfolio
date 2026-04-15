@@ -196,6 +196,7 @@
   }
 
   .clip {
+    width: max-content;
     overflow: hidden;
   }
 
@@ -252,6 +253,7 @@
   }
 
   .tech-stack {
+    display: block;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     background-color: var(--color-secondary-color);
