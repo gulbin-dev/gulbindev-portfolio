@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.9.2...v1.10.0) (2026-04-18)
+
+
+### Features
+
+* added global loader in sync with page loads ([20b39b6](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/20b39b6583baa32beea7b4fd672c286dd2e302a4))
+
+
+### Bug Fixes
+
+* SmoothScroll scroll calculation ([4b11790](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/4b117904991f3292e836901cf5cf25d5b568ae7e))
+
 ## [1.9.2](https://github.com/gulbin-dev/portfolio-website-2/compare/v1.9.1...v1.9.2) (2026-04-14)
 
 
