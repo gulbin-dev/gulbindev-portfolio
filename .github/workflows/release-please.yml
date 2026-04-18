@@ -28,6 +28,7 @@ jobs:
         id: release
         with:
           token: ${{ secrets.PORTFOLIO_TOKEN }}
+          target-branch: master
           release-type: node
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
@@ -43,6 +44,7 @@ jobs:
         id: release
         with:
           token: ${{ secrets.PORTFOLIO_TOKEN }}
+          target-branch: pre-release
           release-type: node
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
