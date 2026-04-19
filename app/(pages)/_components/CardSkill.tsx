@@ -40,7 +40,7 @@ export default function CardSkill() {
                   while reducing layout breaks and QA cycles.
                 </p>
               </div>
-              <Video>
+              <Video poster="/preview-poster.webp">
                 <source src="/preview.webm" type="video/webm" />
                 <source src="/preview.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
@@ -77,7 +77,7 @@ export default function CardSkill() {
                   codebase easier to debug, refactor, and scale over time.
                 </p>
               </div>
-              <Video>
+              <Video poster="codebase-poster.webp">
                 <source src="/codebase.webm" type="video/webm" />
                 <source src="/codebase.mp4" type="video/mp4" />
               </Video>
