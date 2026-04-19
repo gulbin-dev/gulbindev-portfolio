@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.1...v1.11.2) (2026-04-19)
+
+
+### Bug Fixes
+
+* image dimension ([8a7ccdd](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/8a7ccdd47952c2d9200d21b7b7f6618561340934))
+
 ## [1.11.1](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.0...v1.11.1) (2026-04-19)
 
 
