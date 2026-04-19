@@ -1,8 +1,10 @@
 "use client";
 
 import useWindowSizeListener from "@hooks/useWindowSizeListener";
-import useAboutImage from "@hooks/about-page-gsap/useAboutImage";
-import useDescription from "@hooks/about-page-gsap/useDescription";
+import {
+  useAboutImage,
+  useDescription,
+} from "@hooks/about-page-gsap/useAboutPage";
 import { useEffect, useRef } from "react";
 import {
   FaHandPaper,
@@ -11,12 +13,16 @@ import {
   FaLinkedin,
   FaReact,
 } from "@utils/react-icons";
+import { useLoading } from "@/app/utils/LoadingContext";
+import ScrollReset from "@/app/utils/ScrollReset";
 /** About page content */
 export default function About() {
+  ScrollReset();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const windowSize = useWindowSizeListener();
-  useAboutImage();
-  useDescription();
+  const { isRevealed } = useLoading();
+  useAboutImage(isRevealed);
+  useDescription(isRevealed);
 
   useEffect(() => {
     if (windowSize < 768) canvasRef?.current?.setAttribute("data-speed", "0.5");
@@ -30,7 +36,7 @@ export default function About() {
           <div className="hidden tablet:block absolute bg-primary-color-darker w-23 h-full"></div>
           <canvas
             id="about-canvas"
-            className="absolute left-0 top-20 tablet:top-12"
+            className="absolute left-3 top-20 tablet:top-12"
           ></canvas>
         </div>
         <div className="tablet-pinned relative">
@@ -40,7 +46,7 @@ export default function About() {
             <div className="hidden tablet:block min-w-40 min-h-15"></div>{" "}
             <div className="flex flex-col tablet:grid tablet:auto-rows-auto items-center tablet:max-h-20 tablet:auto-cols-min tablet:w-screen tablet:min-w-50 tablet:gap-y-5">
               {" "}
-              <h1 className="text-heading-lg tablet:text-heading-xl col-start-1">
+              <h1 className="text-heading-lg mt-10 tablet:text-heading-xl col-start-1">
                 About Me
               </h1>
               <p

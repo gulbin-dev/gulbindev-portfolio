@@ -3,11 +3,13 @@ import {
   mediaQueries,
   SplitText,
   ScrollSmoother,
-} from "@utils/gsap/gsap";
-import { useGSAP } from "@gsap/react";
+  useGSAP,
+} from "@/app/utils/gsap";
+import frameImages from "@/app/utils/imageSequence";
+import { ImageSequenceConfig } from "@/app/utils/types";
 
 /** Custom hook to handle GSAP animations in hero-section in the Home page */
-export const useHeroSectionGSAP = (isRevealed: boolean) => {
+export const useHeroSection = (isRevealed: boolean) => {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -108,64 +110,66 @@ export const useHeroImageSequence = (isRevealed: boolean) => {
     () => {
       const mm = gsap.matchMedia();
       mm.add(mediaQueries, (context) => {
-        const { isSmallScreen } = context.conditions ?? {};
+        // fetch and reapply ScrollSmoother
         const smoother = ScrollSmoother.get();
         if (smoother) smoother.effects().forEach((t) => t.kill());
         smoother?.effects("[data-speed], [data-lag]");
-        /** handle animation of hero image */
-        const frameCount = 47;
-        const imageURLS = new Array(frameCount)
-          .fill(0)
-          .map((o, i) => `/frame-image/frame-image-${i + 1}.png`);
-        const canvas = document.getElementById("hero-canvas");
-        canvas?.setAttribute("width", "600px");
-        canvas?.setAttribute("height", "1200px");
 
-        interface ImageSequenceConfig {
-          urls: string[];
-          canvas: string | HTMLCanvasElement;
-          scrollTrigger: gsap.plugins.ScrollTrigger["Vars"];
-          onUpdate?: () => void;
-        }
+        // gsap.matchMedia contitions
+        const { isSmallScreen } = context.conditions ?? {};
+
+        const canvas = document.getElementById("hero-canvas");
+        canvas?.setAttribute("width", "500px");
+        canvas?.setAttribute("height", "720px");
+
+        const { placeholderImage, imageURLS, playhead, images } = frameImages();
 
         function imageSequence(config: ImageSequenceConfig) {
-          const playhead = { frame: 0 };
           const canvasElement = gsap.utils.toArray(
             config.canvas,
           )[0] as HTMLCanvasElement;
           const ctx = canvasElement.getContext("2d");
-          const onUpdate = config.onUpdate;
-          const updateImage = () => {
-            ctx!.clearRect(0, 0, 600, 1200);
 
-            ctx!.drawImage(images[Math.round(playhead.frame)], -350, 0);
-            if (onUpdate) {
-              onUpdate();
+          const updateImage = () => {
+            const currentImg = images[Math.round(playhead.frame)];
+            // draw the placeholderImage with blur filter while the current frame still loads
+            if (currentImg && !currentImg.complete) {
+              ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
+              ctx!.filter = "blur(10px)";
+              ctx!.drawImage(placeholderImage, 0, 0);
+              // Only draw if the image is actually loaded/exists
+            } else if (currentImg && currentImg.complete) {
+              ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
+              ctx!.filter = "blur(0px)";
+              ctx!.drawImage(currentImg, 0, 0);
             }
           };
-          const images: HTMLImageElement[] = config.urls.map((url, i) => {
+
+          // Map through URLs and create Image objects
+          config.urls.forEach((url) => {
             const img = new Image();
             img.src = url;
-            if (i === 0) {
-              img.onload = updateImage;
-            }
-            return img;
+            images.push(img);
           });
 
+          // the animation responsible for the frame animation
           return gsap.to(playhead, {
             frame: images.length - 1,
-            ease: "none",
+            ease: "steps(46)",
             onUpdate: updateImage,
+            immediateRender: true,
             scrollTrigger: config.scrollTrigger,
           });
         }
+
         imageSequence({
           urls: imageURLS, // Array of image URLs
-          canvas: "#hero-canvas", // <canvas> object to draw images to
+          canvas: "#hero-canvas",
           scrollTrigger: {
             trigger: "#hero-canvas",
-            start: isSmallScreen ? "top center" : "top top",
-            end: isSmallScreen ? "bottom 90%" : "30% top",
+            start: 0,
+            end: isSmallScreen ? "bottom 90%" : "20% top",
+
             scrub: true,
             invalidateOnRefresh: true,
           },
