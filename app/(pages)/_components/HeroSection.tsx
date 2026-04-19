@@ -1,16 +1,24 @@
 "use client";
 
-import {
-  useHeroImageSequence,
-  useHeroSection,
-} from "@/app/hooks/home-page-gsap/useHeroSectionGSAP";
+import { useHeroSection } from "@/app/hooks/home-page-gsap/useHeroSectionGSAP";
 import Link from "next/link";
 import { useLoading } from "@/app/utils/LoadingContext";
+import dynamic from "next/dynamic";
+
+const Canvas = dynamic(
+  () =>
+    import("./hero-section/HeroSectionComponents").then(
+      (component) => component.Canvas,
+    ),
+  {
+    ssr: false,
+  },
+);
 
 export default function HeroSection() {
   const { isRevealed } = useLoading();
   useHeroSection(isRevealed);
-  useHeroImageSequence(isRevealed);
+
   return (
     <section
       id="home-top"
@@ -85,11 +93,7 @@ export default function HeroSection() {
           </ul>
         </div>
         <div className="relative h-60 w-full z-1 tablet:h-150 overflow-hidden">
-          <canvas
-            id="hero-canvas"
-            className="absolute top-25 tablet:top-15 left-3 tablet:bottom-0"
-            data-speed="0.5"
-          ></canvas>
+          <Canvas />
         </div>
       </div>
     </section>
