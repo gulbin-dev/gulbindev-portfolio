@@ -10,7 +10,6 @@ export const Video = ({
   return (
     <video
       className="tablet:max-w-80 aspect-video desktop:max-w-100"
-      autoPlay
       muted
       controls
       poster={poster}
