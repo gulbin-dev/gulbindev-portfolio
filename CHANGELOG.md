@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.11.3](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.2...v1.11.3) (2026-04-21)
+
+
+### Bug Fixes
+
+* added eager on loading logo image ([94ca30b](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/94ca30b63083766c0bcded424b49268ba3b82c2c))
+* **hooks:** improve performance by initializing the image once for concurrent navigations ([3265074](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/3265074344cfec0645ceba75c03517dc46e316bd))
+* **next.config:** fix deploymentID ([2283641](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/2283641d7ec3818e0ec4e2ce2e0eb70b61874dc7))
+
 ## [1.11.2](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.1...v1.11.2) (2026-04-19)
 
 
