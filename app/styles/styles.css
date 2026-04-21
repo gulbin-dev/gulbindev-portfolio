@@ -40,7 +40,7 @@
   }
 
   .list-card-skill {
-    @apply pt-5 tablet:pt-9;
+    @apply pt-5 tablet-portrait:pt-9;
   }
 
   .card-skill {
@@ -49,6 +49,10 @@
 
   .card-description {
     @apply mb-1;
+  }
+
+  .section {
+    content-visibility: auto;
   }
 
   .section3-bg {
@@ -192,7 +196,7 @@
   }
 
   .ui-circle {
-    @apply bg-col-neutral-1 rounded-[50%] block w-1 h-1 tablet:w-1.5 tablet:h-1.5 desktop:w-2 desktop:h-2;
+    @apply bg-col-neutral-1 rounded-[50%] block w-1 h-1 tablet-portrait:w-1.5 tablet-portrait:h-1.5 desktop:w-2 desktop:h-2;
   }
 
   .clip {

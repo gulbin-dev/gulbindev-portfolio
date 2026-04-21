@@ -93,7 +93,8 @@
   --text-heading-xl: clamp(1.8em, 3vw, 3.6em);
   --text-heading-lg: clamp(1.4em, 3vw, 3.2em);
   --text-heading-md: clamp(0.8em, 3vw, 2.8em);
-  --breakpoint-mobile: 440px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1024px;
+  --breakpoint-mobile-landscape: 481px;
+  --breakpoint-tablet-portrait: 768px;
+  --breakpoint-tablet-landscape: 992px;
+  --breakpoint-desktop: 1200px;
 }
