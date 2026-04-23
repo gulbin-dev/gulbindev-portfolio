@@ -21,11 +21,14 @@ export default function AboutCanvas() {
           smoother?.effects("[data-speed], [data-lag]");
 
           // gsap.matchMedia contitions
-          const { isSmallScreen, isMediumScreen, isLargeScreen } =
-            context.conditions ?? {};
+          const {
+            isMobilePortraitScreen,
+            isTabletPortraitScreen,
+            isDesktopScreen,
+          } = context.conditions ?? {};
 
           const canvas = document?.getElementById("about-canvas");
-          canvas?.setAttribute("width", "500px");
+          canvas?.setAttribute("width", "420px");
           canvas?.setAttribute("height", "720px");
 
           const { placeholderImage, playhead, images } = frameImages;
@@ -35,9 +38,9 @@ export default function AboutCanvas() {
               config.canvas,
             )[0] as HTMLCanvasElement;
             const ctx = canvasElement.getContext("2d");
-            if (isSmallScreen) ctx?.scale(1, 1);
-            else if (isMediumScreen) ctx?.scale(0.6, 0.6);
-            else if (isLargeScreen) ctx?.scale(0.8, 0.8);
+            if (isMobilePortraitScreen) ctx?.scale(1, 1);
+            else if (isTabletPortraitScreen) ctx?.scale(0.6, 0.6);
+            else if (isDesktopScreen) ctx?.scale(0.7, 0.7);
 
             const updateImage = () => {
               const currentImg = images[Math.round(playhead.frame)];
@@ -74,7 +77,7 @@ export default function AboutCanvas() {
             scrollTrigger: {
               trigger: "#about-canvas",
               start: 0,
-              end: isSmallScreen ? "top top" : "bottom+=500 90%",
+              end: isMobilePortraitScreen ? "top top" : "bottom+=500 90%",
               scrub: true,
               invalidateOnRefresh: true,
             },
