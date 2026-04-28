@@ -86,7 +86,7 @@ export function Canvas() {
           canvas: "#hero-canvas",
           scrollTrigger: {
             trigger: "#hero-canvas",
-            start: isMobilePortraitScreen ? "top 60%" : "top top",
+            start: isMobilePortraitScreen ? "top 60%" : "top-=200 top",
             id: "hero-canvas-scroll",
             end: isMobilePortraitScreen ? "bottom 90%" : "20% top",
             scrub: true,
