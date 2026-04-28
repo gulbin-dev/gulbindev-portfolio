@@ -35,31 +35,27 @@ export default function About() {
         if (!isMobilePortraitScreen)
           smoother?.effects().forEach((t) => t.kill());
 
-        // list of elements with the class "story-telling" used for horizontal scrolling
-        const storyTellingElements =
-          gsap.utils.toArray<HTMLElement[]>(".story-telling");
-
-        /**
-         * A function to set initial styles for animation
-         */
+        const animateTechStack = () => {
+          const techStacks = gsap.utils.toArray<HTMLElement[]>(".tech-stack");
+          gsap.to(techStacks, {
+            y: 0,
+            autoAlpha: 1,
+            stagger: {
+              amount: 1,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: ".container-tech-stack",
+              start: "top bottom",
+              end: "bottom 40%",
+            },
+          });
+        };
 
         if (!isMobilePortraitScreen) {
-          const animateTechStack = () => {
-            const techStacks = gsap.utils.toArray<HTMLElement[]>(".tech-stack");
-            gsap.to(techStacks, {
-              y: 0,
-              autoAlpha: 1,
-              stagger: {
-                amount: 1,
-                from: "start",
-              },
-              scrollTrigger: {
-                trigger: ".container-tech-stack",
-                start: "top bottom",
-                end: "bottom 40%",
-              },
-            });
-          };
+          // list of elements with the class "story-telling" used for horizontal scrolling
+          const storyTellingElements =
+            gsap.utils.toArray<HTMLElement[]>(".story-telling");
 
           const scrollHorizontal = gsap.to(".tablet-pinned", {
             x: -120 * storyTellingElements.length,
@@ -80,10 +76,22 @@ export default function About() {
             },
           });
 
+          ScrollTrigger.create({
+            trigger: ".canvas-container",
+            pin: true,
+            start: 0,
+            end: () =>
+              (document.querySelector(".tablet-pinned") as HTMLDivElement)
+                ?.offsetHeight +
+              "+=" +
+              (document.querySelector(".tablet-pinned") as HTMLDivElement)
+                ?.offsetWidth +
+              "top",
+          });
           /**
            * A function to animate the paper plane
            */
-          const animateDrawings = () => {
+          const animatePaperPlane = () => {
             gsap.to("#paper-plane", {
               scrollTrigger: {
                 trigger: ".split-text-story",
@@ -201,6 +209,7 @@ export default function About() {
                 containerAnimation: scrollHorizontal,
                 start: "left 70%",
                 end: "right 40%",
+                onEnter: animatePaperPlane,
               },
             });
 
@@ -351,32 +360,18 @@ export default function About() {
           animateIntro();
           animateHandIcon();
           animateFrontendDeveloperBuilding();
-          animateDrawings();
         }
 
-        if (!isMobilePortraitScreen) {
-          ScrollTrigger.create({
-            trigger: ".canvas-container",
-            pin: true,
-            start: 0,
-            end: () =>
-              (document.querySelector(".tablet-pinned") as HTMLDivElement)
-                ?.offsetHeight +
-              "+=" +
-              (document.querySelector(".tablet-pinned") as HTMLDivElement)
-                ?.offsetWidth +
-              "top",
-          });
-        }
+        animateTechStack();
       });
     },
-    { dependencies: [], revertOnUpdate: true },
+    { dependencies: [] },
   );
 
   return (
     <main className="bg-primary-color-darker mb-4">
       <section id="about-top" className="flex flex-col relative">
-        <div className="canvas-container h-75 tablet-portrait:absolute w-full top-0 left-0  z-400 tablet-portrait:w-55 tablet-portrait:h-screen overflow-hidden">
+        <div className="canvas-container h-90 w-full top-0 left-0 overflow-hidden z-400  tablet-portrait:absolute tablet-portrait:w-55 tablet-portrait:h-screen ">
           <div className="hidden tablet-portrait:block absolute bg-primary-color-darker w-[15vw] h-80"></div>
           <AboutCanvas />
         </div>
@@ -385,7 +380,7 @@ export default function About() {
           <div className="relative tablet-portrait:top-15 tablet-portrait:flex">
             {" "}
             <div className="hidden tablet-portrait:block min-w-40 min-h-15"></div>{" "}
-            <div className="flex flex-col tablet-portrait:grid tablet-portrait:auto-rows-auto items-center tablet-portrait:max-h-20 tablet-portrait:auto-cols-min tablet-portrait:w-screen tablet-portrait:min-w-50 tablet-portrait:gap-y-5">
+            <div className="flex mt-15 flex-col tablet-portrait:grid tablet-portrait:auto-rows-auto items-center tablet-portrait:max-h-20 tablet-portrait:auto-cols-min tablet-portrait:mt-0 tablet-portrait:w-screen tablet-portrait:min-w-50 tablet-portrait:gap-y-5">
               {" "}
               <h1 className="text-heading-lg mt-10 tablet-portrait:text-heading-xl col-start-1">
                 About Me
@@ -415,7 +410,7 @@ export default function About() {
               </p>
               {/* mobile UI */}
               <p
-                className="inline-block text-center h-full tablet-portrait:hidden col-start-1"
+                className="inline-block text-center h-full px-5 text-pretty tablet-portrait:hidden col-start-1"
                 aria-hidden="true"
               >
                 {" "}
