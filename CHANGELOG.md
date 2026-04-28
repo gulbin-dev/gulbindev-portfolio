@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.12.0](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.4...v1.12.0) (2026-04-28)
+
+
+### Features
+
+* added project loader UI ([0ed3f26](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/0ed3f26f7f3956bbd0cfc627db59e6652d20d1b8))
+
+
+### Bug Fixes
+
+* image load ([3a0e241](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/3a0e2415a38018dc41efc6ccb857a6b3b1686122))
+
 ## [1.11.4](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.3...v1.11.4) (2026-04-28)
 
 
