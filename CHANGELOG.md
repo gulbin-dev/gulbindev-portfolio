@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.2](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.12.1...v1.12.2) (2026-04-28)
+
+
+### Bug Fixes
+
+* opengraph image ([f8ebf27](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/f8ebf27e03e04cd9b541e84061cfb0bb64ee0fc0))
+
 ## [1.12.1](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.10.0...v1.12.1) (2026-04-28)
 
 
