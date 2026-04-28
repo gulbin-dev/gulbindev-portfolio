@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.4](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.3...v1.11.4) (2026-04-28)
+
+
+### Bug Fixes
+
+* improve UI animations ([2f1d925](https://github.com/gulbin-dev/GulbinDev-Portfolio/commit/2f1d9257e885b0f3ca25c24798dbbf19fcf798f9))
+
 ## [1.11.3](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.11.2...v1.11.3) (2026-04-21)
 
 
