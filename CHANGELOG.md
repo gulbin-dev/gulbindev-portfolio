@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.12.2...v1.13.0) (2026-04-28)
+
+
+### Features
+
+* **robots:** added facebookexternalhit user agent ([2174b31](https://github.com/gulbin-dev/gulbindev-portfolio/commit/2174b31226557b9902262b11823e31786168eef9))
+
 ## [1.12.2](https://github.com/gulbin-dev/GulbinDev-Portfolio/compare/v1.12.1...v1.12.2) (2026-04-28)
 
 
