@@ -92,7 +92,7 @@ export default function HeroSection() {
           .toArray<
             HTMLElement[]
           >([".list-discover-button", ".list-about-me-button"])
-          .forEach(async (btn, i) => {
+          .forEach((btn, i) => {
             gsap.to(btn, {
               duration: 0.5 + i * 0.3,
               keyframes,
@@ -150,7 +150,7 @@ export default function HeroSection() {
             focus on accessibility and SEO.
           </p>
           <ul className="my-6 flex flex-col gap-5.5 w-fit h-full tablet-portrait:my-4 tablet-portrait:gap-4">
-            <li className="list-discover-button invisible group">
+            <li className="list-discover-button text-base invisible group">
               <Link
                 href="/discover"
                 className="relative block w-30 h-5 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm desktop:w-45 desktop:h-7"
@@ -167,7 +167,7 @@ export default function HeroSection() {
             <li className="list-about-me-button group">
               <Link
                 href="/about"
-                className="relative inline-block w-30 h-5 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm desktop:w-45 desktop:h-7"
+                className="relative inline-block text-base w-30 h-5 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm desktop:w-45 desktop:h-7"
               >
                 <div className="absolute inset-0 flex items-center justify-center">
                   KNOW MORE ABOUT ME
@@ -180,7 +180,7 @@ export default function HeroSection() {
             </li>
           </ul>
         </div>
-        <div className="relative top-0 left-0 h-60 min-w-53 z-1 overflow-hidden tablet-portrait:h-90">
+        <div className="relative top-0 left-0 h-60 min-w-53 min-h-90 z-1 overflow-hidden tablet-portrait:h-90">
           <Canvas />
         </div>
       </div>

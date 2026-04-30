@@ -64,8 +64,6 @@ export default function About() {
             ease: "none",
             scrollTrigger: {
               trigger: ".tablet-pinned",
-              id: "horizontal-scroll",
-              markers: true,
               pin: true,
               start: 0,
               end: () => "bottom+=" + (pinned?.offsetWidth + 250) + " top",
@@ -78,8 +76,6 @@ export default function About() {
 
           ScrollTrigger.create({
             trigger: ".canvas-container",
-            id: "canvas-pin",
-            markers: true,
             pin: true,
             start: 0,
             end: () =>
@@ -310,8 +306,6 @@ export default function About() {
                     trigger: ".word-hi",
                     start: "top center",
                     end: "bottom+=200 center",
-                    markers: true,
-                    id: "name",
                   },
                 })
               : gsap.timeline({});
@@ -453,13 +447,13 @@ export default function About() {
                   responsive,
                 </span>{" "}
               </span>
-              <span className="container-state-driven grid grid-cols-[repeat(4,70px)] clip content-start mb-0.75  rounded-lg">
-                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-0.5 pl-1.5 flex gap-1.5 items-center z-2 -translate-x-20.5">
+              <span className="container-state-driven grid grid-cols-[repeat(4,70px)] clip content-start rounded-lg">
+                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-2 pl-2 flex gap-1.5 items-center z-2 -translate-x-20.5">
                   state{" "}
                   <span className="story-telling hyphen w-0.5 h-[3px] block bg-dark-foreground origin-center rotate-90 scale-x-[10]"></span>
                 </span>
 
-                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-0.5 pl-0.5 pr-1.5 rounded-r-sm block z-1 -translate-x-35.75">
+                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-2 pl-0.5 pr-2 rounded-r-sm block z-1 -translate-x-35.75">
                   driven
                 </span>
               </span>{" "}
@@ -486,16 +480,16 @@ export default function About() {
                   and
                 </span>{" "}
               </span>
-              <span className="mb-[11px] items-center grid grid-cols-[repeat(4,70px)] grid-rows-[repeat(2,20px)] gap-2.5 relative">
-                <span className="clip col-start-1 row-start-1 col-span-2 js-container">
-                  <span className="story-telling relative block pb-0.5 javascript-after javaScript mb-2 py-0.5 px-1.5 bg-action-color text-dark-foreground rounded-sm invisible translate-y-full">
+              <span className="mb-[11px] items-center grid grid-cols-[repeat(4,70px)] grid-rows-[repeat(2,30px)] gap-2.5 relative">
+                <span className="clip mb-2 col-start-1 row-start-1 col-span-2 js-container">
+                  <span className="story-telling relative block pb-0.5 javascript-after javaScript py-1 px-2 bg-action-color text-dark-foreground rounded-sm invisible translate-y-full">
                     JavaScript
                   </span>{" "}
                 </span>
 
                 <span className="text-8xl divider absolute left-1/2 -translate-x-1/2 z-1 w-60 h-1 bg-light-foreground"></span>
-                <span className="clip col-start-4 row-start-2 col-span-2 ts-container">
-                  <span className="story-telling relative block pb-0.5 typescript-after typeScript mt-2 py-0.5 px-1.5 bg-secondary-color rounded-sm  invisible -translate-y-full">
+                <span className="clip mt-2 col-start-4 row-start-2 col-span-2 ts-container">
+                  <span className="story-telling relative block pb-0.5 typescript-after typeScript py-1 px-2 bg-secondary-color rounded-sm  invisible -translate-y-full">
                     TypeScript.
                   </span>
                 </span>

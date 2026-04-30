@@ -20,16 +20,19 @@ export default function VSCodeUI() {
           const clampSkew = gsap.utils.clamp(-4, 4);
           const clampYVSCode = gsap.utils.clamp(-20, 20);
 
-          gsap.to(".vs-code-header", {
-            scrollTrigger: {
-              trigger: ".vs-code-header",
-              start: "top 100%",
-              end: "bottom top",
-              onUpdate: (self) => {
-                skewVSCodeHeader(clampSkew(self.getVelocity() / 2));
-                yVSCodeHeader(clampYVSCode(self.getVelocity() / 50));
-              },
-            },
+          ScrollTrigger.create({
+            trigger: ".vs-code-header",
+            start: "top bottom",
+            end: "bottom top",
+            onEnter: () =>
+              gsap.to(".vs-code-header", {
+                scrollTrigger: {
+                  onUpdate: (self) => {
+                    skewVSCodeHeader(clampSkew(self.getVelocity() / 2));
+                    yVSCodeHeader(clampYVSCode(self.getVelocity() / 50));
+                  },
+                },
+              }),
           });
         },
       );

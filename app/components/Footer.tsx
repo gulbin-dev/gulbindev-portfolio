@@ -5,16 +5,10 @@ import { FaGithubSquare, FaLinkedin, MdEmail } from "@utils/react-icons";
 
 export default function Footer() {
   return (
-    <footer className="h-full bg-primary-color-darker w-full pb-1">
+    <footer className="bg-primary-color-darker w-full pb-1">
       <div className="max-w-180 place-self-center w-full px-3">
-        <Link href="/" className="text-white">
-          <Image
-            src="/logo.svg"
-            alt="logo"
-            width={100}
-            height={58}
-            loading="eager"
-          />
+        <Link href="/" className="text-white min-h-58">
+          <Image src="/logo.png" alt="logo" width={100} height={58} />
         </Link>
 
         <p className="mt-2 desktop:text-size-xsm">

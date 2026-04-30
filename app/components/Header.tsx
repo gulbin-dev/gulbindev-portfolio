@@ -56,11 +56,12 @@ export default function Header() {
         <div className="max-w-180 w-full h-full flex justify-between items-center place-self-center px-3 py-3 tablet-portrait:py-0">
           <Link href="/" className="px-0 text-white">
             <Image
-              src="/logo.svg"
+              src="/logo.png"
               alt="logo"
               width={100}
               height={58}
               loading="eager"
+              className="aspect-auto"
             />
           </Link>
           <NavLinks navStyle="hidden header-nav gap-6 mr-8 tablet-portrait:flex" />

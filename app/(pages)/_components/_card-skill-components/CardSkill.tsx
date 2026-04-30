@@ -10,13 +10,11 @@ export const Video = memo(function Video({
 }) {
   return (
     <video
-      className="tablet-portrait:max-w-80 aspect-video desktop:max-w-100 translate-z-0 object-cover"
+      className="tablet-portrait:max-w-80 aspect-video object-contain desktop:max-w-100 translate-z-0"
       muted
       controls
       playsInline
       poster={poster}
-      width={"100%"}
-      height={"auto"}
       preload="none"
     >
       {children}
