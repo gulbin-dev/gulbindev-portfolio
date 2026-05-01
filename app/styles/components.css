@@ -4,12 +4,24 @@
 *
 *****************************/
 @layer components {
+  .section {
+    content-visibility: auto;
+  }
+
+  .section3-bg {
+    background-image: linear-gradient(
+      var(--color-primary-color-darker) 0%,
+      #7a00ff 70%
+    );
+  }
+  /* Header */
   .hamburger-icon {
     width: 40px;
     height: 8px;
     background-color: #ededed;
   }
 
+  /* Hero */
   .cta-button {
     border-radius: 8px;
     display: inline-block;
@@ -54,7 +66,7 @@
     }
 
     @variant desktop {
-      font-size: var(--text-size-md);
+      font-size: var(--text-size-lg);
     }
 
     @variant motion-reduce {
@@ -62,6 +74,7 @@
     }
   }
 
+  /* Card Skill */
   .list-card-skill {
     @apply pt-5 tablet-portrait:pt-9 translate-y-12.5 invisible;
   }
@@ -84,17 +97,6 @@
         font-size: var(--text-size-xsm);
       }
     }
-  }
-
-  .section {
-    content-visibility: auto;
-  }
-
-  .section3-bg {
-    background-image: linear-gradient(
-      var(--color-primary-color-darker) 0%,
-      #7a00ff 70%
-    );
   }
 
   .after-line {
