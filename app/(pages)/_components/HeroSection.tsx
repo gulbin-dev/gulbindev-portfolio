@@ -153,29 +153,18 @@ export default function HeroSection() {
             <li className="list-discover-button text-base invisible group">
               <Link
                 href="/discover"
-                className="relative block w-30 h-5 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm desktop:w-45 desktop:h-7"
+                className="relative block w-fit px-3 py-1 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm "
               >
-                <div className="absolute inset-0 flex items-center justify-center transition-colors duration-500">
-                  CHECK MY WORKS
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center bg-col-neutral-2 text-light-foreground transition-transform duration-500 translate-y-full group-hover:translate-y-0">
-                  YOU MIGHT LIKE IT
-                </div>
+                <span className="text-center">CHECK MY WORKS</span>
               </Link>
             </li>
 
             <li className="list-about-me-button group">
               <Link
                 href="/about"
-                className="relative inline-block text-base w-30 h-5 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm desktop:w-45 desktop:h-7"
+                className="relative inline-block w-fit text-base px-3 py-1 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm"
               >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  KNOW MORE ABOUT ME
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center bg-col-neutral-2 text-light-foreground transition-transform duration-500 translate-y-full group-hover:translate-y-0">
-                  CONTACT ME IF YOU CAN
-                </div>
+                <span className=" text-center">KNOW MORE ABOUT ME</span>
               </Link>
             </li>
           </ul>

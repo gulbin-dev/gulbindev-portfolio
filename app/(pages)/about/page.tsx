@@ -368,18 +368,18 @@ export default function About() {
           <div className="hidden absolute bg-primary-color-darker w-[15vw] h-screen desktop:block"></div>
           <AboutCanvas />
         </div>
-        <div className="tablet-pinned max-w-225! relative">
+        <div className="tablet-pinned max-w-225! relative  desktop:items-center">
           {/* this <div> is used only for animation */}
-          <div className="relative desktop:top-45 desktop:flex">
+          <div className="relative desktop:flex desktop:h-screen desktop:items-center">
             {" "}
             <div className="hidden desktop:block min-w-60 min-h-15"></div>{" "}
-            <div className="flex mt-5 flex-col items-center  tablet-portrait:mt-5 desktop:mt-8 desktop:grid desktop:auto-rows-auto desktop:max-h-20 desktop:auto-cols-min  desktop:w-screen desktop:min-w-80 desktop:gap-y-5 desktop:items-center">
+            <div className="flex mt-5 flex-col items-center  tablet-portrait:mt-5 desktop:items-center desktop:mt-0">
               {" "}
               <h1 className="text-size-lg  tablet-portrait:text-size-xl  col-start-1">
                 About Me
               </h1>
               <p
-                className="inline-block place-self-center col-start-1 mt-3 tablet-portrait:text-size-xl desktop:truncate desktop:mt-10"
+                className="inline-block place-self-center col-start-1 mt-3 tablet-portrait:text-size-xl desktop:truncate desktop:mt-0"
                 aria-hidden="true"
               >
                 <span className="flex gap-1 justify-center">
@@ -398,7 +398,7 @@ export default function About() {
                 <span className="hidden desktop:block">
                   {" "}
                   <span className="">I&apos;m</span>{" "}
-                  <span className="name1 text-col-neutral-1 inline-block font-bold min-w-65 overflow-clip"></span>{" "}
+                  <span className="name1 text-col-neutral-1 inline-block min-w-60 font-bold  overflow-clip"></span>{" "}
                 </span>
               </p>
               {/* mobile UI */}
@@ -423,7 +423,7 @@ export default function About() {
             </div>
             {/* bigger screen UI */}
             <div
-              className="hidden text-center relative gap-2 text-3xl items-end min-h-30 h-full desktop:flex desktop:top-8 desktop:text-size-xl"
+              className="hidden text-center relative gap-2 mt-12 items-center text-size-xl desktop:flex"
               aria-hidden="true"
             >
               {" "}
@@ -433,13 +433,13 @@ export default function About() {
                 </span>{" "}
               </span>
               <span className="grid grid-cols-[repeat(9,80px)] gap-0.5 relative clip">
-                <span className="story-telling frontend py-2 px-3.5 rounded-2xl frontend-bg-linear col-start-1 col-span-3 row-start-1 -translate-x-[101%]">
+                <span className="story-telling frontend py-1 px-1.5 rounded-2xl frontend-bg-linear col-start-1 col-span-3 row-start-1 -translate-x-[101%]">
                   <span>frontend</span>
                 </span>
-                <span className="story-telling developer py-1.5 px-2.5 rounded-2xl developer-bg-linear col-start-3 col-span-5 row-start-1 -z-1 invisible rotate-180 origin-top-left">
+                <span className="story-telling developer py-1 px-1.5 rounded-2xl developer-bg-linear col-start-3 col-span-5 row-start-1 -z-1 invisible rotate-180 origin-top-left">
                   <span>developer</span>
                 </span>
-                <span className="story-telling building py-1.5 px-2.5 rounded-2xl building-bg-linear col-start-7 col-span-3 row-start-1 origin-bottom translate-y-3.75 scale-y-0">
+                <span className="story-telling building py-1 px-1.5 rounded-2xl building-bg-linear col-start-7 col-span-3 row-start-1 origin-bottom translate-y-3.75 scale-y-0">
                   <span>building</span>{" "}
                 </span>
               </span>
@@ -449,13 +449,13 @@ export default function About() {
                   responsive,
                 </span>{" "}
               </span>
-              <span className="container-state-driven grid grid-cols-[repeat(4,70px)] clip content-start rounded-lg">
-                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-2 pl-2 flex gap-1.5 items-center z-2 -translate-x-20.5">
+              <span className="container-state-driven grid grid-cols-[repeat(4, clamp(80px, 20vw, 120px))] clip content-start rounded-lg">
+                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-1 pl-1.5 flex gap-1.5 items-center z-2 -translate-x-20.5">
                   state{" "}
                   <span className="story-telling hyphen w-0.5 h-[3px] block bg-dark-foreground origin-center rotate-90 scale-x-[10]"></span>
                 </span>
 
-                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-2 pl-0.5 pr-2 rounded-r-sm block z-1 -translate-x-35.75">
+                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-1 pl-0.5 pr-1.5 rounded-r-sm block z-1 -translate-x-35.75">
                   driven
                 </span>
               </span>{" "}
@@ -507,7 +507,7 @@ export default function About() {
         </div>
 
         {/* Contact */}
-        <div className="relative flex flex-col items-center gap-x-2 mt-6 desktop:mt-100">
+        <div className="relative flex flex-col items-center gap-x-2 mt-6">
           <h2 className="text-size-lg tablet-portrait:text-size-xl">
             Reach out!
           </h2>
