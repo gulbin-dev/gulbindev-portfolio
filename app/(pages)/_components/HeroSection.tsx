@@ -113,9 +113,9 @@ export default function HeroSection() {
     <section
       ref={heroSectionRef}
       id="home-top"
-      className="section w-full h-full overflow-hidden relative linear-bg z-0 tablet-portrait:h-90"
+      className="section  overflow-hidden relative linear-bg z-0 tablet-portrait:h-90"
     >
-      <div className="flex flex-col w-full place-self-center max-w-180 h-full tablet-portrait:flex-row tablet-landscape:h-fit! tablet-portrait:justify-center">
+      <div className="flex flex-col  place-self-center max-w-180 w-full tablet-portrait:flex-row tablet-landscape:h-fit! tablet-portrait:justify-center">
         <div className="z-1 px-3 pt-10 h-full tablet-portrait:pt-15 tablet-portrait:max-w-1/2">
           <h1 aria-hidden className="hero-header">
             Frontend Developer{" "}

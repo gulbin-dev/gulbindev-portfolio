@@ -27,11 +27,10 @@ export function Canvas() {
             config.canvas,
           )[0] as HTMLCanvasElement;
           const ctx = canvasElement.getContext("2d");
-          if (!isMobilePortraitScreen) {
-            canvasElement.style.scale = "1";
-          } else {
-            canvasElement.style.scale = "0.7";
-          }
+
+          const dpr = window.devicePixelRatio || 1;
+          if (dpr === 1.5) canvasElement.style.scale = "0.7";
+
           const updateImage = () => {
             const currentImg = images[Math.round(playhead.frame)];
             const x = (canvasElement.width - placeholderImage.width) / 2;
@@ -109,7 +108,7 @@ export function Canvas() {
   return (
     <canvas
       id="hero-canvas"
-      className="absolute left-0 tablet-portrait:max-w-none top-25 mobile-landscape:left-1/2 mobile-landscape:-translate-x-1/2! tablet-portrait:left-0 tablet-portrait:top-0 tablet-portrait:translate-x-0! origin-top-left"
+      className="absolute left-0 origin-center tablet-portrait:max-w-none top-25 mobile-landscape:left-1/2 mobile-landscape:-translate-x-1/2! tablet-portrait:left-0 tablet-portrait:top-0 tablet-portrait:translate-x-0!"
       data-speed="0.5"
       width={420}
       height={720}

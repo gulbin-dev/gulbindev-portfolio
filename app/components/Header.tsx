@@ -84,7 +84,7 @@ export default function Header() {
         ref={headerRef}
         className="fixed! z-50 left-0 top-0 w-full min-h-12 content-center  tablet-portrait:min-h-9 bg-secondary-color "
       >
-        <div className="max-w-180 w-full h-full flex justify-between items-center place-self-center px-3 py-3 tablet-portrait:py-0">
+        <div className="max-w-180 w-full h-full flex justify-between items-center place-self-center  px-3 py-3 tablet-portrait:py-0">
           <Link href="/" className="px-0 text-white">
             <Image
               src="/logo.png"
@@ -114,7 +114,7 @@ export default function Header() {
 
       <div
         ref={sideBarRef}
-        className="mobile-side-bar bg-primary-color-darker w-full h-screen fixed top-0 left-0 z-10 py-15"
+        className="mobile-side-bar bg-primary-color-darker w-full tablet-portrait:hidden h-screen fixed top-0 left-0 z-10 py-15"
         style={{ transform: "translateX(100%)" }}
       >
         <NavLinks

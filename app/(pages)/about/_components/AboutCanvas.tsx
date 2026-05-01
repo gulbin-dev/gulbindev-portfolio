@@ -27,6 +27,8 @@ export default function AboutCanvas() {
               config.canvas,
             )[0] as HTMLCanvasElement;
             const ctx = canvasElement.getContext("2d");
+            const dpr = window.devicePixelRatio || 1;
+            if (dpr === 1.5) canvasElement.style.scale = "0.7";
 
             const updateImage = () => {
               const currentImg = images[Math.round(playhead.frame)];
@@ -97,7 +99,7 @@ export default function AboutCanvas() {
   return (
     <canvas
       id="about-canvas"
-      className="absolute  top-20 desktop:top-10 tablet-portrait:left-1/2! tablet-portrait:-translate-x-1/2! "
+      className="absolute max-w-full origin-bottom h-auto top-20 tablet-portrait:left-1/2! tablet-portrait:-translate-x-1/2! desktop:bottom-0  desktop:top-auto desktop:translate-x-0 desktop:left-20 "
       width={420}
       height={720}
     ></canvas>
