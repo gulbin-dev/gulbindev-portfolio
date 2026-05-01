@@ -95,11 +95,11 @@
   --color-col-neutral-1: #ac62ff;
   --color-col-neutral-2: #8b008b;
   --color-issue-red: #fc4646;
-  --text-size-xl: clamp(1.8em, 3vw, 3.6em);
-  --text-size-lg: clamp(1.4em, 3vw, 3.2em);
-  --text-size-md: clamp(0.8em, 3vw, 2.8em);
-  --text-size-sm: clamp(0.6em, 3vw, 1.6em);
-  --text-size-xsm: clamp(0.4em, 3vw, 1.2em);
+  --text-size-xl: clamp(1.8rem, 2.5vw, 2.5rem);
+  --text-size-lg: clamp(1.4rem, 2vw, 2rem);
+  --text-size-md: clamp(1.1rem, 1.5vw, 1.4rem);
+  --text-size-sm: clamp(0.9rem, 1vw, 1.1rem);
+  --text-size-xsm: clamp(0.75rem, 0.8vw, 0.9rem);
   --breakpoint-mobile-portrait: 480px;
   --breakpoint-mobile-landscape: 481px;
   --breakpoint-tablet-portrait: 768px;
