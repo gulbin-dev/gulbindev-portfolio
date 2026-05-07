@@ -1,42 +1,35 @@
-import { fetchProjectDemo, fetchPreviewDemoVideos } from "@utils/project-demo";
+import { fetchProjectDemo } from "@utils/project-demo";
 import PreviewVideo from "./PreviewVideo";
-import { ListGitHubRepo } from "@utils/types";
-
-type ProjectWithPreview = ListGitHubRepo & {
-  previewUrl: string;
-};
+import Link from "next/link";
 
 export default async function Projects() {
   const { projects } = await fetchProjectDemo();
-
-  const projectsWithPreview: ProjectWithPreview[] = await Promise.all(
-    projects.map(async (project) => ({
-      ...project,
-      previewUrl: await fetchPreviewDemoVideos(
-        project.name,
-        "/public/responsive.mp4",
-      ),
-    })),
-  );
-
+  console.log(projects);
   return (
-    <div className="grid gap-4 max-w-180 tablet-portrait:w-[90vw] justify-self-center py-5">
-      {projectsWithPreview.map((project) => (
-        <div key={project.id}>
-          <PreviewVideo src={project.previewUrl} />
-          <article className="rounded-xl border p-4">
-            <h3 className="text-size-md font-semibold">{project.name}</h3>
-            <p className="mt-2 text-sm text-pretty">
+    <div className="flex flex-col gap-4 max-w-180 tablet-portrait:w-[90vw] justify-self-center py-5">
+      {projects.map((project) => (
+        <div
+          key={project.id}
+          className="grid grid-cols-[auto_1fr] gap-5 rounded-xl border p-4"
+        >
+          <PreviewVideo folder={project.name} />
+          <article className="grid grid-rows-[auto_1fr_auto]">
+            <h3 className="text-size-lg font-semibold">{project.name}</h3>
+            <p className="mt-2 text-pretty">
               {project.description ?? "No description available."}
             </p>
-            <a
-              href={project.html_url}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-3 inline-block text-accent"
-            >
-              View on GitHub
-            </a>
+            <ul className="flex gap-3 mt-2 text-size-md">
+              <li>
+                <Link href={project.homepage as string} target="_blank">
+                  Visit Website
+                </Link>
+              </li>
+              <li>
+                <Link href={project.html_url} target="_blank">
+                  View on GitHub
+                </Link>
+              </li>
+            </ul>
           </article>
         </div>
       ))}

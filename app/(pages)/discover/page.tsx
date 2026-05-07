@@ -9,9 +9,9 @@ export default function Discover() {
       <section id="dicover-top" className="pt-10">
         <h1 className="text-center text-size-xl pt-5 px-3">Explore my work</h1>
 
-        {/* <Suspense fallback={<ProjectLoader />}>
+        <Suspense fallback={<ProjectLoader />}>
           <Projects />
-        </Suspense> */}
+        </Suspense>
       </section>
       <section className="pb-10">
         <h2>Any ideas you may have? Let&apos;s make it real.</h2>
