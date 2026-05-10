@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.13.0...v1.13.1) (2026-05-10)
+
+
+### Bug Fixes
+
+* fix release tag on merge [#61](https://github.com/gulbin-dev/gulbindev-portfolio/issues/61) ([5a68b25](https://github.com/gulbin-dev/gulbindev-portfolio/commit/5a68b25ecbbb09e89ef6368f654c1ac3f59b746a))
+
 ## [1.15.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.0...v1.15.0) (2026-05-10)
 
 
