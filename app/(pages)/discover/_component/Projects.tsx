@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export default async function Projects() {
   const { projects } = await fetchProjectDemo();
-  console.log(projects);
   return (
     <div className="flex flex-col gap-4 max-w-180 tablet-portrait:w-[90vw] justify-self-center py-5">
       {projects.map((project) => (

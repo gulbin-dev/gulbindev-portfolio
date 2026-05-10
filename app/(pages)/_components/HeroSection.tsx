@@ -151,20 +151,14 @@ export default function HeroSection() {
           </p>
           <ul className="my-6 flex flex-col gap-5.5 w-fit h-full tablet-portrait:my-4 tablet-portrait:gap-4">
             <li className="list-discover-button text-base invisible group">
-              <Link
-                href="/discover"
-                className="relative block w-fit px-3 py-1 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm "
-              >
-                <span className="text-center">CHECK MY WORKS</span>
+              <Link href="/discover" className="cta-btn">
+                <span className="cta-text">CHECK MY WORKS</span>
               </Link>
             </li>
 
             <li className="list-about-me-button group">
-              <Link
-                href="/about"
-                className="relative inline-block w-fit text-base px-3 py-1 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold desktop:text-size-sm"
-              >
-                <span className=" text-center">KNOW MORE ABOUT ME</span>
+              <Link href="/about" className="cta-btn">
+                <span className="cta-text">KNOW MORE ABOUT ME</span>
               </Link>
             </li>
           </ul>

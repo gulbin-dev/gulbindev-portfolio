@@ -1,12 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import {
-  FaMapLocationDot,
-  MdEmail,
-  RiTeamFill,
-  FaLinkedin,
-} from "@utils/react-icons";
+import { FaMapLocationDot, RiTeamFill } from "@utils/react-icons";
+import Contact from "@/app/components/Contact";
 import { gsap, mediaQueries, ScrollTrigger, useGSAP } from "@utils/gsap";
 import { useRef } from "react";
 
@@ -107,34 +102,7 @@ export default function HireMe() {
         <p className="fade-entry mt-2 text-center desktop:text-size-xsm">
           You can reach me and let&apos;s work together
         </p>
-        <ul className="flex flex-col gap-8 mt-6 place-self-center tablet-portrait:flex-row tablet-portrait:justify-center tablet-portrait:gap-15 desktop:mt-10">
-          <li className="card-container">
-            <FaLinkedin className="icons" />
-            <div className="content-container">
-              <h3 className="fade-entry text-size-lg">LinkedIn</h3>
-              <Link
-                href="https://www.linkedin.com/in/joshua-glenn-gulbin/"
-                className="fade-entry font-bold"
-              >
-                Visit my profile
-              </Link>
-              <p className="fade-entry">We can discuss your ideas there</p>
-            </div>
-          </li>
-          <li className="card-container">
-            <MdEmail className="icons" />
-            <div className="content-container">
-              <h3 className="fade-entry text-size-lg">Email</h3>
-              <a
-                href="mailto:gulbindev@gmail.com"
-                className="fade-entry font-bold"
-              >
-                gulbindev@gmail.com
-              </a>
-              <p className="fade-entry">I&apos;ll reply as soon as possible.</p>
-            </div>
-          </li>
-        </ul>
+        <Contact />
       </div>
     </section>
   );

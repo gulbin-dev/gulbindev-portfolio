@@ -85,7 +85,7 @@
 
 @theme {
   --spacing: 8px;
-  --color-light-foreground: #ededed;
+  --color-light-foreground: #fff;
   --color-light-secondary: #bcbcbc;
   --color-dark-foreground: #1a1a1a;
   --color-primary-color: #7a00ff;

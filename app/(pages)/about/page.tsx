@@ -1,13 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import {
-  FaHandPaper,
-  FaPaperPlane,
-  FaGithubSquare,
-  FaLinkedin,
-  FaReact,
-} from "@utils/react-icons";
+import { FaHandPaper, FaPaperPlane, FaReact } from "@utils/react-icons";
+import Contact from "@components/Contact";
 import {
   gsap,
   mediaQueries,
@@ -511,45 +506,34 @@ export default function About() {
           <h2 className="text-size-lg tablet-portrait:text-size-xl">
             Reach out!
           </h2>
-          <ul className="text-4xl flex gap-3 mt-2 tablet-portrait:text-4xl">
-            <li>
-              <button>
-                <FaGithubSquare />
-              </button>
-            </li>
-            <li>
-              <button>
-                <FaLinkedin />
-              </button>
-            </li>
-          </ul>
+          <Contact />
         </div>
         {/*  Tech Stack */}
-        <div className="mt-5">
+        <div className="mt-15">
           <h2 className="text-size-lg text-center tablet-portrait:text-size-xl">
             Tech Stack
           </h2>
           <ul className="flex container-tech-stack flex-wrap gap-y-4 gap-x-2 mt-3 justify-center">
             <li>
-              <span className="tech-stack">HTML</span>
+              <span className="tech-stack enlarge">HTML</span>
             </li>
             <li>
-              <span className="tech-stack">CSS</span>
+              <span className="tech-stack enlarge">CSS</span>
             </li>
             <li>
-              <span className="tech-stack">Javascript</span>
+              <span className="tech-stack enlarge">Javascript</span>
             </li>
             <li>
-              <span className="tech-stack">Tailwind CSS</span>
+              <span className="tech-stack enlarge">Tailwind CSS</span>
             </li>
             <li>
-              <span className="tech-stack">NextJS</span>
+              <span className="tech-stack enlarge">NextJS</span>
             </li>
             <li>
-              <span className="tech-stack">Typescript</span>
+              <span className="tech-stack enlarge">Typescript</span>
             </li>
             <li>
-              <span className="tech-stack">GSAP</span>
+              <span className="tech-stack enlarge">GSAP</span>
             </li>
           </ul>
         </div>

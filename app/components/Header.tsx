@@ -4,12 +4,14 @@ import NavLinks from "./NavLinks";
 import Link from "next/link";
 import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP } from "@utils/gsap";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const tl = useRef<gsap.core.Timeline | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
   const sideBarRef = useRef<HTMLDivElement | null>(null);
+  const pathName = usePathname();
 
   // Lock body scroll when mobile nav is open
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function Header() {
         }
       },
     });
-  }, []);
+  }, [pathName]);
 
   // Hamburger + sidebar animation timeline
   useGSAP(
