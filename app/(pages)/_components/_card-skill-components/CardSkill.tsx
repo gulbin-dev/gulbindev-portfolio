@@ -30,11 +30,11 @@ export function Video({
   return (
     <video
       ref={videoRef}
-      className="tablet-portrait:max-w-80 aspect-video object-contain desktop:max-w-100 translate-z-0"
+      className="tablet-portrait:max-w-80 aspect-video object-cover desktop:max-w-100 translate-z-0"
       muted
       playsInline
       poster={poster}
-      preload="none"
+      preload="metadata"
       onClick={handleFullScreen}
       onMouseEnter={handlePlay}
       onMouseLeave={handlePause}

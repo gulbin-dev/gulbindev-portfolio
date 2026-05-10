@@ -37,7 +37,7 @@ export default function PreviewVideo({
   return (
     <video
       ref={videoRef}
-      className="tablet-portrait:max-w-80 desktop:max-w-100"
+      className="aspect-video object-cover"
       muted
       preload="metadata"
       poster={`/project-video-poster/${folder}/poster.png`}
