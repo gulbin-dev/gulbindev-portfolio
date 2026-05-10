@@ -17,12 +17,20 @@ export default function PreviewVideo({
 
   const handlePlay = () => {
     if (videoRef.current) {
+      videoRef.current.style.cursor = "pointer";
       videoRef.current.play();
     }
   };
+
   const handlePause = () => {
     if (videoRef.current) {
       videoRef.current.pause();
+    }
+  };
+
+  const handleFullScreen = () => {
+    if (videoRef.current) {
+      videoRef.current.requestFullscreen();
     }
   };
 
@@ -32,9 +40,11 @@ export default function PreviewVideo({
       className="tablet-portrait:max-w-80 desktop:max-w-100"
       muted
       preload="metadata"
+      poster={`/project-video-poster/${folder}/poster.png`}
       playsInline
       width={400}
       height={225}
+      onClick={handleFullScreen}
       onMouseEnter={handlePlay}
       onMouseLeave={handlePause}
     >
