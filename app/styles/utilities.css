@@ -10,6 +10,10 @@
 
   .header-nav {
     li {
+      @variant desktop {
+        font-size: var(--text-size-sm);
+      }
+
       &::after {
         content: "";
         position: absolute;
@@ -168,7 +172,7 @@
 
   .frontend-after {
     &::after {
-      @variant max-mobile-portrait {
+      @variant max-desktop {
         background-color: var(--color-secondary-color);
       }
     }
@@ -176,7 +180,7 @@
 
   .developer-after {
     &::after {
-      @variant max-mobile-portrait {
+      @variant max-desktop {
         background-color: var(--color-col-neutral-1);
       }
     }
@@ -184,7 +188,7 @@
 
   .building-after {
     &::after {
-      @variant max-mobile-portrait {
+      @variant max-desktop {
         background-color: var(--color-col-neutral-2);
       }
     }
@@ -192,7 +196,7 @@
 
   .javascript-after {
     &::after {
-      @variant max-mobile-portrait {
+      @variant max-desktop {
         background-color: var(--color-action-color);
       }
     }
@@ -207,7 +211,7 @@
       height: 2px;
       width: 100%;
 
-      @variant max-mobile-portrait {
+      @variant max-desktop {
         background-color: var(--color-secondary-color);
       }
     }

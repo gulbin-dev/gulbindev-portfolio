@@ -1,25 +1,45 @@
 import React from "react";
-import { memo } from "react";
+import { useRef } from "react";
 
-export const Video = memo(function Video({
+export function Video({
   poster,
   children,
 }: {
   poster: string;
   children: Readonly<React.ReactNode>;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.style.cursor = "pointer";
+      videoRef.current.play();
+    }
+  };
+
+  const handlePause = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  const handleFullScreen = () => {
+    if (videoRef.current) {
+      videoRef.current.requestFullscreen();
+    }
+  };
   return (
     <video
-      className="tablet-portrait:max-w-80 aspect-video desktop:max-w-100 translate-z-0 object-cover"
+      ref={videoRef}
+      className="tablet-portrait:max-w-80 aspect-video object-cover desktop:max-w-100 translate-z-0"
       muted
-      controls
       playsInline
       poster={poster}
-      width={"100%"}
-      height={"auto"}
-      preload="none"
+      preload="metadata"
+      onClick={handleFullScreen}
+      onMouseEnter={handlePlay}
+      onMouseLeave={handlePause}
     >
       {children}
     </video>
   );
-});
+}

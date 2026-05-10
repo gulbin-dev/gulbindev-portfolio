@@ -26,7 +26,7 @@ export default function CardSkill() {
           const { reduceMotion, isSmallScreen } = context.conditions ?? {};
 
           ScrollTrigger.create({
-            trigger: "#pin-section",
+            trigger: cardSkillRef.current,
             start: "top bottom",
             //  wait for fonts to be loaded before animating SplitText
             onEnter: () =>
@@ -93,15 +93,14 @@ export default function CardSkill() {
   return (
     <section
       ref={cardSkillRef}
-      id="pin-section"
-      className="section w-full! h-full relative mt-0! overflow-hidden linear-bg pb-8 text-light-foreground"
+      className="section card-skill-section w-full! h-full relative mt-0! overflow-hidden linear-bg pb-8 text-light-foreground"
     >
       <div className="overflow-hidden">
-        <h2 className="card-skill-header opacity-100 text-heading-lg text-center text-pretty pt-5 tablet-portrait:pt-10 pb-1 px-2">
+        <h2 className="card-skill-header opacity-100 text-size-lg text-center text-pretty pt-5 tablet-portrait:pt-10 pb-1 px-2">
           Building Web Features that can stand out other brands
         </h2>
         <p
-          className="card-skill-p text-center text-pretty mt-1.5 px-3"
+          className="card-skill-p text-center text-pretty mt-1.5 px-3 desktop:text-size-xsm"
           aria-hidden="true"
         >
           A website rich in accessibility, performance, user-friendly, and clean

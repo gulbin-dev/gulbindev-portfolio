@@ -92,7 +92,7 @@ export default function HeroSection() {
           .toArray<
             HTMLElement[]
           >([".list-discover-button", ".list-about-me-button"])
-          .forEach(async (btn, i) => {
+          .forEach((btn, i) => {
             gsap.to(btn, {
               duration: 0.5 + i * 0.3,
               keyframes,
@@ -113,11 +113,11 @@ export default function HeroSection() {
     <section
       ref={heroSectionRef}
       id="home-top"
-      className="section w-full h-full overflow-hidden relative linear-bg z-0 tablet-portrait:h-90"
+      className="section  overflow-hidden relative linear-bg z-0 tablet-portrait:h-90"
     >
-      <div className="flex flex-col place-self-center max-w-180 h-full tablet-portrait:flex-row tablet-landscape:h-fit! tablet-portrait:justify-center">
+      <div className="flex flex-col  place-self-center max-w-180 w-full tablet-portrait:flex-row tablet-landscape:h-fit! tablet-portrait:justify-center">
         <div className="z-1 px-3 pt-10 h-full tablet-portrait:pt-15 tablet-portrait:max-w-1/2">
-          <h1 aria-hidden className="hero-header hero-header">
+          <h1 aria-hidden className="hero-header">
             Frontend Developer{" "}
             <span className="relative">
               Building
@@ -145,42 +145,25 @@ export default function HeroSection() {
           <h1 className="sr-only">
             Frontend Developer Building Predictable React Interfaces
           </h1>
-          <p className="hero-p mt-4 tablet-portrait:mt-3 translate-y-12.5 invisible">
+          <p className="hero-p mt-4 tablet-portrait:mt-3 tablet-portrait:text-size-xsm translate-y-12.5 invisible">
             Helping teams deliver high-performance React applications with a
             focus on accessibility and SEO.
           </p>
           <ul className="my-6 flex flex-col gap-5.5 w-fit h-full tablet-portrait:my-4 tablet-portrait:gap-4">
-            <li className="list-discover-button invisible group">
-              <Link
-                href="/discover"
-                className="relative block w-30 h-5 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold"
-              >
-                <div className="absolute inset-0 flex items-center justify-center transition-colors duration-500">
-                  CHECK MY WORKS
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center bg-col-neutral-2 text-light-foreground transition-transform duration-500 translate-y-full group-hover:translate-y-0">
-                  YOU MIGHT LIKE IT
-                </div>
+            <li className="list-discover-button text-base invisible group">
+              <Link href="/discover" className="cta-btn">
+                <span className="cta-text">CHECK MY WORKS</span>
               </Link>
             </li>
 
-            <li className="list-about-me-button autoAlpha group">
-              <Link
-                href="/about"
-                className="relative inline-block w-30 h-5 rounded-lg bg-action-color text-dark-foreground overflow-hidden font-bold"
-              >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  KNOW MORE ABOUT ME
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center bg-col-neutral-2 text-light-foreground transition-transform duration-500 translate-y-full group-hover:translate-y-0">
-                  CONTACT ME IF YOU CAN
-                </div>
+            <li className="list-about-me-button group">
+              <Link href="/about" className="cta-btn">
+                <span className="cta-text">KNOW MORE ABOUT ME</span>
               </Link>
             </li>
           </ul>
         </div>
-        <div className="relative top-0 left-0 h-60 min-w-53 z-1 overflow-hidden tablet-portrait:h-90">
+        <div className="relative top-0 left-0 h-60 min-w-53 min-h-90 z-1 overflow-hidden tablet-portrait:h-90">
           <Canvas />
         </div>
       </div>

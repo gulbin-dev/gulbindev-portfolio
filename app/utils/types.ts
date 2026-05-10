@@ -6,12 +6,7 @@ export type ListGitHubRepo = {
   name: string;
   description: string | null;
   html_url: string;
-};
-
-export type PreviewVideoContent = {
-  name: string;
-  html_url: string;
-  download_url?: string;
+  homepage: string | null;
 };
 
 export interface ImageSequenceConfig {

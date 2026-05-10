@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 
 /** Internal navigation links */
 export default function NavLinks({
@@ -14,11 +14,15 @@ export default function NavLinks({
   updateState?: Dispatch<SetStateAction<boolean>> | undefined;
 }) {
   const pathName = usePathname();
+  const isFooter = navStyle.includes("footer");
+  const footerNavRef = useRef<HTMLElement | null>(null);
 
   return (
-    <nav>
+    <nav ref={footerNavRef}>
       <ul className={navStyle}>
-        <li className={`relative ${pathName === "/" ? "active" : ""}`}>
+        <li
+          className={`relative ${pathName === "/" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}
+        >
           <Link
             className={anchorStyle}
             href="/"
@@ -27,7 +31,9 @@ export default function NavLinks({
             Home
           </Link>
         </li>
-        <li className={`relative ${pathName === "/discover" ? "active" : ""}`}>
+        <li
+          className={`relative ${pathName === "/discover" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}
+        >
           <Link
             className={anchorStyle}
             href="/discover"
@@ -36,7 +42,9 @@ export default function NavLinks({
             Discover
           </Link>
         </li>
-        <li className={`relative ${pathName === "/about" ? "active" : ""}`}>
+        <li
+          className={`relative ${pathName === "/about" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}
+        >
           <Link
             className={anchorStyle}
             href="/about"

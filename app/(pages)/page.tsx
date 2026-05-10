@@ -6,7 +6,7 @@ import HeroSection from "./_components/HeroSection";
 /** Home page content */
 export default function Home() {
   return (
-    <main>
+    <main className="min-h-[80vh] flex flex-col">
       {/* hero-section */}
       <HeroSection />
       {/* card-skill-section */}

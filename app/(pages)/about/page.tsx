@@ -1,13 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import {
-  FaHandPaper,
-  FaPaperPlane,
-  FaGithubSquare,
-  FaLinkedin,
-  FaReact,
-} from "@utils/react-icons";
+import { FaHandPaper, FaPaperPlane, FaReact } from "@utils/react-icons";
+import Contact from "@components/Contact";
 import {
   gsap,
   mediaQueries,
@@ -29,11 +24,11 @@ export default function About() {
       const mm = gsap.matchMedia();
       mm.add(mediaQueries, (context) => {
         // media queries conditions giving a responsive animation
-        const { isMobilePortraitScreen } = context.conditions ?? {};
+        const { isMobilePortraitScreen, isDesktopScreen } =
+          context.conditions ?? {};
 
         const smoother = ScrollSmoother.get();
-        if (!isMobilePortraitScreen)
-          smoother?.effects().forEach((t) => t.kill());
+        if (isDesktopScreen) smoother?.effects().forEach((t) => t.kill());
 
         const animateTechStack = () => {
           const techStacks = gsap.utils.toArray<HTMLElement[]>(".tech-stack");
@@ -52,23 +47,21 @@ export default function About() {
           });
         };
 
-        if (!isMobilePortraitScreen) {
+        if (isDesktopScreen) {
           // list of elements with the class "story-telling" used for horizontal scrolling
           const storyTellingElements =
             gsap.utils.toArray<HTMLElement[]>(".story-telling");
-
+          const pinned = document.querySelector(
+            ".tablet-pinned",
+          ) as HTMLDivElement;
           const scrollHorizontal = gsap.to(".tablet-pinned", {
-            x: -120 * storyTellingElements.length,
+            x: -180 * storyTellingElements.length,
             ease: "none",
             scrollTrigger: {
               trigger: ".tablet-pinned",
               pin: true,
-              start: "top top",
-              end: () =>
-                "bottom+=" +
-                (document.querySelector(".tablet-pinned") as HTMLDivElement)
-                  ?.offsetWidth +
-                "top",
+              start: 0,
+              end: () => "bottom+=" + pinned?.offsetWidth + " top",
               pinSpacing: true,
               scrub: 1,
               invalidateOnRefresh: true,
@@ -81,12 +74,7 @@ export default function About() {
             pin: true,
             start: 0,
             end: () =>
-              (document.querySelector(".tablet-pinned") as HTMLDivElement)
-                ?.offsetHeight +
-              "+=" +
-              (document.querySelector(".tablet-pinned") as HTMLDivElement)
-                ?.offsetWidth +
-              "top",
+              pinned?.offsetHeight + "+=" + pinned?.offsetWidth + " top",
           });
           /**
            * A function to animate the paper plane
@@ -116,9 +104,8 @@ export default function About() {
             const timeline = gsap.timeline({
               scrollTrigger: {
                 trigger: ".a",
+                immediateRender: true,
                 containerAnimation: scrollHorizontal,
-                start: 0,
-                end: "right left",
               },
               onStart: () => {
                 gsap.to(".responsive", {
@@ -126,7 +113,7 @@ export default function About() {
                   autoAlpha: 1,
                   scrollTrigger: {
                     trigger: ".responsive",
-                    start: "left 70%",
+                    start: "left 60%",
                     end: "right 40%",
                     containerAnimation: scrollHorizontal,
                   },
@@ -258,7 +245,7 @@ export default function About() {
                 "<",
               )
               .to(".and", {
-                yPercent: 0,
+                y: 0,
               });
           };
           const animateJsTs = () => {
@@ -284,7 +271,7 @@ export default function About() {
                 "-=0.3",
               )
               .to(".divider", {
-                delay: 0.5,
+                delay: 0.3,
                 rotate: -65,
                 scaleX: 0.3,
               })
@@ -313,8 +300,6 @@ export default function About() {
                     trigger: ".word-hi",
                     start: "top center",
                     end: "bottom+=200 center",
-                    markers: true,
-                    id: "name",
                   },
                 })
               : gsap.timeline({});
@@ -369,48 +354,51 @@ export default function About() {
   );
 
   return (
-    <main className="bg-primary-color-darker mb-4">
-      <section id="about-top" className="flex flex-col relative">
-        <div className="canvas-container h-90 w-full top-0 left-0 overflow-hidden z-20  tablet-portrait:absolute tablet-portrait:w-55 tablet-portrait:h-90 ">
-          <div className="hidden tablet-portrait:block absolute bg-primary-color-darker w-[15vw] h-80"></div>
+    <main className="bg-primary-color-darker">
+      <section
+        id="about-top"
+        className="flex flex-col relative max-w-180 place-self-center overflow-hidden"
+      >
+        <div className="canvas-container h-110 w-full relative top-0 left-0  z-20  desktop:absolute desktop:top-0 desktop:w-55 desktop:h-screen">
+          <div className="hidden absolute bg-primary-color-darker w-[15vw] h-screen desktop:block"></div>
           <AboutCanvas />
         </div>
-        <div className="tablet-pinned max-w-225! relative">
+        <div className="tablet-pinned max-w-225! relative  desktop:items-center">
           {/* this <div> is used only for animation */}
-          <div className="relative tablet-portrait:top-15 tablet-portrait:flex">
+          <div className="relative desktop:flex desktop:h-screen desktop:items-center">
             {" "}
-            <div className="hidden tablet-portrait:block min-w-60 min-h-15"></div>{" "}
-            <div className="flex mt-15 flex-col tablet-portrait:grid tablet-portrait:auto-rows-auto items-center tablet-portrait:max-h-20 tablet-portrait:auto-cols-min tablet-portrait:mt-0 tablet-portrait:w-screen tablet-portrait:min-w-50 tablet-portrait:gap-y-5">
+            <div className="hidden desktop:block min-w-60 min-h-15"></div>{" "}
+            <div className="flex mt-5 flex-col items-center  tablet-portrait:mt-5 desktop:items-center desktop:mt-0">
               {" "}
-              <h1 className="text-heading-lg mt-10 tablet-portrait:text-heading-xl col-start-1">
+              <h1 className="text-size-lg  tablet-portrait:text-size-xl  col-start-1">
                 About Me
               </h1>
               <p
-                className="inline-block place-self-center tablet-portrait:text-3xl tablet-portrait:truncate col-start-1 mt-3"
+                className="inline-block place-self-center col-start-1 mt-3 tablet-portrait:text-size-xl desktop:truncate desktop:mt-0"
                 aria-hidden="true"
               >
                 <span className="flex gap-1 justify-center">
                   {" "}
                   <span className="word-hi self-end">Hi!</span>{" "}
                   <span className="min-w-3">
-                    <FaHandPaper className="hand-icon z-300 invisible tablet-portrait:visible" />
+                    <FaHandPaper className="hand-icon z-300 invisible desktop:visible" />
                   </span>{" "}
                 </span>{" "}
-                <span className="block tablet-portrait:hidden">
+                <span className="block desktop:hidden">
                   I&apos;m{" "}
                   <span className="text-action-color font-bold">
                     Joshua Glenn R. Gulbin
                   </span>
                 </span>
-                <span className="hidden tablet-portrait:block">
+                <span className="hidden desktop:block">
                   {" "}
                   <span className="">I&apos;m</span>{" "}
-                  <span className="name1 text-col-neutral-1 inline-block font-bold min-w-50 overflow-clip"></span>{" "}
+                  <span className="name1 text-col-neutral-1 inline-block min-w-60 font-bold  overflow-clip"></span>{" "}
                 </span>
               </p>
               {/* mobile UI */}
               <p
-                className="inline-block text-center h-full px-5 text-pretty tablet-portrait:hidden col-start-1"
+                className="inline-block text-center h-full px-5 text-pretty tablet-portrait:text-size-md desktop:hidden col-start-1"
                 aria-hidden="true"
               >
                 {" "}
@@ -430,23 +418,23 @@ export default function About() {
             </div>
             {/* bigger screen UI */}
             <div
-              className="hidden text-center relative tablet-portrait:flex gap-2 text-3xl items-end min-h-30 h-full"
+              className="hidden text-center relative gap-2 mt-12 items-center text-size-xl desktop:flex"
               aria-hidden="true"
             >
               {" "}
-              <span className="clip ">
+              <span className="clip">
                 <span className="story-telling inline-block a lift-words -translate-x-6.25">
                   a
                 </span>{" "}
               </span>
-              <span className="grid grid-cols-[repeat(9,50px)] gap-0.5 relative clip">
-                <span className="story-telling frontend py-1.5 px-2.5 rounded-2xl frontend-bg-linear col-start-1 col-span-3 row-start-1 -translate-x-[101%]">
+              <span className="grid grid-cols-[repeat(9,80px)] gap-0.5 relative clip">
+                <span className="story-telling frontend py-1 px-1.5 rounded-2xl frontend-bg-linear col-start-1 col-span-3 row-start-1 -translate-x-[101%]">
                   <span>frontend</span>
                 </span>
-                <span className="story-telling developer py-1.5 px-2.5 rounded-2xl developer-bg-linear col-start-3 col-span-5 row-start-1 -z-1 invisible rotate-180 origin-top-left">
+                <span className="story-telling developer py-1 px-1.5 rounded-2xl developer-bg-linear col-start-3 col-span-5 row-start-1 -z-1 invisible rotate-180 origin-top-left">
                   <span>developer</span>
                 </span>
-                <span className="story-telling building py-1.5 px-2.5 rounded-2xl building-bg-linear col-start-7 col-span-3 row-start-1 origin-bottom translate-y-3.75 scale-y-0">
+                <span className="story-telling building py-1 px-1.5 rounded-2xl building-bg-linear col-start-7 col-span-3 row-start-1 origin-bottom translate-y-3.75 scale-y-0">
                   <span>building</span>{" "}
                 </span>
               </span>
@@ -456,19 +444,19 @@ export default function About() {
                   responsive,
                 </span>{" "}
               </span>
-              <span className="container-state-driven grid grid-cols-[repeat(4,50px)] clip content-start mb-0.75  rounded-lg">
-                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-0.5 pl-1.5 flex gap-1.5 items-center z-2 -translate-x-12.5">
+              <span className="container-state-driven grid grid-cols-[repeat(4, clamp(80px, 20vw, 120px))] clip content-start rounded-lg">
+                <span className="story-telling state col-start-1 col-span-2 bg-action-color text-dark-foreground rounded-l-sm py-1 pl-1.5 flex gap-1.5 items-center z-2 -translate-x-20.5">
                   state{" "}
                   <span className="story-telling hyphen w-0.5 h-[3px] block bg-dark-foreground origin-center rotate-90 scale-x-[10]"></span>
                 </span>
 
-                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-0.5 pl-0.5 pr-1.5 rounded-r-sm block z-1 -translate-x-28.75">
+                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-1 pl-0.5 pr-1.5 rounded-r-sm block z-1 -translate-x-35.75">
                   driven
                 </span>
               </span>{" "}
               {/*  SVG paper plane */}
-              <div className="hidden tablet-portrait:block absolute left-92 top-25 min-w-20 min-h-30">
-                <svg className="w-full h-full scale-65 -rotate-45 tablet-portrait:scale-100 tablet-portrait:rotate-0">
+              <div className="hidden desktop:block absolute left-180 top-25 min-w-20 min-h-30">
+                <svg className="w-full h-full scale-65 -rotate-45 desktop:scale-100 desktop:rotate-0">
                   <path
                     id="path"
                     fill="none"
@@ -481,24 +469,24 @@ export default function About() {
                 web applications using
               </span>{" "}
               <span className="grid grid-cols-[repeat(4,50px) items-center mb-0.75 gap-0.5 clip">
-                <span className="story-telling react col-start-1 col-span-2 -translate-x-12.5">
+                <span className="story-telling react col-start-1 col-span-2 -translate-x-15.5">
                   React
                 </span>{" "}
-                <FaReact className="col-start-3 react-icon text-[#61DBFB] bg-primary-color-darker text-5xl font-bold rounded-md z-1 -translate-x-18.75" />
+                <FaReact className="col-start-3 react-icon text-[#61DBFB] bg-primary-color-darker text-5xl font-bold rounded-md z-1 -translate-x-20.75" />
                 <span className="story-telling and pl-1 mb-px col-start-4 -translate-y-[102%]">
                   and
                 </span>{" "}
               </span>
-              <span className="mb-[11px] items-center grid grid-cols-[repeat(4,50px)] grid-rows-[repeat(2,20px)] gap-2.5 relative">
-                <span className="clip col-start-1 row-start-1 col-span-2 js-container">
-                  <span className="story-telling relative block pb-0.5 javascript-after javaScript  py-0.5 px-1.5 bg-action-color text-dark-foreground rounded-sm invisible translate-y-full">
+              <span className="mb-[11px] items-center grid grid-cols-[repeat(4,70px)] grid-rows-[repeat(2,30px)] gap-2.5 relative">
+                <span className="clip mb-2 col-start-1 row-start-1 col-span-2 js-container">
+                  <span className="story-telling relative block pb-0.5 javascript-after javaScript py-1 px-2 bg-action-color text-dark-foreground rounded-sm invisible translate-y-full">
                     JavaScript
                   </span>{" "}
                 </span>
 
-                <span className="text-8xl divider absolute left-1/2 -translate-x-1/2 z-1 w-48 h-1 bg-light-foreground"></span>
-                <span className="clip col-start-4 row-start-2 col-span-2 ts-container">
-                  <span className="story-telling relative block pb-0.5 typescript-after typeScript  py-0.5 px-1.5 bg-secondary-color rounded-sm  invisible -translate-y-full">
+                <span className="text-8xl divider absolute left-1/2 -translate-x-1/2 z-1 w-60 h-1 bg-light-foreground"></span>
+                <span className="clip mt-2 col-start-4 row-start-2 col-span-2 ts-container">
+                  <span className="story-telling relative block pb-0.5 typescript-after typeScript py-1 px-2 bg-secondary-color rounded-sm  invisible -translate-y-full">
                     TypeScript.
                   </span>
                 </span>
@@ -514,47 +502,38 @@ export default function About() {
         </div>
 
         {/* Contact */}
-        <div className="relative flex flex-col items-center gap-x-2 mt-6 tablet-portrait:mt-50">
-          <h2 className="text-heading-lg! tablet-portrait:text-heading-xl!">
+        <div className="relative flex flex-col items-center gap-x-2 mt-6">
+          <h2 className="text-size-lg tablet-portrait:text-size-xl">
             Reach out!
           </h2>
-          <ul className="text-4xl flex gap-3 mt-2">
-            <li>
-              <button>
-                <FaGithubSquare />
-              </button>
-            </li>
-            <li>
-              <button>
-                <FaLinkedin />
-              </button>
-            </li>
-          </ul>
+          <Contact />
         </div>
         {/*  Tech Stack */}
-        <div className="mt-5">
-          <h2 className="text-heading-lg text-center">Tech Stack</h2>
+        <div className="mt-15">
+          <h2 className="text-size-lg text-center tablet-portrait:text-size-xl">
+            Tech Stack
+          </h2>
           <ul className="flex container-tech-stack flex-wrap gap-y-4 gap-x-2 mt-3 justify-center">
             <li>
-              <span className="tech-stack">HTML</span>
+              <span className="tech-stack enlarge">HTML</span>
             </li>
             <li>
-              <span className="tech-stack">CSS</span>
+              <span className="tech-stack enlarge">CSS</span>
             </li>
             <li>
-              <span className="tech-stack">Javascript</span>
+              <span className="tech-stack enlarge">Javascript</span>
             </li>
             <li>
-              <span className="tech-stack">Tailwind CSS</span>
+              <span className="tech-stack enlarge">Tailwind CSS</span>
             </li>
             <li>
-              <span className="tech-stack">NextJS</span>
+              <span className="tech-stack enlarge">NextJS</span>
             </li>
             <li>
-              <span className="tech-stack">Typescript</span>
+              <span className="tech-stack enlarge">Typescript</span>
             </li>
             <li>
-              <span className="tech-stack">GSAP</span>
+              <span className="tech-stack enlarge">GSAP</span>
             </li>
           </ul>
         </div>

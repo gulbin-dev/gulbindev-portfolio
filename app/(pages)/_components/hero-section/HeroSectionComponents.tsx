@@ -14,7 +14,11 @@ export function Canvas() {
         smoother?.effects("[data-speed], [data-lag]");
 
         // gsap.matchMedia contitions
-        const { isMobilePortraitScreen } = context.conditions ?? {};
+        const {
+          isMobilePortraitScreen,
+          isTabletPortraitScreen,
+          isDesktopScreen,
+        } = context.conditions ?? {};
 
         const { placeholderImage, playhead, images } = frameImages;
 
@@ -23,11 +27,10 @@ export function Canvas() {
             config.canvas,
           )[0] as HTMLCanvasElement;
           const ctx = canvasElement.getContext("2d");
-          if (!isMobilePortraitScreen) {
-            canvasElement.style.scale = "0.7";
-          } else {
-            canvasElement.style.scale = "1";
-          }
+
+          const dpr = window.devicePixelRatio || 1;
+          if (dpr === 1.5) canvasElement.style.scale = "0.7";
+
           const updateImage = () => {
             const currentImg = images[Math.round(playhead.frame)];
             const x = (canvasElement.width - placeholderImage.width) / 2;
@@ -86,7 +89,12 @@ export function Canvas() {
           canvas: "#hero-canvas",
           scrollTrigger: {
             trigger: "#hero-canvas",
-            start: isMobilePortraitScreen ? "top 60%" : "top-=200 top",
+            start: isDesktopScreen
+              ? "top+=50 top"
+              : isTabletPortraitScreen
+                ? "top top"
+                : "top 60%",
+
             id: "hero-canvas-scroll",
             end: isMobilePortraitScreen ? "bottom 90%" : "20% top",
             scrub: true,
@@ -100,7 +108,7 @@ export function Canvas() {
   return (
     <canvas
       id="hero-canvas"
-      className="absolute tablet-portrait:max-w-none top-25 mobile-landscape:left-1/2 mobile-landscape:-translate-x-1/2! tablet-portrait:left-0 tablet-portrait:top-0 tablet-portrait:translate-x-0! "
+      className="absolute left-0 origin-center tablet-portrait:max-w-none top-25 mobile-landscape:left-1/2 mobile-landscape:-translate-x-1/2! tablet-portrait:left-0 tablet-portrait:top-0 tablet-portrait:translate-x-0!"
       data-speed="0.5"
       width={420}
       height={720}

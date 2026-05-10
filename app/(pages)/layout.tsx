@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "@styles/globals.css";
 import Header from "@components/Header";
 import { Poppins, Roboto } from "next/font/google";
-import Footer from "@components/Footer";
-import PagesWrapper from "./PagesWrapper";
+
+import PagesWrapper from "@components/PagesWrapper";
+import FooterWrapper from "@components/FooterWrapper";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -79,7 +80,7 @@ export default function RootLayout({
         <Header />
         <PagesWrapper>
           {children}
-          <Footer />
+          <FooterWrapper />
         </PagesWrapper>
       </body>
     </html>
