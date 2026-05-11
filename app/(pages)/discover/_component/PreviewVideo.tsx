@@ -12,18 +12,33 @@ export default function PreviewVideo({
   folder: string;
 }>) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playPromiseRef = useRef<Promise<void> | null>(null);
+
   const url =
     "https://d2kkupsaj7vt9n9k.public.blob.vercel-storage.com/" + folder;
 
   const handlePlay = () => {
     if (videoRef.current) {
-      videoRef.current.style.cursor = "pointer";
-      videoRef.current.play();
+      playPromiseRef.current = videoRef.current.play();
+
+      playPromiseRef.current
+        .then(() => {
+          videoRef.current!.style.cursor = "pointer";
+        })
+        .catch((e) => {
+          console.error("Playback failed", e);
+        });
     }
   };
 
   const handlePause = () => {
-    if (videoRef.current) {
+    if (videoRef.current && playPromiseRef.current) {
+      playPromiseRef.current
+        .then(() => {
+          videoRef.current?.pause();
+        })
+        .catch(() => {});
+    } else if (videoRef.current) {
       videoRef.current.pause();
     }
   };

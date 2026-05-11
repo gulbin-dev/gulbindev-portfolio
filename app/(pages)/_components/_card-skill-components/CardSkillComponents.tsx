@@ -10,48 +10,62 @@ export function Video({
   children: Readonly<React.ReactNode>;
 }) {
   const { ref, inView } = useInView({
-    threshold: 0.1,
+    rootMargin: "300px 0px 0px 0px",
+    triggerOnce: true,
   });
-  const video = useRef<HTMLVideoElement>(null);
-
-  const setRef = (element: HTMLVideoElement) => {
-    video.current = element;
-    ref(element);
-  };
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const playPromiseRef = useRef<Promise<void> | null>(null);
 
   const handlePlay = () => {
-    if (inView && video.current) {
-      video.current.play().catch((e) => console.error("Playback failed", e));
-      video.current.style.cursor = "pointer";
-      video.current.play();
+    if (videoRef.current) {
+      playPromiseRef.current = videoRef.current.play();
+
+      playPromiseRef.current
+        .then(() => {
+          videoRef.current!.style.cursor = "pointer";
+        })
+        .catch((e) => {
+          console.error("Playback failed", e);
+        });
     }
   };
 
   const handlePause = () => {
-    if (video.current) {
-      video.current.pause();
+    if (videoRef.current && playPromiseRef.current) {
+      playPromiseRef.current
+        .then(() => {
+          videoRef.current?.pause();
+        })
+        .catch(() => {});
+    } else if (videoRef.current) {
+      videoRef.current.pause();
     }
   };
 
   const handleFullScreen = () => {
-    if (video.current) {
-      video.current.requestFullscreen();
+    if (videoRef.current) {
+      videoRef.current.requestFullscreen();
     }
   };
 
   return (
-    <video
-      ref={setRef}
-      className="tablet-portrait:max-w-80 aspect-video object-cover desktop:max-w-100 translate-z-0"
-      muted
-      playsInline
-      poster={poster}
-      preload="none"
-      onClick={handleFullScreen}
-      onMouseEnter={handlePlay}
-      onMouseLeave={handlePause}
-    >
-      {children}
-    </video>
+    <div className="min-h-40 tablet-portrait:min-h-45 desktop:min-h-56.25">
+      <video
+        ref={(el) => {
+          videoRef.current = el;
+          ref(el);
+        }}
+        className="tablet-portrait:max-w-80 aspect-video object-cover desktop:max-w-100 translate-z-0"
+        muted
+        playsInline
+        poster={inView ? poster : ""}
+        preload="none"
+        onClick={handleFullScreen}
+        onMouseEnter={handlePlay}
+        onMouseLeave={handlePause}
+      >
+        {children}
+      </video>
+    </div>
   );
 }
