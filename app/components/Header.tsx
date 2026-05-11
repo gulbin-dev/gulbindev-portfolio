@@ -34,12 +34,12 @@ export default function Header() {
       end: "max",
       onUpdate: (self) => {
         const velocity = self.getVelocity();
-        if (Math.abs(velocity) < 5) return;
+        if (Math.abs(velocity) === 0) return;
 
         if (velocity < 0) {
-          showHeaderAnim.play();
-        } else {
           showHeaderAnim.reverse();
+        } else {
+          showHeaderAnim.play();
         }
       },
     });
