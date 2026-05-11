@@ -20,12 +20,13 @@ export default function Header() {
 
   // Header hide/show on scroll
   useGSAP(() => {
-    let isScrollingDown = true;
-    const showHeaderAnim = gsap.to(headerRef.current, {
-      yPercent: -100,
-      duration: 0.5,
-      paused: true,
-    });
+    const showHeaderAnim = gsap
+      .to(headerRef.current, {
+        yPercent: -100,
+        duration: 0.5,
+        paused: true,
+      })
+      .progress(1);
 
     ScrollTrigger.create({
       animation: showHeaderAnim,
@@ -33,17 +34,16 @@ export default function Header() {
       end: "max",
       onUpdate: (self) => {
         const velocity = self.getVelocity();
-        if (Math.abs(velocity) < 15) return;
+        if (Math.abs(velocity) < 5) return;
 
-        if (velocity < 0 && isScrollingDown) {
-          isScrollingDown = false;
-          showHeaderAnim.reverse();
-        } else if (velocity > 0 && !isScrollingDown) {
-          isScrollingDown = true;
+        if (velocity < 0) {
           showHeaderAnim.play();
+        } else {
+          showHeaderAnim.reverse();
         }
       },
     });
+    ScrollTrigger.refresh();
   }, [pathName]);
 
   // Hamburger + sidebar animation timeline
