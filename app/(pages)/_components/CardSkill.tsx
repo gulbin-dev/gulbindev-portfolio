@@ -10,12 +10,19 @@ import {
   ScrollTrigger,
 } from "@utils/gsap";
 import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 /** card-skill component */
 
 export default function CardSkill() {
   const cardSkillRef = useRef<HTMLElement | null>(null);
+  const { ref, inView } = useInView({
+    rootMargin: "200px 0px 0px 0px",
+    triggerOnce: true,
+  });
+
   useGSAP(
     () => {
+      if (!inView) return;
       const mm = gsap.matchMedia();
       mm.add(
         // media queries conditions giving a responsive animation
@@ -87,12 +94,15 @@ export default function CardSkill() {
         },
       );
     },
-    { dependencies: [], scope: cardSkillRef },
+    { dependencies: [inView], scope: cardSkillRef },
   );
 
   return (
     <section
-      ref={cardSkillRef}
+      ref={(el) => {
+        cardSkillRef.current = el;
+        ref(el);
+      }}
       className="section card-skill-section w-full! h-full relative mt-0! overflow-hidden linear-bg pb-8 text-light-foreground"
     >
       <div className="overflow-hidden">
@@ -146,6 +156,7 @@ export default function CardSkill() {
                 width={800}
                 height={450}
                 placeholder="blur"
+                loading="lazy"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAYAAADn9T9+AAAAEElEQVR42mMMNZr4n4EIAABPmQIZAUAfkQAAAABJRU5ErkJggg=="
                 className="tablet-portrait:max-w-80 desktop:max-w-100 object-cover aspect-video"
               />

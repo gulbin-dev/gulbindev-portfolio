@@ -4,12 +4,17 @@ import { FaMapLocationDot, RiTeamFill } from "@utils/react-icons";
 import Contact from "@/app/components/Contact";
 import { gsap, mediaQueries, ScrollTrigger, useGSAP } from "@utils/gsap";
 import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function HireMe() {
   const hireMeRef = useRef<HTMLElement | null>(null);
-
+  const { ref, inView } = useInView({
+    rootMargin: "200px 0px 0px 0px",
+    triggerOnce: true,
+  });
   useGSAP(
     () => {
+      if (!inView) return;
       const mm = gsap.matchMedia();
       mm.add(mediaQueries, (context) => {
         const { reduceMotion } = context.conditions ?? {};
@@ -60,12 +65,15 @@ export default function HireMe() {
         });
       });
     },
-    { dependencies: [], scope: hireMeRef },
+    { dependencies: [inView], scope: hireMeRef },
   );
 
   return (
     <section
-      ref={hireMeRef}
+      ref={(el) => {
+        hireMeRef.current = el;
+        ref(el);
+      }}
       className="section snap w-full h-full bg-primary-color-darker py-7 px-3"
     >
       <h2 className="fade-entry text-size-xl text-center font-bold">
@@ -74,7 +82,11 @@ export default function HireMe() {
       <div className="max-w-180 place-self-center">
         <ul className="flex flex-col gap-8 mt-6 items-center place-self-center tablet-portrait:flex-row tablet-portrait:gap-15">
           <li className="card-container">
-            <FaMapLocationDot className="icons" aria-hidden />
+            {inView ? (
+              <FaMapLocationDot className="icons" aria-hidden />
+            ) : (
+              <div className="w-10 h-10"></div>
+            )}
             <div className="content-container">
               <h3 className="fade-entry text-size-lg font-bold">Location</h3>
               <h4 className="fade-entry font-bold">Remote/Worldwide</h4>
@@ -84,7 +96,11 @@ export default function HireMe() {
             </div>
           </li>
           <li className="card-container">
-            <RiTeamFill className="icons" aria-hidden />
+            {inView ? (
+              <RiTeamFill className="icons" aria-hidden />
+            ) : (
+              <div className="w-10 h-10"></div>
+            )}
             <div className="content-container">
               <h3 className="fade-entry text-size-lg font-bold">
                 Job Preference
@@ -102,7 +118,7 @@ export default function HireMe() {
         <p className="fade-entry mt-2 text-center desktop:text-size-xsm">
           You can reach me and let&apos;s work together
         </p>
-        <Contact />
+        <Contact />{" "}
       </div>
     </section>
   );

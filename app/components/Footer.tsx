@@ -2,10 +2,24 @@ import NavLinks from "./NavLinks";
 import Link from "next/link";
 import Image from "next/image";
 import { FaGithubSquare, FaLinkedin, MdEmail } from "@utils/react-icons";
+import { useInView } from "react-intersection-observer";
+import { useRef } from "react";
 
 export default function Footer() {
+  const footerRef = useRef<HTMLElement | null>(null);
+  const { ref, inView } = useInView({
+    rootMargin: "200px 0px 0px 0px",
+    triggerOnce: true,
+  });
+
   return (
-    <footer className="bg-primary-color-darker w-full pb-1">
+    <footer
+      ref={(el) => {
+        footerRef.current = el;
+        ref(el);
+      }}
+      className="bg-primary-color-darker w-full pb-1"
+    >
       <div className="max-w-180 place-self-center w-full px-3">
         <Link href="/" className="text-white inline-block">
           <Image src="/logo.png" alt="logo" width={100} height={58} />
@@ -23,7 +37,11 @@ export default function Footer() {
                 aria-label="Visit my Github"
                 className="enlarge"
               >
-                <FaGithubSquare />
+                {inView ? (
+                  <FaGithubSquare />
+                ) : (
+                  <div className="w-[1em] h-[1em"></div>
+                )}
               </Link>
             </li>
             <li>
@@ -32,7 +50,11 @@ export default function Footer() {
                 aria-label="Let's connect on LinkedIn"
                 className="enlarge"
               >
-                <FaLinkedin />
+                {inView ? (
+                  <FaLinkedin />
+                ) : (
+                  <div className="w-[1em] h-[1em]"></div>
+                )}
               </Link>
             </li>
             <li>
@@ -41,7 +63,7 @@ export default function Footer() {
                 aria-label="Send me an email"
                 className="enlarge"
               >
-                <MdEmail />
+                {inView ? <MdEmail /> : <div className="w-[1em] h-[1em]"></div>}
               </Link>
             </li>
           </ul>

@@ -20,12 +20,16 @@ export default async function Projects() {
             <ul className="flex gap-3 mt-2 text-size-md">
               <li>
                 <Link href={project.homepage as string} target="_blank">
-                  Visit Website
+                  <span className="px-3 py-1 bg-action-color text-dark-foreground font-bold">
+                    Visit Website
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href={project.html_url} target="_blank">
-                  View on GitHub
+                  <span className="px-3 py-1 bg-action-color/80 text-dark-foreground">
+                    View on GitHub
+                  </span>
                 </Link>
               </li>
             </ul>

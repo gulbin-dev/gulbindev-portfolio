@@ -2,13 +2,19 @@
 
 import { gsap, mediaQueries, ScrollTrigger, useGSAP } from "@utils/gsap";
 import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function VSCodeUI() {
   const vsCodeRef = useRef<HTMLElement | null>(null);
+  const { ref, inView } = useInView({
+    rootMargin: "200px 0px 0px 0px",
+    triggerOnce: true,
+  });
 
   // handle VSCode section header animation
   useGSAP(
     () => {
+      if (!inView) return;
       const mm = gsap.matchMedia();
       mm.add(
         // media queries conditions giving a responsive animation
@@ -37,12 +43,13 @@ export default function VSCodeUI() {
         },
       );
     },
-    { dependencies: [], scope: vsCodeRef },
+    { dependencies: [inView], scope: vsCodeRef },
   );
 
   // handle fade animation on scroll
   useGSAP(
     () => {
+      if (!inView) return;
       const mm = gsap.matchMedia();
       mm.add(
         // media queries conditions giving a responsive animation
@@ -66,12 +73,15 @@ export default function VSCodeUI() {
         },
       );
     },
-    { dependencies: [], scope: vsCodeRef },
+    { dependencies: [inView], scope: vsCodeRef },
   );
 
   return (
     <section
-      ref={vsCodeRef}
+      ref={(el) => {
+        vsCodeRef.current = el;
+        ref(el);
+      }}
       aria-hidden="true"
       className="section snap w-full h-full  section3-bg"
     >
