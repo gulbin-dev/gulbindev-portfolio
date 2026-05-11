@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Video } from "./_card-skill-components/CardSkill";
+import { Video } from "./_card-skill-components/CardSkillComponents";
 import {
   gsap,
   mediaQueries,
