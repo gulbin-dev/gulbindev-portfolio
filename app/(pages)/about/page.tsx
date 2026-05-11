@@ -450,7 +450,7 @@ export default function About() {
                   <span className="story-telling hyphen w-0.5 h-[3px] block bg-dark-foreground origin-center rotate-90 scale-x-[10]"></span>
                 </span>
 
-                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-1 pl-0.5 pr-1.5 rounded-r-sm block z-1 -translate-x-35.75">
+                <span className="story-telling driven col-start-3 col-span-2 bg-action-color text-dark-foreground py-1 pl-1.5 pr-1.5 rounded-r-sm block z-1 -translate-x-35.75">
                   driven
                 </span>
               </span>{" "}
