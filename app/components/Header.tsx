@@ -26,7 +26,7 @@ export default function Header() {
         duration: 0.5,
         paused: true,
       })
-      .progress(1);
+      .progress(0);
 
     ScrollTrigger.create({
       animation: showHeaderAnim,
@@ -34,6 +34,7 @@ export default function Header() {
       end: "max",
       onUpdate: (self) => {
         const velocity = self.getVelocity();
+        console.log(Math.abs(velocity));
         if (Math.abs(velocity) === 0) return;
 
         if (velocity < 0) {
