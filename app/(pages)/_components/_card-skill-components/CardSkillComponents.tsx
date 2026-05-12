@@ -18,15 +18,12 @@ export function Video({
 
   const handlePlay = () => {
     if (videoRef.current) {
+      videoRef.current!.style.cursor = "pointer";
       playPromiseRef.current = videoRef.current.play();
 
-      playPromiseRef.current
-        .then(() => {
-          videoRef.current!.style.cursor = "pointer";
-        })
-        .catch((e) => {
-          console.error("Playback failed", e);
-        });
+      playPromiseRef.current.catch((e) => {
+        console.error("Playback failed", e);
+      });
     }
   };
 

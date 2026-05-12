@@ -50,12 +50,12 @@ export default function PreviewVideo({
   };
 
   return (
-    <div className="tablet-portrait:min-h-50 desktop:min-h-33.75">
+    <div className="tablet-portrait:min-h-50 desktop:min-h-33.75 desktop:min-w-60">
       <video
         ref={videoRef}
         className="aspect-video object-cover justify-self-center tablet-portrait:rounded-t-xl  desktop:max-w-60 desktop:rounded-none"
         muted
-        preload="metadata"
+        preload="none"
         poster={`/project-video-poster/${folder}/poster.png`}
         playsInline
         width="100%"
