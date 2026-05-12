@@ -68,7 +68,7 @@ export default function Contact() {
   return (
     <ul
       ref={contactRef}
-      className="flex flex-col gap-8 mt-6 place-self-center tablet-portrait:flex-row tablet-portrait:justify-center tablet-portrait:gap-15 desktop:mt-10"
+      className="flex flex-col gap-8 mt-6 place-self-center tablet-portrait:flex-row tablet-portrait:justify-center tablet-portrait:gap-6 tablet-portrait:px-3 desktop:mt-10"
     >
       <li className="card-contact-container">
         <div className="card-contact-header">
@@ -81,7 +81,7 @@ export default function Contact() {
         </div>
 
         <div className="contact-content-container">
-          <p className="contact-fade-entry font-bold">
+          <p className="contact-fade-entry">
             Always happy to discuss potential fits.
           </p>
           <Link
@@ -105,7 +105,7 @@ export default function Contact() {
         </div>
 
         <div className="contact-content-container">
-          <p className="contact-fade-entry font-bold">
+          <p className="contact-fade-entry">
             I&apos;m open to new challenges, Feel free to reach out!
           </p>
           <Link

@@ -221,11 +221,14 @@
     border: 3px solid var(--color-light-foreground);
     background-color: var(--color-secondary-color);
     max-width: 320px;
-    width: 320px;
+    width: 280px;
     height: 350px;
     display: grid;
     grid-template-rows: auto 1fr;
 
+    @variant tablet-portrait {
+      width: 320px;
+    }
     .card-contact-header,
     .contact-content-container {
       display: grid;
@@ -329,5 +332,16 @@
     @variant desktop {
       font-size: var(--text-size-xl);
     }
+  }
+
+  /* Discover Page */
+  .view-github:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    background-color: var(--color-action-color);
   }
 }

@@ -49,7 +49,7 @@ export function Video({
   };
 
   return (
-    <div className="min-h-40 tablet-portrait:min-h-45 desktop:min-h-56.25">
+    <div className="min-h-20 tablet-portrait:min-h-45 desktop:min-h-56.25">
       <video
         ref={(el) => {
           videoRef.current = el;
