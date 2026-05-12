@@ -1,6 +1,8 @@
 import { fetchProjectDemo } from "@utils/project-demo";
 import PreviewVideo from "./PreviewVideo";
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
+import { Suspense } from "react";
 
 export default async function Projects() {
   const { projects } = await fetchProjectDemo();
@@ -11,7 +13,10 @@ export default async function Projects() {
           key={project.id}
           className="grid grid-rows-[auto_1fr] gap-5 mb-15 border-b-10 pb-5 tablet-portrait:rounded-xl tablet-portrait:border  tablet-portrait:mb-0 desktop:grid-cols-[auto_1fr] desktop:pl-4 desktop:pt-4 desktop:pb-0"
         >
-          <PreviewVideo folder={project.name} />
+          <Suspense fallback={<Skeleton width="100%" height={270} />}>
+            <PreviewVideo folder={project.name} />
+          </Suspense>
+
           <article className="grid grid-rows-[auto_1fr_auto] px-3">
             <h3 className="text-size-lg font-semibold">{project.name}</h3>
             <p className="mt-2 text-pretty">
