@@ -61,7 +61,7 @@ export default function Header() {
         .to(slices[3], { autoAlpha: 0, y: -10 }, "<-=0.3")
         .fromTo(
           sideBarRef.current,
-          { x: "-100%" },
+          { x: "100%" },
           { x: "0%", duration: 0.5 },
           "<",
         );
