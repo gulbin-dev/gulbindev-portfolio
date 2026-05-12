@@ -26,7 +26,7 @@ export default function Header() {
         duration: 0.5,
         paused: true,
       })
-      .progress(1);
+      .progress(0);
 
     ScrollTrigger.create({
       animation: showHeaderAnim,
