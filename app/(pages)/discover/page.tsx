@@ -18,7 +18,7 @@ export default function Discover() {
         <h2 className="text-center text-size-lg mt-15">
           Any ideas you may have? Let&apos;s make it real.
         </h2>
-        <p className="text-center ">Reach me here</p>
+        <p className="text-center mt-3">Reach me here</p>
         <Contact />
       </section>
     </main>

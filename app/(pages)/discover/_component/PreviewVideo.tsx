@@ -52,12 +52,12 @@ export default function PreviewVideo({
   return (
     <video
       ref={videoRef}
-      className="aspect-video object-cover"
+      className="aspect-video object-cover justify-self-center tablet-portrait:rounded-t-xl desktop:max-w-60 desktop:rounded-none"
       muted
       preload="metadata"
       poster={`/project-video-poster/${folder}/poster.png`}
       playsInline
-      width={400}
+      width="100%"
       height={225}
       onClick={handleFullScreen}
       onMouseEnter={handlePlay}

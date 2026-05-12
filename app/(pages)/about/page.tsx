@@ -455,7 +455,7 @@ export default function About() {
                 </span>
               </span>{" "}
               {/*  SVG paper plane */}
-              <div className="hidden desktop:block absolute left-180 top-25 min-w-20 min-h-30">
+              <div className="hidden desktop:block absolute left-170 top-10 min-w-20 min-h-30">
                 <svg className="w-full h-full scale-65 -rotate-45 desktop:scale-100 desktop:rotate-0">
                   <path
                     id="path"

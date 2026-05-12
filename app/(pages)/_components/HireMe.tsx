@@ -79,7 +79,7 @@ export default function HireMe() {
       <h2 className="fade-entry text-size-xl text-center font-bold">
         Available for Hire
       </h2>
-      <div className="max-w-180 place-self-center">
+      <div className="max-w-180 place-self-center px-3">
         <ul className="flex flex-col gap-8 mt-6 items-center place-self-center tablet-portrait:flex-row tablet-portrait:gap-15">
           <li className="card-container">
             {inView ? (
