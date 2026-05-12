@@ -168,37 +168,33 @@
     border-radius: 4px;
     background-color: var(--color-secondary-color);
     filter: blur(50%);
+
+    @variant motion-reduce {
+      transform: none;
+    }
   }
 
   .frontend-after {
     &::after {
-      @variant max-desktop {
-        background-color: var(--color-secondary-color);
-      }
+      background-color: var(--color-secondary-color);
     }
   }
 
   .developer-after {
     &::after {
-      @variant max-desktop {
-        background-color: var(--color-col-neutral-1);
-      }
+      background-color: var(--color-col-neutral-1);
     }
   }
 
   .building-after {
     &::after {
-      @variant max-desktop {
-        background-color: var(--color-col-neutral-2);
-      }
+      background-color: var(--color-col-neutral-2);
     }
   }
 
   .javascript-after {
     &::after {
-      @variant max-desktop {
-        background-color: var(--color-action-color);
-      }
+      background-color: var(--color-action-color);
     }
   }
 
@@ -210,10 +206,7 @@
       bottom: 0;
       height: 2px;
       width: 100%;
-
-      @variant max-desktop {
-        background-color: var(--color-secondary-color);
-      }
+      background-color: var(--color-secondary-color);
     }
   }
 }
