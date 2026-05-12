@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.13.1...v1.14.0) (2026-05-12)
+
+
+### Features
+
+* added reduce motion animations ([73769a6](https://github.com/gulbin-dev/gulbindev-portfolio/commit/73769a654b5dc625b0060a78c510ab258372a38d))
+
 ## [1.13.1](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.13.0...v1.13.1) (2026-05-10)
 
 
