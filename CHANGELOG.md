@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.2](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.1...v1.14.2) (2026-05-12)
+
+
+### Bug Fixes
+
+* fix sidebar animation ([2147e8b](https://github.com/gulbin-dev/gulbindev-portfolio/commit/2147e8b01cce586fd40fae4f62d757bd6646ba6f))
+
 ## [1.14.1](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.0...v1.14.1) (2026-05-12)
 
 
