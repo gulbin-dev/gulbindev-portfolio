@@ -50,22 +50,24 @@ export default function PreviewVideo({
   };
 
   return (
-    <video
-      ref={videoRef}
-      className="aspect-video object-cover justify-self-center tablet-portrait:rounded-t-xl desktop:max-w-60 desktop:rounded-none"
-      muted
-      preload="metadata"
-      poster={`/project-video-poster/${folder}/poster.png`}
-      playsInline
-      width="100%"
-      height={225}
-      onClick={handleFullScreen}
-      onMouseEnter={handlePlay}
-      onMouseLeave={handlePause}
-    >
-      <source src={`${url}/preview.webm`} type="video/webm" />
-      <source src={`${url}/preview.mp4`} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <div className="tablet-portrait:min-h-50 desktop:min-h-33.75">
+      <video
+        ref={videoRef}
+        className="aspect-video object-cover justify-self-center tablet-portrait:rounded-t-xl  desktop:max-w-60 desktop:rounded-none"
+        muted
+        preload="metadata"
+        poster={`/project-video-poster/${folder}/poster.png`}
+        playsInline
+        width="100%"
+        height={225}
+        onClick={handleFullScreen}
+        onMouseEnter={handlePlay}
+        onMouseLeave={handlePause}
+      >
+        <source src={`${url}/preview.webm`} type="video/webm" />
+        <source src={`${url}/preview.mp4`} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
   );
 }
