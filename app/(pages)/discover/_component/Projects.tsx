@@ -22,12 +22,14 @@ export default async function Projects() {
             <p className="mt-2 text-pretty">
               {project.description ?? "No description available."}
             </p>
-            <ul className="flex flex-col gap-3 mt-5 items-center text-size-md tablet-portrait:flex-row desktop:mt-0">
+            <ul className="flex flex-col gap-3 mt-5 items-center text-size-md tablet-portrait:flex-row tablet-portrait:gap-5 desktop:mt-0">
               <li>
-                <Link href={project.homepage as string} target="_blank">
-                  <span className="px-3 py-1 bg-action-color rounded-2xl text-dark-foreground font-bold">
-                    Visit Website
-                  </span>
+                <Link
+                  href={project.homepage as string}
+                  target="_blank"
+                  className="cta-btn"
+                >
+                  <span className="cta-text ">Visit Website</span>
                 </Link>
               </li>
               <li>
@@ -37,7 +39,7 @@ export default async function Projects() {
                   className="relative"
                 >
                   <span className="py-0.75 relative text-light-foreground">
-                    <span className="view-github"> View on GitHub</span>
+                    <span className="view-github enlarge"> View on GitHub</span>
                   </span>
                 </Link>
               </li>
