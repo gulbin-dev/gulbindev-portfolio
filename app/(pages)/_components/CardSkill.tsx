@@ -30,7 +30,7 @@ export default function CardSkill() {
         mediaQueries,
         (context) => {
           // if (!isRevealed) return;
-          const { reduceMotion, isSmallScreen } = context.conditions ?? {};
+          const { isReduceMotion, isSmallScreen } = context.conditions ?? {};
 
           ScrollTrigger.create({
             trigger: cardSkillRef.current,
@@ -69,7 +69,7 @@ export default function CardSkill() {
                   .fromTo(
                     ".card-skill-header",
                     {
-                      y: -100,
+                      y: isReduceMotion ? 0 : -100,
                       opacity: 0,
                     },
                     { y: 0, opacity: 1 },
@@ -77,14 +77,13 @@ export default function CardSkill() {
                   .from(
                     cardSkillP.words,
                     {
-                      y: -50,
+                      y: isReduceMotion ? 0 : -50,
                       opacity: 0,
                       autoAlpha: 0,
-                      lazy: false,
                       stagger: {
                         amount: 0.8,
                         from: "random",
-                        ease: reduceMotion ? "none" : "power4.in",
+                        ease: isReduceMotion ? "none" : "power4.in",
                       },
                     },
                     "-=0.5",

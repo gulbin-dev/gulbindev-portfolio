@@ -12,7 +12,7 @@ export default function Contact() {
     () => {
       const mm = gsap.matchMedia();
       mm.add(mediaQueries, (context) => {
-        const { reduceMotion } = context.conditions ?? {};
+        const { isReduceMotion } = context.conditions ?? {};
         const fadeEntries: HTMLElement[] = gsap.utils.toArray(
           ".contact-fade-entry",
         );
@@ -41,7 +41,7 @@ export default function Contact() {
             );
             icons.forEach((icon) =>
               gsap.to(icon, {
-                keyframes: reduceMotion
+                keyframes: isReduceMotion
                   ? {
                       "50%": { autoAlpha: 1 },
                     }

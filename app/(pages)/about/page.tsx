@@ -24,7 +24,7 @@ export default function About() {
       const mm = gsap.matchMedia();
       mm.add(mediaQueries, (context) => {
         // media queries conditions giving a responsive animation
-        const { isMobilePortraitScreen, isDesktopScreen } =
+        const { isMobilePortraitScreen, isDesktopScreen, isReduceMotion } =
           context.conditions ?? {};
 
         const smoother = ScrollSmoother.get();
@@ -47,306 +47,310 @@ export default function About() {
           });
         };
 
-        if (isDesktopScreen) {
-          // list of elements with the class "story-telling" used for horizontal scrolling
-          const storyTellingElements =
-            gsap.utils.toArray<HTMLElement[]>(".story-telling");
-          const pinned = document.querySelector(
-            ".tablet-pinned",
-          ) as HTMLDivElement;
-          const scrollHorizontal = gsap.to(".tablet-pinned", {
-            x: -180 * storyTellingElements.length,
-            ease: "none",
+        const animateHandIcon = () => {
+          const tl = gsap.timeline({
             scrollTrigger: {
-              trigger: ".tablet-pinned",
-              pin: true,
-              start: 0,
-              end: () => "bottom+=" + pinned?.offsetWidth + " top",
-              pinSpacing: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-              onLeave: animateTechStack,
+              trigger: isMobilePortraitScreen ? ".hand-icon" : "",
+              start: "top center",
             },
           });
-
-          ScrollTrigger.create({
-            trigger: ".canvas-container",
-            pin: true,
-            start: 0,
-            end: () =>
-              pinned?.offsetHeight + "+=" + pinned?.offsetWidth + " top",
+          tl.to(".hand-icon", {
+            autoAlpha: 1,
+          }).to(".hand-icon", {
+            transformOrigin: "bottom center",
+            keyframes: {
+              "5%": { rotate: 0 },
+              "25%": { rotate: -35 },
+              "50%": { rotate: 35 },
+              "75%": { rotate: -35 },
+              "100%": { rotate: 0 },
+            },
+            repeatDelay: 0.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "none",
           });
-          /**
-           * A function to animate the paper plane
-           */
-          const animatePaperPlane = () => {
-            gsap.to("#paper-plane", {
-              scrollTrigger: {
-                trigger: ".split-text-story",
-                start: "left 80%",
-                end: "right left",
-                containerAnimation: scrollHorizontal,
-              },
-              keyframes: {
-                "20%": { autoAlpha: 1, scale: 1 },
-              },
-              duration: 5,
-              ease: "power1.inOut",
-              motionPath: {
-                path: "#path",
-                align: "#path",
-                alignOrigin: [0.5, 0.5],
-                autoRotate: 45,
-              },
-            });
-          };
-          const animateFrontendDeveloperBuilding = () => {
-            const timeline = gsap.timeline({
-              scrollTrigger: {
-                trigger: ".a",
-                immediateRender: true,
-                containerAnimation: scrollHorizontal,
-              },
-              onStart: () => {
-                gsap.to(".responsive", {
-                  y: 0,
-                  autoAlpha: 1,
-                  scrollTrigger: {
-                    trigger: ".responsive",
-                    start: "left 60%",
-                    end: "right 40%",
-                    containerAnimation: scrollHorizontal,
-                  },
-                  onStart: animateStateDriven,
-                });
 
-                document.fonts.ready.then(() => {
-                  const splitTextStory =
-                    document.querySelector(".split-text-story");
-                  splitTextStory?.setAttribute("style", "visibility: visible");
-                  SplitText.create(".split-text-story", {
-                    type: "words",
-                    wordsClass: "split-word",
-                    autoSplit: true,
-                    onSplit(self) {
-                      return gsap.to(self.words, {
-                        y: 0,
-                        autoAlpha: 1,
-                        stagger: {
-                          amount: 0.8,
-                          from: "start",
-                        },
-                        scrollTrigger: {
-                          trigger: ".split-text-story",
-                          containerAnimation: scrollHorizontal,
-                          start: "left 70%",
-                          end: "right center",
-                        },
-                        onComplete: animateReact,
-                      });
-                    },
-                  });
-                });
-              },
-            });
-            timeline
-              .to(".a", {
-                x: 0,
-                duration: 0.5,
-              })
-              .to(
-                ".frontend",
-                {
-                  x: 0,
-                  ease: "power2.in",
-                },
-                "-=0.3",
-              )
-              .to(".developer", {
-                rotate: 0,
-                y: 0,
-                autoAlpha: 1,
-              })
-              .to(".developer-bg-linear", {
-                "--developer-grad-angle": "375deg",
-                duration: 1,
-              })
-              .to(
-                ".building",
-                {
-                  scaleY: 1,
-                  y: 0,
-                  ease: "bounce.out",
-                },
-                "<",
-              )
-              .to(
-                ".building-bg-linear",
-                {
-                  "--building-grad-angle": "45deg",
-                  duration: 1,
-                },
-                "-=0.5",
-              );
-          };
-          const animateStateDriven = () => {
-            const timeline = gsap.timeline({
-              scrollTrigger: {
-                trigger: ".state",
-                containerAnimation: scrollHorizontal,
-                start: "left 70%",
-                end: "right 40%",
-                onEnter: animatePaperPlane,
-              },
-            });
-
-            timeline
-              .to(".state", {
-                x: 0,
-              })
-              .to(
-                ".driven",
-                {
-                  x: 0,
-                },
-                "-=0.3",
-              )
-              .to(".container-state-driven", {
-                "--animate-background": "#ffc400",
-              })
-              .to(
-                ".hyphen",
-                {
-                  rotate: 0,
-                  scaleX: 3,
-                },
-                "<",
-              );
-          };
-          const animateReact = () => {
-            const timeline = gsap.timeline({
-              scrollTrigger: {
-                trigger: ".react-icon",
-                start: "left 80%",
-                end: "right 40%",
-                containerAnimation: scrollHorizontal,
-              },
-              onStart: animateJsTs,
-            });
-            timeline
-              .to(".react-icon", {
-                x: 0,
-              })
-              .to(
-                ".react",
-                {
-                  x: 0,
-                },
-                "<",
-              )
-              .to(".and", {
-                y: 0,
-              });
-          };
-          const animateJsTs = () => {
-            const timeline = gsap.timeline({
-              scrollTrigger: {
-                trigger: ".javaScript",
-                start: "left 70%",
-                end: "right 40%",
-                containerAnimation: scrollHorizontal,
-              },
-            });
-            timeline
-              .to(".javaScript", {
-                autoAlpha: 1,
-                y: 0,
-              })
-              .to(
-                ".typeScript",
-                {
-                  autoAlpha: 1,
-                  y: 0,
-                },
-                "-=0.3",
-              )
-              .to(".divider", {
-                delay: 0.3,
-                rotate: -65,
-                scaleX: 0.3,
-              })
-              .to(
-                ".js-container",
-                {
-                  x: 15,
-                  y: 10,
-                },
-                "<",
-              )
-              .to(
-                ".ts-container",
-                {
-                  x: -8,
-                  y: -10,
-                },
-                "<",
-              );
-          };
-
-          const animateIntro = () => {
-            const timeline = isMobilePortraitScreen
-              ? gsap.timeline({
-                  scrollTrigger: {
-                    trigger: ".word-hi",
-                    start: "top center",
-                    end: "bottom+=200 center",
-                  },
-                })
-              : gsap.timeline({});
-
-            timeline.to(".name1", {
-              duration: 2,
-              scrambleText: {
-                text: "Joshua Glenn R. Gulbin",
-                chars: "01 ",
-                oldClass: "unicode",
-                newClass: "post-scramble",
-                speed: 0.5,
-                revealDelay: 1,
-                tweenLength: false,
-              },
-            });
-          };
-          const animateHandIcon = () => {
-            const tl = gsap.timeline({
-              scrollTrigger: {
-                trigger: isMobilePortraitScreen ? ".hand-icon" : "",
-                start: "top center",
-              },
-            });
-            tl.to(".hand-icon", {
-              autoAlpha: 1,
-            }).to(".hand-icon", {
-              transformOrigin: "bottom center",
-              keyframes: {
-                "5%": { rotate: 0 },
-                "25%": { rotate: -35 },
-                "50%": { rotate: 35 },
-                "75%": { rotate: -35 },
-                "100%": { rotate: 0 },
-              },
-              repeatDelay: 0.5,
-              repeat: -1,
-              yoyo: true,
+          if (isDesktopScreen && !isReduceMotion) {
+            // list of elements with the class "story-telling" used for horizontal scrolling
+            const storyTellingElements =
+              gsap.utils.toArray<HTMLElement[]>(".story-telling");
+            const pinned = document.querySelector(
+              ".tablet-pinned",
+            ) as HTMLDivElement;
+            const scrollHorizontal = gsap.to(".tablet-pinned", {
+              x: -180 * storyTellingElements.length,
               ease: "none",
+              scrollTrigger: {
+                trigger: ".tablet-pinned",
+                pin: true,
+                start: 0,
+                end: () => "bottom+=" + pinned?.offsetWidth + " top",
+                pinSpacing: true,
+                scrub: 1,
+                invalidateOnRefresh: true,
+                onLeave: animateTechStack,
+              },
             });
-          };
 
-          animateIntro();
-          animateHandIcon();
-          animateFrontendDeveloperBuilding();
-        }
+            ScrollTrigger.create({
+              trigger: ".canvas-container",
+              pin: true,
+              start: 0,
+              end: () =>
+                pinned?.offsetHeight + "+=" + pinned?.offsetWidth + " top",
+            });
+            /**
+             * A function to animate the paper plane
+             */
+            const animatePaperPlane = () => {
+              gsap.to("#paper-plane", {
+                scrollTrigger: {
+                  trigger: ".split-text-story",
+                  start: "left 80%",
+                  end: "right left",
+                  containerAnimation: scrollHorizontal,
+                },
+                keyframes: {
+                  "20%": { autoAlpha: 1, scale: 1 },
+                },
+                duration: 5,
+                ease: "power1.inOut",
+                motionPath: {
+                  path: "#path",
+                  align: "#path",
+                  alignOrigin: [0.5, 0.5],
+                  autoRotate: 45,
+                },
+              });
+            };
+            const animateFrontendDeveloperBuilding = () => {
+              const timeline = gsap.timeline({
+                scrollTrigger: {
+                  trigger: ".a",
+                  immediateRender: true,
+                  containerAnimation: scrollHorizontal,
+                },
+                onStart: () => {
+                  gsap.to(".responsive", {
+                    y: 0,
+                    autoAlpha: 1,
+                    scrollTrigger: {
+                      trigger: ".responsive",
+                      start: "left 60%",
+                      end: "right 40%",
+                      containerAnimation: scrollHorizontal,
+                    },
+                    onStart: animateStateDriven,
+                  });
 
+                  document.fonts.ready.then(() => {
+                    const splitTextStory =
+                      document.querySelector(".split-text-story");
+                    splitTextStory?.setAttribute(
+                      "style",
+                      "visibility: visible",
+                    );
+                    SplitText.create(".split-text-story", {
+                      type: "words",
+                      wordsClass: "split-word",
+                      autoSplit: true,
+                      onSplit(self) {
+                        return gsap.to(self.words, {
+                          y: 0,
+                          autoAlpha: 1,
+                          stagger: {
+                            amount: 0.8,
+                            from: "start",
+                          },
+                          scrollTrigger: {
+                            trigger: ".split-text-story",
+                            containerAnimation: scrollHorizontal,
+                            start: "left 70%",
+                            end: "right center",
+                          },
+                          onComplete: animateReact,
+                        });
+                      },
+                    });
+                  });
+                },
+              });
+              timeline
+                .to(".a", {
+                  x: 0,
+                  duration: 0.5,
+                })
+                .to(
+                  ".frontend",
+                  {
+                    x: 0,
+                    ease: "power2.in",
+                  },
+                  "-=0.3",
+                )
+                .to(".developer", {
+                  rotate: 0,
+                  y: 0,
+                  autoAlpha: 1,
+                })
+                .to(".developer-bg-linear", {
+                  "--developer-grad-angle": "375deg",
+                  duration: 1,
+                })
+                .to(
+                  ".building",
+                  {
+                    scaleY: 1,
+                    y: 0,
+                    ease: "bounce.out",
+                  },
+                  "<",
+                )
+                .to(
+                  ".building-bg-linear",
+                  {
+                    "--building-grad-angle": "45deg",
+                    duration: 1,
+                  },
+                  "-=0.5",
+                );
+            };
+            const animateStateDriven = () => {
+              const timeline = gsap.timeline({
+                scrollTrigger: {
+                  trigger: ".state",
+                  containerAnimation: scrollHorizontal,
+                  start: "left 70%",
+                  end: "right 40%",
+                  onEnter: animatePaperPlane,
+                },
+              });
+
+              timeline
+                .to(".state", {
+                  x: 0,
+                })
+                .to(
+                  ".driven",
+                  {
+                    x: 0,
+                  },
+                  "-=0.3",
+                )
+                .to(".container-state-driven", {
+                  "--animate-background": "#ffc400",
+                })
+                .to(
+                  ".hyphen",
+                  {
+                    rotate: 0,
+                    scaleX: 3,
+                  },
+                  "<",
+                );
+            };
+            const animateReact = () => {
+              const timeline = gsap.timeline({
+                scrollTrigger: {
+                  trigger: ".react-icon",
+                  start: "left 80%",
+                  end: "right 40%",
+                  containerAnimation: scrollHorizontal,
+                },
+                onStart: animateJsTs,
+              });
+              timeline
+                .to(".react-icon", {
+                  x: 0,
+                })
+                .to(
+                  ".react",
+                  {
+                    x: 0,
+                  },
+                  "<",
+                )
+                .to(".and", {
+                  y: 0,
+                });
+            };
+            const animateJsTs = () => {
+              const timeline = gsap.timeline({
+                scrollTrigger: {
+                  trigger: ".javaScript",
+                  start: "left 70%",
+                  end: "right 40%",
+                  containerAnimation: scrollHorizontal,
+                },
+              });
+              timeline
+                .to(".javaScript", {
+                  autoAlpha: 1,
+                  y: 0,
+                })
+                .to(
+                  ".typeScript",
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                  },
+                  "-=0.3",
+                )
+                .to(".divider", {
+                  delay: 0.3,
+                  rotate: -65,
+                  scaleX: 0.3,
+                })
+                .to(
+                  ".js-container",
+                  {
+                    x: 15,
+                    y: 10,
+                  },
+                  "<",
+                )
+                .to(
+                  ".ts-container",
+                  {
+                    x: -8,
+                    y: -10,
+                  },
+                  "<",
+                );
+            };
+
+            const animateIntro = () => {
+              const timeline = isMobilePortraitScreen
+                ? gsap.timeline({
+                    scrollTrigger: {
+                      trigger: ".word-hi",
+                      start: "top center",
+                      end: "bottom+=200 center",
+                    },
+                  })
+                : gsap.timeline({});
+
+              timeline.to(".name1", {
+                duration: 2,
+                scrambleText: {
+                  text: "Joshua Glenn R. Gulbin",
+                  chars: "01 ",
+                  oldClass: "unicode",
+                  newClass: "post-scramble",
+                  speed: 0.5,
+                  revealDelay: 1,
+                  tweenLength: false,
+                },
+              });
+            };
+
+            animateIntro();
+            animateHandIcon();
+            animateFrontendDeveloperBuilding();
+          }
+        };
+        animateHandIcon();
         animateTechStack();
       });
     },
@@ -363,7 +367,7 @@ export default function About() {
           <div className="hidden absolute bg-primary-color-darker w-[15vw] h-screen desktop:block"></div>
           <AboutCanvas />
         </div>
-        <div className="tablet-pinned max-w-225! relative  desktop:items-center">
+        <div className="tablet-pinned max-w-225! relative desktop:items-center">
           {/* this <div> is used only for animation */}
           <div className="relative desktop:flex desktop:h-screen desktop:items-center">
             {" "}
@@ -384,13 +388,13 @@ export default function About() {
                     <FaHandPaper className="hand-icon z-300 invisible desktop:visible" />
                   </span>{" "}
                 </span>{" "}
-                <span className="block desktop:hidden">
+                <span className="block desktop:hidden desktop:motion-reduce:block">
                   I&apos;m{" "}
                   <span className="text-action-color font-bold">
                     Joshua Glenn R. Gulbin
                   </span>
                 </span>
-                <span className="hidden desktop:block">
+                <span className="hidden desktop:not-motion-reduce:block">
                   {" "}
                   <span className="">I&apos;m</span>{" "}
                   <span className="name1 text-col-neutral-1 inline-block min-w-60 font-bold  overflow-clip"></span>{" "}
@@ -398,7 +402,7 @@ export default function About() {
               </p>
               {/* mobile UI */}
               <p
-                className="inline-block text-center h-full px-5 text-pretty tablet-portrait:text-size-md desktop:hidden col-start-1"
+                className="inline-block text-center h-full px-5 text-pretty  col-start-1 tablet-portrait:text-size-md desktop:not-motion-reduce:hidden desktop:motion-reduce:inline-block"
                 aria-hidden="true"
               >
                 {" "}
@@ -418,7 +422,7 @@ export default function About() {
             </div>
             {/* bigger screen UI */}
             <div
-              className="hidden text-center relative gap-2 mt-12 items-center text-size-xl desktop:flex"
+              className="hidden text-center relative gap-2 mt-12 items-center text-size-xl desktop:not-motion-reduce:flex"
               aria-hidden="true"
             >
               {" "}
@@ -509,7 +513,7 @@ export default function About() {
           <Contact />
         </div>
         {/*  Tech Stack */}
-        <div className="mt-15">
+        <div className="my-15">
           <h2 className="text-size-lg text-center tablet-portrait:text-size-xl">
             Tech Stack
           </h2>

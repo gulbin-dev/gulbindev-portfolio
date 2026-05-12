@@ -17,7 +17,7 @@ export default function HireMe() {
       if (!inView) return;
       const mm = gsap.matchMedia();
       mm.add(mediaQueries, (context) => {
-        const { reduceMotion } = context.conditions ?? {};
+        const { isReduceMotion } = context.conditions ?? {};
         const fadeEntries: HTMLElement[] = gsap.utils.toArray(".fade-entry");
         const icons: HTMLElement[] = gsap.utils.toArray(".icons");
 
@@ -44,7 +44,7 @@ export default function HireMe() {
             );
             icons.forEach((icon) =>
               gsap.to(icon, {
-                keyframes: reduceMotion
+                keyframes: isReduceMotion
                   ? {
                       "50%": { autoAlpha: 1 },
                     }

@@ -43,7 +43,7 @@ export default function HeroSection() {
           });
 
           if (isReduceMotion) {
-            timeline.to(".hero-header", {
+            timeline.to(split_h1.words, {
               autoAlpha: 1,
               duration: 1,
             });
@@ -112,7 +112,6 @@ export default function HeroSection() {
   return (
     <section
       ref={heroSectionRef}
-      id="home-top"
       className="section overflow-hidden relative linear-bg z-0 tablet-portrait:h-90"
     >
       <div className="flex flex-col  place-self-center max-w-180 w-full tablet-portrait:flex-row tablet-landscape:h-fit! tablet-portrait:justify-center">
@@ -145,7 +144,7 @@ export default function HeroSection() {
           <h1 className="sr-only">
             Frontend Developer Building Predictable React Interfaces
           </h1>
-          <p className="hero-p mt-4 tablet-portrait:mt-3 tablet-portrait:text-size-xsm translate-y-12.5 invisible">
+          <p className="hero-p mt-4 invisible tablet-portrait:mt-3 tablet-portrait:text-size-xsm translate-y-12.5 motion-reduce:translate-y-0">
             Helping teams deliver high-performance React applications with a
             focus on accessibility and SEO.
           </p>
