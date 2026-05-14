@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     "portfolio",
   ],
   verification: {
-    google: "He5I8EQ2ZdNOVjUzs4yY2uBTt8VEpxebRCppfEiZJS8",
+    google: "KsgDFoZLb80qI6Hqcm1B1BDkNzJyutg-LLhi2XjwuXw",
   },
 };
 
