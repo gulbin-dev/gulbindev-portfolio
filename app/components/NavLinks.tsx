@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 /** Internal navigation links */
 export default function NavLinks({
@@ -13,12 +13,11 @@ export default function NavLinks({
   anchorStyle?: string;
   updateState?: Dispatch<SetStateAction<boolean>> | undefined;
 }) {
-  const pathName = usePathname();
-  const isFooter = navStyle.includes("footer");
-  const footerNavRef = useRef<HTMLElement | null>(null);
+  const pathName = usePathname(); // store browser path url
+  const isFooter = navStyle.includes("footer"); // check if NavLinks is for footer
 
   return (
-    <nav ref={footerNavRef}>
+    <nav>
       <ul className={navStyle}>
         <li
           className={`relative ${pathName === "/" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}

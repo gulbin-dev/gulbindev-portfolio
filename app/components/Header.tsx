@@ -20,6 +20,7 @@ export default function Header() {
 
   // Header hide/show on scroll
   useGSAP(() => {
+    // hide header animation
     const showHeaderAnim = gsap
       .to(headerRef.current, {
         yPercent: -100,
@@ -28,19 +29,19 @@ export default function Header() {
       })
       .progress(0);
 
+    // hadles scroll animation
     ScrollTrigger.create({
       animation: showHeaderAnim,
       start: 0,
       end: "max",
       onUpdate: (self) => {
         const velocity = self.getVelocity();
-        console.log(Math.abs(velocity));
         if (Math.abs(velocity) === 0) return;
 
         if (velocity < 0) {
-          showHeaderAnim.reverse();
+          showHeaderAnim.reverse(); // display header on scroll up
         } else {
-          showHeaderAnim.play();
+          showHeaderAnim.play(); // hide header on scroll down
         }
       },
     });

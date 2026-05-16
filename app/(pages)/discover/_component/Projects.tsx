@@ -2,6 +2,7 @@ import { fetchProjectDemo } from "@utils/project-demo";
 import PreviewVideo from "./PreviewVideo";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Suspense } from "react";
 
 export default async function Projects() {

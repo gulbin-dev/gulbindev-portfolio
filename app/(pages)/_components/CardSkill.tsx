@@ -15,6 +15,8 @@ import { useInView } from "react-intersection-observer";
 
 export default function CardSkill() {
   const cardSkillRef = useRef<HTMLElement | null>(null);
+
+  // Intersection Observer is used to run animation logic when in view, effectively improve performance
   const { ref, inView } = useInView({
     rootMargin: "200px 0px 0px 0px",
     triggerOnce: true,
@@ -29,14 +31,14 @@ export default function CardSkill() {
         // based on screen size and reduce motion
         mediaQueries,
         (context) => {
-          // if (!isRevealed) return;
           const { isReduceMotion, isSmallScreen } = context.conditions ?? {};
 
           ScrollTrigger.create({
             trigger: cardSkillRef.current,
             start: "top bottom",
-            //  wait for fonts to be loaded before animating SplitText
+
             onEnter: () =>
+              //  wait for fonts to be loaded before animating SplitText
               document.fonts.ready.then(() => {
                 const cardSkillP = SplitText.create(".card-skill-p", {
                   type: "words",
@@ -44,6 +46,7 @@ export default function CardSkill() {
                   mask: "words",
                 });
 
+                // single timeline animtion for better controll
                 const timeline = gsap.timeline({
                   scrollTrigger: {
                     trigger: ".card-skill-header",

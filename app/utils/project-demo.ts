@@ -1,7 +1,9 @@
 import { octokit, githubUserName } from "./github-auth";
 import { ListGitHubRepo } from "@utils/types";
+
+// fech github repos
 export const fetchProjectDemo = async () => {
-  const filterNames = ["gulbindev-portfolio", "Crunchtime"];
+  const filterNames = ["gulbindev-portfolio", "Crunchtime"]; // only selected repos are fetched
   let fetchError = false;
   let projects: ListGitHubRepo[] = [];
   try {
