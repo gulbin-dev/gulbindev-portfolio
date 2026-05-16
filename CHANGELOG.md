@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.3](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.2...v1.14.3) (2026-05-16)
+
+
+### Bug Fixes
+
+* bug on about page  semantics ([#77](https://github.com/gulbin-dev/gulbindev-portfolio/issues/77)) ([cbfc536](https://github.com/gulbin-dev/gulbindev-portfolio/commit/cbfc536887c60541b6688288d6f05c0685466c96))
+
 ## [1.14.2](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.1...v1.14.2) (2026-05-12)
 
 
