@@ -24,8 +24,9 @@ export default function PagesWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname(); // store browser path url
 
+  // animation fo scroll smooth
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add(
@@ -44,6 +45,7 @@ export default function PagesWrapper({
     );
   }, []);
 
+  // reset scroll position per navigation
   useLayoutEffect(() => {
     const smoother = ScrollSmoother.get();
     if (smoother) {

@@ -7,6 +7,8 @@ import { useRef } from "react";
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement | null>(null);
+
+  // Intersection Observer is used to only load icons when footer is in view
   const { ref, inView } = useInView({
     rootMargin: "200px 0px 0px 0px",
     triggerOnce: true,
@@ -37,6 +39,7 @@ export default function Footer() {
                 aria-label="Visit my Github"
                 className="enlarge"
               >
+                {/* only load icons when footer is in view */}
                 {inView ? (
                   <FaGithubSquare />
                 ) : (
@@ -69,7 +72,7 @@ export default function Footer() {
           </ul>
         </nav>
         <Link
-          href="/joshua-glenn-gulbin-resume.pdf"
+          href="/joshua-glenn-gulbin-resume-2026-05-16.pdf"
           target="_blank"
           className="cta-btn mt-3"
         >

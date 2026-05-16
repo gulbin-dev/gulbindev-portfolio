@@ -8,10 +8,14 @@ import { useInView } from "react-intersection-observer";
 
 export default function HireMe() {
   const hireMeRef = useRef<HTMLElement | null>(null);
+
+  // Intersection Observer is used to run animation logic when in view, effectively improve performance
   const { ref, inView } = useInView({
     rootMargin: "200px 0px 0px 0px",
     triggerOnce: true,
   });
+
+  // handle hire me section animation
   useGSAP(
     () => {
       if (!inView) return;

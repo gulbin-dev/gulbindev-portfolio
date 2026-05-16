@@ -8,6 +8,7 @@ import { useGSAP, gsap, mediaQueries, ScrollTrigger } from "@utils/gsap";
 export default function Contact() {
   const contactRef = useRef<HTMLUListElement | null>(null);
 
+  // gsap animation
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -25,6 +26,7 @@ export default function Contact() {
           start: "top 80%",
         });
 
+        // animation on entry
         ScrollTrigger.create({
           trigger: contactRef.current,
           start: "top bottom",

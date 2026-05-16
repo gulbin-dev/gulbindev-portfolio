@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { gsap, mediaQueries, SplitText, useGSAP } from "@utils/gsap";
 import { useRef } from "react";
 
+// dynamically import canvas component to effectively improve performance on initial page load
 const Canvas = dynamic(
   () =>
     import("./hero-section/HeroSectionComponents").then(
@@ -34,7 +35,7 @@ export default function HeroSection() {
             wordsClass: "hero-split-word",
           });
 
-          // Initialize Timeline
+          // single timeline animation for better controll
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: ".hero-header",
@@ -64,7 +65,6 @@ export default function HeroSection() {
                 autoAlpha: 0,
                 duration: 1,
                 ease: "expo.out",
-                // onComplete: () => split_h1.revert(),
               });
           }
         });
@@ -88,6 +88,7 @@ export default function HeroSection() {
               "100%": { scaleX: 1, scaleY: 1 },
             };
 
+        // CTA buttons animations
         gsap.utils
           .toArray<
             HTMLElement[]

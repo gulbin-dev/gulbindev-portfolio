@@ -6,6 +6,8 @@ import { useInView } from "react-intersection-observer";
 
 export default function VSCodeUI() {
   const vsCodeRef = useRef<HTMLElement | null>(null);
+
+  // Intersection Observer is used to run animation logic when in view, effectively improve performance
   const { ref, inView } = useInView({
     rootMargin: "200px 0px 0px 0px",
     triggerOnce: true,

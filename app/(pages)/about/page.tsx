@@ -361,6 +361,22 @@ export default function About() {
         id="about-top"
         className="flex flex-col relative max-w-180 place-self-center overflow-hidden"
       >
+        {/* these are used only for screen readers */}
+        <h1 className="sr-only">About Me</h1>
+        <p className="sr-only">
+          Hi! I&apos;m Joshua Glenn R. Gulbin, a frontend developer building
+          responsive, state-driven web applications using React and
+          JavaScript/TypeScript.
+        </p>
+
+        {/**
+         *
+         *
+         * Below are UI
+         *
+         *
+         */}
+
         <div className="canvas-container h-110 w-full relative top-0 left-0  z-20  desktop:absolute desktop:top-0 desktop:w-55 desktop:h-screen">
           <div className="hidden absolute bg-primary-color-darker w-[15vw] h-screen desktop:block"></div>
           <AboutCanvas />
@@ -370,15 +386,15 @@ export default function About() {
           <div className="relative desktop:flex desktop:h-screen desktop:items-center">
             {" "}
             <div className="hidden desktop:block min-w-60 min-h-15"></div>{" "}
-            <div className="flex mt-5 flex-col items-center  tablet-portrait:mt-5 desktop:items-center desktop:mt-0">
+            <div
+              className="flex mt-5 flex-col items-center  tablet-portrait:mt-5 desktop:items-center desktop:mt-0"
+              aria-hidden="true"
+            >
               {" "}
               <h1 className="text-size-lg  tablet-portrait:text-size-xl  col-start-1">
                 About Me
               </h1>
-              <p
-                className="inline-block place-self-center col-start-1 mt-3 tablet-portrait:text-size-xl desktop:truncate desktop:mt-0"
-                aria-hidden="true"
-              >
+              <p className="inline-block place-self-center col-start-1 mt-3 tablet-portrait:text-size-xl desktop:truncate desktop:mt-0">
                 <span className="flex gap-1 justify-center">
                   {" "}
                   <span className="word-hi self-end">Hi!</span>{" "}
@@ -495,12 +511,6 @@ export default function About() {
               </span>
             </div>
           </div>{" "}
-          {/* this <p> is used only for screen readers */}
-          <p className="sr-only">
-            Hi! I&apos;m Joshua Glenn R. Gulbin, a frontend developer building
-            responsive, state-driven web applications using React and
-            JavaScript/TypeScript.
-          </p>
         </div>
 
         {/* Contact */}
@@ -536,6 +546,15 @@ export default function About() {
             </li>
             <li>
               <span className="tech-stack enlarge">GSAP</span>
+            </li>
+            <li>
+              <span className="tech-stack enlarge">Zustand</span>
+            </li>
+            <li>
+              <span className="tech-stack enlarge">Redux</span>
+            </li>
+            <li>
+              <span className="tech-stack enlarge">Motion</span>
             </li>
           </ul>
         </div>
