@@ -9,7 +9,7 @@ export default function Discover() {
     <main className="bg-primary-color-darker">
       <section id="dicover-top" className="pt-10">
         <h1 className="text-center text-size-xl pt-5 px-3">Explore my work</h1>
-
+        <p>These projects highlight my skills and experience</p>
         <Suspense fallback={<ProjectLoader />}>
           <Projects />
         </Suspense>
