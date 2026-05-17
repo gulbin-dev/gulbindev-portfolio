@@ -10,41 +10,34 @@ import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-gulbindev.vercel.app"),
-  title: "GulbinDev | Frontend React Web Developer Portfolio",
+  title: "Joshua Glenn Gulbin | Frontend React Web Developer",
   description:
-    "A web developer portfolio of Joshua Glenn R. Gulbin. A frontend react web developer focusing on building a maintainable, user-friendly, seo-friendly website.",
+    "Portfolio of Joshua Glenn Gulbin (GulbinDev). A Frontend Developer specializing in React, Next.js, TypeScript, Tailwind CSS, and user-friendly UI design.",
   authors: {
     name: "Joshua Glenn R. Gulbin",
     url: "https://www.linkedin.com/in/joshua-glenn-gulbin/",
   },
 
   creator: "Joshua Glenn R. Gulbin",
-  applicationName: "GulbinDev Portfolio",
+  applicationName: "Joshua Glenn Gulbin | Frontend React Web Developer",
   generator: "Next.js",
   referrer: "strict-origin-when-cross-origin",
-  // Open Graph metadata
+
   openGraph: {
-    title: "GulbinDev | Frontend React Web Developer Portfolio",
+    title: "Joshua Glenn Gulbin | Frontend React Web Developer",
     description:
-      "A web developer portfolio of Joshua Glenn R. Gulbin. A frontend react web developer focusing on building a maintainable, user-friendly, seo-friendly website.",
+      "Portfolio of Joshua Glenn Gulbin (GulbinDev). A Frontend Developer specializing in React, Next.js, TypeScript, Tailwind CSS, and user-friendly UI design.",
     url: "https://portfolio-gulbindev.vercel.app/",
-    siteName: "GulbinDev Portfolio",
+    siteName: "Joshua Glenn Gulbin | Frontend React Web Developer",
     type: "website",
     images: {
       url: "/og/website.jpg",
       width: 1200,
       height: 630,
-      alt: "GulbinDev Portfolio",
+      alt: "Joshua Glenn Gulbin | Frontend React Web Developer",
     },
   },
 
-  keywords: [
-    "frontend",
-    "react web developer",
-    "frontend react web developer",
-    "joshua glenn gulbin",
-    "portfolio",
-  ],
   verification: {
     google: "KsgDFoZLb80qI6Hqcm1B1BDkNzJyutg-LLhi2XjwuXw",
   },
