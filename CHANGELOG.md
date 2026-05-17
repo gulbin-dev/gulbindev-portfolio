@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.4](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.3...v1.14.4) (2026-05-17)
+
+
+### Bug Fixes
+
+* fix unstyled paragraph text ([1cba832](https://github.com/gulbin-dev/gulbindev-portfolio/commit/1cba832e988c0ecd5f024f16e778a15ba1293ff0))
+
 ## [1.14.3](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.2...v1.14.3) (2026-05-16)
 
 
