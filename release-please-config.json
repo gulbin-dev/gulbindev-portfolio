@@ -19,7 +19,8 @@
         { "type": "docs", "section": "Documentation" },
         { "type": "refactor", "section": "Refactoring" },
         { "type": "test", "section": "Tests" },
-        { "type": "chore", "section": "Chores" }
+        { "type": "chore", "section": "Chores" },
+        { "type": "style", "section": "Adjust styling" }
       ]
     }
   }
