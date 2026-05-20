@@ -19,34 +19,37 @@ export default function Header() {
   }, [isMobileNavOpen]);
 
   // Header hide/show on scroll
-  useGSAP(() => {
-    // hide header animation
-    const showHeaderAnim = gsap
-      .to(headerRef.current, {
-        yPercent: -100,
-        duration: 0.5,
-        paused: true,
-      })
-      .progress(0);
+  useGSAP(
+    () => {
+      // hide header animation
+      const showHeaderAnim = gsap
+        .to(headerRef.current, {
+          yPercent: -100,
+          duration: 0.5,
+          paused: true,
+        })
+        .progress(0);
 
-    // hadles scroll animation
-    ScrollTrigger.create({
-      animation: showHeaderAnim,
-      start: 0,
-      end: "max",
-      onUpdate: (self) => {
-        const velocity = self.getVelocity();
-        if (Math.abs(velocity) === 0) return;
+      // hadles scroll animation
+      ScrollTrigger.create({
+        animation: showHeaderAnim,
+        start: 0,
+        end: "max",
+        onUpdate: (self) => {
+          const velocity = self.getVelocity();
+          if (Math.abs(velocity) === 0) return;
 
-        if (velocity < 0) {
-          showHeaderAnim.reverse(); // display header on scroll up
-        } else {
-          showHeaderAnim.play(); // hide header on scroll down
-        }
-      },
-    });
-    ScrollTrigger.refresh();
-  }, [pathName]);
+          if (velocity < 0) {
+            showHeaderAnim.reverse(); // display header on scroll up
+          } else {
+            showHeaderAnim.play(); // hide header on scroll down
+          }
+        },
+      });
+      ScrollTrigger.refresh();
+    },
+    { dependencies: [pathName], revertOnUpdate: true, scope: headerRef },
+  );
 
   // Hamburger + sidebar animation timeline
   useGSAP(
