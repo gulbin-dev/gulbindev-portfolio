@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.14.5](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.4...v1.14.5) (2026-06-06)
+
+
+### Features
+
+* added animation on about page ([d842989](https://github.com/gulbin-dev/gulbindev-portfolio/commit/d842989d726bc7ebd984dfd6e6f37254aeba0e3e))
+* added animation on card-skill ([df13808](https://github.com/gulbin-dev/gulbindev-portfolio/commit/df138087a469340c5ca4d9546cf6f083951ec025))
+* added animation on header ([8cbde01](https://github.com/gulbin-dev/gulbindev-portfolio/commit/8cbde0139e579b1ce5cb570d74ed0994d280577f))
+* added animation on hero-section ([28e76e5](https://github.com/gulbin-dev/gulbindev-portfolio/commit/28e76e5677015b8196f5157f151f283cfcf89b5a))
+* added animation on HireMe component ([679c57e](https://github.com/gulbin-dev/gulbindev-portfolio/commit/679c57ecb63018a06522859a62c09f6409cc39bd))
+* added footer ([64848e2](https://github.com/gulbin-dev/gulbindev-portfolio/commit/64848e2b029f6b9bb0f9b93028a5591d79c15a62))
+* added logo ([471def8](https://github.com/gulbin-dev/gulbindev-portfolio/commit/471def8dcf951fe6ab3e434c6f15e96ced8f9fb5))
+* added photos for image sequencing on hero-section ([76de251](https://github.com/gulbin-dev/gulbindev-portfolio/commit/76de25157bc49ca9f38fb37e7c74727504edf3d4))
+* added placeholder image while frame images are still loading ([23f7c04](https://github.com/gulbin-dev/gulbindev-portfolio/commit/23f7c048a5e091b47bf4b68eda4caed096e39024))
+* added reduce motion animations ([73769a6](https://github.com/gulbin-dev/gulbindev-portfolio/commit/73769a654b5dc625b0060a78c510ab258372a38d))
+* added responsive styles on anchors ([9980e15](https://github.com/gulbin-dev/gulbindev-portfolio/commit/9980e15d8fbc33e217822665c1ecfe5e514521f7))
+* added responsive video ([884216d](https://github.com/gulbin-dev/gulbindev-portfolio/commit/884216dc689e82835d99c6683bfc368a4bbd4fc8))
+* added robots and sitemap ([#28](https://github.com/gulbin-dev/gulbindev-portfolio/issues/28)) ([4d2dc99](https://github.com/gulbin-dev/gulbindev-portfolio/commit/4d2dc995c03db885dd111efbd950b5baf7fcf389))
+* added vercel analytics and speed insights ([b289c15](https://github.com/gulbin-dev/gulbindev-portfolio/commit/b289c157f73d04d7c775d55aa08052c5cc02d1f3))
+* added vercel analytics and speed insights ([#32](https://github.com/gulbin-dev/gulbindev-portfolio/issues/32)) ([ebea40e](https://github.com/gulbin-dev/gulbindev-portfolio/commit/ebea40e310fa769687b82d3b900b8fc885308bb7))
+* added window resize listener ([35e503f](https://github.com/gulbin-dev/gulbindev-portfolio/commit/35e503fc36b38e72e63f64922e1edf9c584f762d))
+* **robots:** added facebookexternalhit user agent ([2174b31](https://github.com/gulbin-dev/gulbindev-portfolio/commit/2174b31226557b9902262b11823e31786168eef9))
+
+
+### Bug Fixes
+
+* bug fix ([43ee2ad](https://github.com/gulbin-dev/gulbindev-portfolio/commit/43ee2adad4e7a72ff07a3cc96faffbdff314b10a))
+* bug on about page  semantics ([#77](https://github.com/gulbin-dev/gulbindev-portfolio/issues/77)) ([cbfc536](https://github.com/gulbin-dev/gulbindev-portfolio/commit/cbfc536887c60541b6688288d6f05c0685466c96))
+* bump release tag for master branch ([7cc968b](https://github.com/gulbin-dev/gulbindev-portfolio/commit/7cc968b65ece56dd69e702ec391827339636234f))
+* correct conditional logic ([25e5650](https://github.com/gulbin-dev/gulbindev-portfolio/commit/25e5650e6f21c69e0ab7bb261fc2f09850bd47a9))
+* file import ([a11b43f](https://github.com/gulbin-dev/gulbindev-portfolio/commit/a11b43fed285236dc337facd46c3adf43be8fef7))
+* fix function call not to loop ([bcd0fe5](https://github.com/gulbin-dev/gulbindev-portfolio/commit/bcd0fe500a7307558649579696a8efcbde429289))
+* fix release tag ([283ae58](https://github.com/gulbin-dev/gulbindev-portfolio/commit/283ae58803e652ce302991501d5f8de88d9cab6d))
+* fix release tag on merge [#61](https://github.com/gulbin-dev/gulbindev-portfolio/issues/61) ([5a68b25](https://github.com/gulbin-dev/gulbindev-portfolio/commit/5a68b25ecbbb09e89ef6368f654c1ac3f59b746a))
+* fix sidebar animation ([2147e8b](https://github.com/gulbin-dev/gulbindev-portfolio/commit/2147e8b01cce586fd40fae4f62d757bd6646ba6f))
+* improve UI and SEO ([#82](https://github.com/gulbin-dev/gulbindev-portfolio/issues/82)) ([458db42](https://github.com/gulbin-dev/gulbindev-portfolio/commit/458db4251bc6a4ae79726445a7ad9e960395b5d2))
+* improve UI animations ([23f7c04](https://github.com/gulbin-dev/gulbindev-portfolio/commit/23f7c048a5e091b47bf4b68eda4caed096e39024))
+* opengraph image ([f8ebf27](https://github.com/gulbin-dev/gulbindev-portfolio/commit/f8ebf27e03e04cd9b541e84061cfb0bb64ee0fc0))
+* patch to release ([2e9ea50](https://github.com/gulbin-dev/gulbindev-portfolio/commit/2e9ea50261b20e34cffd095d203d8c5d8cb93990))
+* release config ([6c3e852](https://github.com/gulbin-dev/gulbindev-portfolio/commit/6c3e8527d5790609c4e6f8d893b44c14bb91d3a7))
+* release-please tag ([5eebf13](https://github.com/gulbin-dev/gulbindev-portfolio/commit/5eebf13b9aebea50805a81000731bbbf516ad412))
+* rename file extension on sitemap ([#29](https://github.com/gulbin-dev/gulbindev-portfolio/issues/29)) ([27c7be1](https://github.com/gulbin-dev/gulbindev-portfolio/commit/27c7be1ea07095d180814c24e716faf13daed247))
+* RP config ([f8f3146](https://github.com/gulbin-dev/gulbindev-portfolio/commit/f8f3146144f865e0f81b158365b2bddc7c9cab46))
+* rp to include pull_request event ([#30](https://github.com/gulbin-dev/gulbindev-portfolio/issues/30)) ([296255b](https://github.com/gulbin-dev/gulbindev-portfolio/commit/296255b394d31d96aaef380ef7f5bdb03af0bd21))
+* ts pathing ([cb479f6](https://github.com/gulbin-dev/gulbindev-portfolio/commit/cb479f6279e969dbc7a4c4029ba4f156fe861bd8))
+* update the release-please yml ([#45](https://github.com/gulbin-dev/gulbindev-portfolio/issues/45)) ([0c638bd](https://github.com/gulbin-dev/gulbindev-portfolio/commit/0c638bdb8c59302d97e535100d7fc7c3c6d9b2f3))
+* useHomePageGSAP hook will now run on Home page mount ([9514245](https://github.com/gulbin-dev/gulbindev-portfolio/commit/951424539d0e798a3dde8a299b0a6106e7856b8d))
+* yml ([83b7080](https://github.com/gulbin-dev/gulbindev-portfolio/commit/83b7080c7b66e0d0e821d347342b1c1137b88895))
+
 ## [1.14.5](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.4...v1.14.5) (2026-05-20)
 
 
