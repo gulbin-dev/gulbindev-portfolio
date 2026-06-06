@@ -4,7 +4,12 @@
  */
 
 import type { Config } from "jest";
+import nextJest from "next/jest.js";
 
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: "./",
+});
 const config: Config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -92,7 +97,17 @@ const config: Config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    "^@components/(.*)$": "./app/components/$1",
+    "^@lib/(.*)$": "./app/lib/$1",
+    "^@assets/(.*)$": "./app/assets/$1",
+    "^@hooks/(.*)$": "./app/hooks/$1",
+    "^@styles/(.*)$": "./app/styles/(.*)$",
+    "^@utils/(.*)$": "./app/utils/$1",
+
+    // Base catch-all fallback alias (Must be placed LAST)
+    "^@/(.*)$": "./$1",
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -139,7 +154,7 @@ const config: Config = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
+  setupFilesAfterEnv: ["./jest.setup.ts"],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -198,4 +213,4 @@ const config: Config = {
   // watchman: true,
 };
 
-export default config;
+export default createJestConfig(config);
