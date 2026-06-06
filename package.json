@@ -2,33 +2,45 @@
   "name": "portfolio-website",
   "version": "1.14.5",
   "private": true,
+  "license": "GPL-3.0-only",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "jest"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@tabler/icons-react": "^3.44.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "eslint-plugin-jest": "^29.15.2",
     "gsap": "^3.15.0",
     "next": "16.2.1",
     "octokit": "^5.0.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-icons": "^5.6.0",
     "react-intersection-observer": "^10.0.3",
     "react-loading-skeleton": "^3.5.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
