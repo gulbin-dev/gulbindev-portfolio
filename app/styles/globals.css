@@ -1,7 +1,4 @@
 @import "tailwindcss";
-@import "./components.css";
-@import "./utilities.css";
-
 /****************************
 *
 * Base classes 
@@ -78,6 +75,9 @@
   }
 }
 
+:root {
+  --square-grid-size: 100px;
+}
 @theme inline {
   --font-important: var(--font-lato);
   --font-body: var(--font-open-sans);
@@ -85,24 +85,22 @@
 
 @theme {
   --spacing: 8px;
-  --color-light-foreground: #fff;
-  --color-light-secondary: #bcbcbc;
-  --color-dark-foreground: #1a1a1a;
-  --color-primary-color: #7a00ff;
-  --color-primary-color-darker: #3f0084;
-  --color-secondary-color: #0062ff;
-  --color-action-color: #ffc400;
-  --color-col-neutral-1: #ac62ff;
-  --color-col-neutral-2: #8b008b;
-  --color-issue-red: #fc4646;
-  --text-size-xl: clamp(1.8rem, 2.5vw, 2.5rem);
-  --text-size-lg: clamp(1.4rem, 2vw, 2rem);
-  --text-size-md: clamp(1.1rem, 1.5vw, 1.4rem);
-  --text-size-sm: clamp(0.9rem, 1vw, 1.1rem);
-  --text-size-xsm: clamp(0.75rem, 0.8vw, 0.9rem);
-  --breakpoint-mobile-portrait: 480px;
-  --breakpoint-mobile-landscape: 481px;
-  --breakpoint-tablet-portrait: 768px;
-  --breakpoint-tablet-landscape: 992px;
+  --color-primary: #1f1b24;
+  --color-secondary-orange: #ff5c00;
+  --color-secondary-orange-dead: #631f00;
+  --color-secondary-red: #ee002e;
+  --color-secondary-rose-red: #ba0090;
+  --color-cta: #47dc00;
+  --color-cta-hover: #8ef060;
+  --color-foreground-white: #f9f9f9;
+  --color-stroke: #4c4a4a;
+  --color-primary-shade: #27232f;
+  --text-size-xl: clamp(2.2rem, 3vw, 2.6rem);
+  --text-size-lg: clamp(1.8rem, 3vw, 2.2rem);
+  --text-size-md: clamp(1.3rem, 3vw, 1.8rem);
+  --text-size-sm: clamp(1.1rem, 3vw, 1.3rem);
+  --text-size-xsm: clamp(0.8rem, 3vw, 0.95rem);
+  --breakpoint-mobile-md: 430px;
+  --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1024px;
 }
