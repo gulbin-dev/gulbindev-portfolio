@@ -1,0 +1,72 @@
+{
+  "better-todo-tree.highlights.useColourScheme": true,
+  "better-comments.multilineComments": true,
+  "better-todo-tree.regex.enableMultiLine": true,
+  "better-todo-tree.regex.regex": "((//|#|<!--|;|/\\*|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS))",
+  "better-todo-tree.general.tags": [
+    "BUG",
+    "ISSUE",
+    "FIXME",
+    "FIX",
+    "TODO",
+    "DOC",
+    "CI",
+    "CD"
+  ],
+  "better-todo-tree.general.tagGroups": {
+    "FIXME": ["FIXME", "FIX"]
+  },
+  "better-todo-tree.highlights.defaultHighlight": {
+    "type": "tag",
+    "opacity": 50
+  },
+  "better-todo-tree.highlights.backgroundColourScheme": [
+    "#e03112",
+    "#dbdb12",
+    "#dbdb12",
+    "green",
+    "#abeb15",
+    "#1296e3",
+    "violet",
+    "#873926"
+  ],
+  "better-todo-tree.highlights.foregroundColourScheme": [
+    "white",
+    "black",
+    "black",
+    "white",
+    "white",
+    "white",
+    "black"
+  ],
+  "better-todo-tree.highlights.enabled": true,
+  "better-todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "tasklist"
+    },
+    "FIXME": {
+      "icon": "tools"
+      //   "background": "#ed8c15",
+    },
+    "FIX": {
+      "icon": "tools"
+      //   "foreground": "#ed8c15",
+    },
+    "ISSUE": {
+      "icon": "circle-slash",
+      "gutterIcon": true
+    },
+    "BUG": {
+      "gutterIcon": true
+    },
+    "DOC": {
+      "icon": "compose"
+    },
+    "CI": {
+      "icon": "git-branch"
+    },
+    "CD": {
+      "icon": "rocket"
+    }
+  }
+}
