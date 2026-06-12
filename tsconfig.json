@@ -25,7 +25,8 @@
       "@assets/*": ["./app/assets/*"],
       "@hooks/*": ["./app/hooks/*"],
       "@styles/*": ["./app/styles/*"],
-      "@utils/*": ["./app/utils/*"]
+      "@utils/*": ["./app/utils/*"],
+      "@server/*": ["./app/server/*"]
     }
   },
   "include": [
