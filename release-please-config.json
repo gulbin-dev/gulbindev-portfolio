@@ -1,15 +1,5 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "branches": [
-    {
-      "branch": "master",
-      "prerelease": false
-    },
-    {
-      "branch": "pre-release",
-      "prerelease": true
-    }
-  ],
   "packages": {
     ".": {
       "release-type": "node",
@@ -20,7 +10,9 @@
         { "type": "refactor", "section": "Refactoring" },
         { "type": "test", "section": "Tests" },
         { "type": "chore", "section": "Chores" },
-        { "type": "style", "section": "Adjust styling" }
+        { "type": "style", "section": "Adjust styling" },
+        { "type": "perf", "section": "Improve Perfrmance" },
+        { "type": "ci", "section": "Continuous Integration" }
       ]
     }
   }
