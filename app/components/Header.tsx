@@ -6,6 +6,12 @@ import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP } from "@utils/gsap";
 import { usePathname } from "next/navigation";
 
+const MenuSpan = ({ className }: { className?: string }) => {
+  return (
+    <span className={`menu-icon h-1 w-6 rounded-sm bg-cta ${className}`}></span>
+  );
+};
+
 export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const tl = useRef<gsap.core.Timeline | null>(null);
@@ -21,6 +27,7 @@ export default function Header() {
   // Header hide/show on scroll
   useGSAP(
     () => {
+      ScrollTrigger.refresh();
       // hide header animation
       const showHeaderAnim = gsap
         .to(headerRef.current, {
@@ -37,7 +44,6 @@ export default function Header() {
         end: "max",
         onUpdate: (self) => {
           const velocity = self.getVelocity();
-          if (Math.abs(velocity) === 0) return;
 
           if (velocity < 0) {
             showHeaderAnim.reverse(); // display header on scroll up
@@ -46,7 +52,6 @@ export default function Header() {
           }
         },
       });
-      ScrollTrigger.refresh();
     },
     { dependencies: [pathName], revertOnUpdate: true, scope: headerRef },
   );
@@ -54,7 +59,7 @@ export default function Header() {
   // Hamburger + sidebar animation timeline
   useGSAP(
     () => {
-      const slices = gsap.utils.toArray<HTMLElement>(".hamburger-icon");
+      const slices = gsap.utils.toArray<HTMLElement>(".menu-icon");
       gsap.defaults({ ease: "power2.out", duration: 0.3 });
 
       tl.current = gsap
@@ -89,39 +94,57 @@ export default function Header() {
     <>
       <header
         ref={headerRef}
-        className="fixed! z-50 left-0 top-0 w-full min-h-12 content-center  tablet-portrait:min-h-9 bg-secondary-color "
+        className="fixed! top-0 left-0 z-50 min-h-12 w-full content-center bg-primary text-foreground-white tablet:min-h-9"
       >
-        <div className="max-w-180 w-full h-full flex justify-between items-center place-self-center  px-3 py-3 tablet-portrait:py-0">
-          <Link href="/" className="px-0 text-white">
+        {/* ARIA page update */}
+        <div role="status" className="sr-only">
+          Navigated on
+          {pathName === "/"
+            ? " home "
+            : pathName === "/projects"
+              ? " projects "
+              : pathName === "/about"
+                ? " about "
+                : pathName === "/privacy-notice"
+                  ? " privacy notice "
+                  : " terms and conditions "}
+          page
+        </div>
+
+        <div className="flex h-full w-full max-w-180 items-center justify-between place-self-center px-3 py-3 tablet:py-0">
+          <Link href="/">
             <Image
               src="/logo.png"
               alt="logo"
+              aria-hidden
               width={100}
               height={58}
               loading="eager"
               className="aspect-auto"
             />
           </Link>
-          <NavLinks navStyle="hidden header-nav gap-6 mr-8 tablet-portrait:flex" />
+          <NavLinks
+            ariaLabel="Header"
+            navStyle="hidden header-nav gap-6 mr-8 tablet:flex"
+          />
           <button
             onClick={toggleSideBarHandler}
-            className="flex flex-col gap-1 tablet-portrait:hidden"
+            className="flex flex-col gap-1.5 tablet:hidden"
             aria-label="Navigation menu"
           >
-            <span className="hamburger-icon"></span>
-            <span className="w-5 h-1 relative">
-              <span className="hamburger-icon block absolute origin-center"></span>
-              <span className="hamburger-icon block absolute origin-center"></span>
+            <MenuSpan />
+            <span className="relative h-1 w-6">
+              <MenuSpan className="absolute block origin-center" />
+              <MenuSpan className="absolute block origin-center" />
             </span>
-
-            <span className="hamburger-icon"></span>
+            <MenuSpan />
           </button>
         </div>
       </header>
 
       <div
         ref={sideBarRef}
-        className="mobile-side-bar bg-primary-color-darker w-full tablet-portrait:hidden h-screen fixed top-0 left-0 z-10 py-15"
+        className="mobile-side-bar fixed top-0 left-0 z-10 h-screen w-full bg-primary py-15 text-foreground-white tablet:hidden"
         style={{ transform: "translateX(100%)" }}
       >
         <NavLinks
