@@ -30,7 +30,13 @@ export default function Footer() {
     >
       <div className="w-full max-w-180 place-self-center px-3">
         <Link href="/" className="inline-block text-white">
-          <Image src="/logo.png" alt="logo" width={100} height={58} />
+          <Image
+            src="/logo.png"
+            alt="logo"
+            width={100}
+            height={58}
+            aria-hidden
+          />
         </Link>
 
         <p className="mt-2 tablet:w-[75%] desktop:w-[45%] desktop:text-size-xsm">
