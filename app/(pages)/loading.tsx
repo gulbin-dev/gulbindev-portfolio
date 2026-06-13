@@ -1,10 +1,9 @@
 export default function Loading() {
   return (
-    <div className="loader-bg min-h-screen fixed min-w-screen inset flex items-center z-60 justify-center bg-linear-to-br from-primary-color to-primary-color-darker overflow-hidden">
+    <div className="inset fixed z-60 flex h-screen w-screen items-center justify-center overflow-hidden bg-linear-to-br from-primary to-primary-shade">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-action-color mx-auto mb-4"></div>
-        <p className="text-lg text-foreground">Loading page...</p>
-        <p className="mt-1">First time visit may take a while to load</p>
+        <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2"></div>
+        <p className="text-foreground text-lg">Loading page...</p>
       </div>
     </div>
   );
