@@ -11,5 +11,6 @@ const playhead = { frame: 0 };
 // this will create an illution of image loader to prevent empty drawings on canvas
 const placeholderImage = new Image();
 placeholderImage.src = "/frame-image/profile-frame-1.webp";
-
-export const frameImages = { placeholderImage, playhead, images };
+const eclipse = new Image();
+eclipse.src = "/images/eclipse-bg.png";
+export const frameImages = { placeholderImage, playhead, images, eclipse };
