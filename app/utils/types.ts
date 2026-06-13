@@ -8,6 +8,14 @@ export type ListGitHubRepo = {
   html_url: string;
   homepage: string | null;
 };
+/**
+ * Fetch response type
+ */
+export interface ResponseError {
+  status: boolean;
+  name?: string;
+  message?: string;
+}
 
 export interface ImageSequenceConfig {
   canvas: string | HTMLCanvasElement;

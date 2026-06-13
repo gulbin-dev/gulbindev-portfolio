@@ -1,10 +1,11 @@
-import { octokit, githubUserName } from "./github-auth";
-import { ListGitHubRepo } from "@utils/types";
+import { octokit, githubUserName } from "@utils/github-auth";
+import { ListGitHubRepo, ResponseError } from "@utils/types";
 
 // fech github repos
 export const fetchProjectDemo = async () => {
   const filterNames = ["gulbindev-portfolio", "Crunchtime"]; // only selected repos are fetched
-  let fetchError = false;
+  const responseError: ResponseError = { status: false };
+
   let projects: ListGitHubRepo[] = [];
   try {
     const { data } = await octokit.request(
@@ -19,11 +20,15 @@ export const fetchProjectDemo = async () => {
     projects = Array.isArray(data)
       ? data.filter((repo: ListGitHubRepo) => filterNames.includes(repo.name))
       : [];
-  } catch (error) {
-    fetchError = true;
-    console.error("Failed to load GitHub Repos:", error);
+  } catch (err) {
+    const error = err as Error;
+    responseError.status = true;
+    responseError.name = error.name;
+    responseError.message = error.message;
+
+    console.error("Failed to load GitHub Repos:", err);
   }
 
-  const reponse = { projects, fetchError };
+  const reponse = { projects, responseError };
   return reponse;
 };
