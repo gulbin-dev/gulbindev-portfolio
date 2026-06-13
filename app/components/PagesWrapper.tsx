@@ -12,11 +12,10 @@ import { useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * A wrapper component that helps implement the SmoothScroll from GSAP.
- * This component will render a div with an id of "smooth-wrapper" and
- * another div with an id of "smooth-content" inside it. The content
- * of the wrapped component will be rendered inside the "smooth-content"
- * div.
+ * A client wrapper component that handles GSAP SmoothScroll
+ *
+ * To prevent the entire page to wrap as client component
+ * @param param0 these are page route and Footer component
  */
 
 export default function PagesWrapper({
@@ -55,12 +54,14 @@ export default function PagesWrapper({
   }, [pathname, children]);
 
   return (
-    <div id="smooth-wrapper" className="max-h-screen! overflow-hidden!">
+    <div id="smooth-wrapper">
       <div
         id="smooth-content"
-        className="bg-primary-color-darker min-h-screen! content-wrapper"
+        className="bg-primary-color-darker content-wrapper"
       >
-        {children}
+        <main className="flex flex-col items-center bg-primary pt-12 text-foreground-white">
+          {children}
+        </main>
       </div>
     </div>
   );
