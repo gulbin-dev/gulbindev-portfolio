@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-gulbindev.vercel.app"),
   title: "Joshua Glenn Gulbin | Frontend React Web Developer",
   description:
-    "Portfolio of Joshua Glenn Gulbin (GulbinDev). A Frontend Developer specializing in React, Next.js, TypeScript, Tailwind CSS, and user-friendly UI design.",
+    "Portfolio of Joshua Glenn Gulbin (GulbinDev). A Frontend Developer specializing in React.js, Next.js, TypeScript, Tailwind CSS, and Redux state management.",
   authors: {
     name: "Joshua Glenn R. Gulbin",
     url: "https://www.linkedin.com/in/joshua-glenn-gulbin/",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Joshua Glenn Gulbin | Frontend React Web Developer",
     description:
-      "Portfolio of Joshua Glenn Gulbin (GulbinDev). A Frontend Developer specializing in React, Next.js, TypeScript, Tailwind CSS, and user-friendly UI design.",
+      "Portfolio of Joshua Glenn Gulbin (GulbinDev). A Frontend Developer specializing in React.js, Next.js, TypeScript, Tailwind CSS, and Redux state management.",
     url: "https://portfolio-gulbindev.vercel.app/",
     siteName: "Joshua Glenn Gulbin | Frontend React Web Developer",
     type: "website",
