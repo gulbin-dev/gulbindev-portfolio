@@ -1,0 +1,22 @@
+@layer components {
+  .animate-underline {
+    --scaleX: 0;
+
+    &::after {
+      /* Wrapped the variable declaration inside var() */
+      transform: scaleX(var(--scaleX));
+    }
+  }
+  .change-on-interaction {
+    &:hover {
+      color: var(--color-cta-hover);
+    }
+    &:active {
+      color: var(--color-cta-hover);
+    }
+  }
+
+  .split-line-class {
+    display: flex;
+  }
+}
