@@ -3,27 +3,36 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 
-/** Internal navigation links */
+/**
+ * Reusable nav links
+
+ * For better code maintainance since both Header and Footer use this
+ * @param param0 used as class styles
+ * @param param1 used as class styles
+ * @param param2 use to update parent state per anchor link click
+ */
 export default function NavLinks({
+  ariaLabel,
   navStyle,
   anchorStyle,
   updateState,
 }: {
+  ariaLabel?: string;
   navStyle: string;
   anchorStyle?: string;
   updateState?: Dispatch<SetStateAction<boolean>> | undefined;
 }) {
-  const pathName = usePathname(); // store browser path url
+  const pathName = usePathname();
   const isFooter = navStyle.includes("footer"); // check if NavLinks is for footer
 
   return (
-    <nav>
+    <nav aria-label={ariaLabel}>
       <ul className={navStyle}>
         <li
           className={`relative ${pathName === "/" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}
         >
           <Link
-            className={anchorStyle}
+            className={`change-on-interaction ${anchorStyle}`}
             href="/"
             onClick={() => updateState?.(false)}
           >
@@ -31,21 +40,21 @@ export default function NavLinks({
           </Link>
         </li>
         <li
-          className={`relative ${pathName === "/discover" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}
+          className={`relative ${pathName === "/projects" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}
         >
           <Link
-            className={anchorStyle}
-            href="/discover"
+            className={`change-on-interaction ${anchorStyle}`}
+            href="/projects"
             onClick={() => updateState?.(false)}
           >
-            Discover
+            Projects
           </Link>
         </li>
         <li
           className={`relative ${pathName === "/about" ? "active" : ""} ${isFooter ? "" : "enlarge"}`}
         >
           <Link
-            className={anchorStyle}
+            className={`change-on-interaction ${anchorStyle}`}
             href="/about"
             onClick={() => updateState?.(false)}
           >
