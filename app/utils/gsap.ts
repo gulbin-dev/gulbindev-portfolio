@@ -15,6 +15,7 @@ import {
   ScrollSmoother,
   MotionPathPlugin,
   ScrambleTextPlugin,
+  Observer,
 } from "gsap/all";
 
 /**
@@ -27,6 +28,7 @@ gsap.registerPlugin(
   ScrollSmoother,
   MotionPathPlugin,
   ScrambleTextPlugin,
+  Observer,
 );
 
 ScrollTrigger.defaults({
@@ -40,18 +42,17 @@ export {
   gsap,
   SplitText,
   ScrollTrigger,
-  DrawSVGPlugin,
   ScrollSmoother,
-  useGSAP,
   MotionPathPlugin,
+  useGSAP,
   ScrambleTextPlugin,
+  Observer,
 };
 
 /** Media query conditions used for responsive animation with GSAP matchMedia  */
 export const mediaQueries = {
-  isMobilePortraitScreen: "(max-width: 480px)",
-  isMobileLandscapeScreen: "(min-width: 481px) and (max-width: 767px)",
-  isTabletPortraitScreen: "(min-width: 768px) and (max-width: 1024px)",
+  isMobileScreen: "(max-width: 480px)",
+  isTabletScreen: "(min-width: 768px) and (max-width: 1024px)",
   isDesktopScreen: "(min-width: 1024px)",
   isReduceMotion: "(prefers-reduced-motion: reduce)",
 };
