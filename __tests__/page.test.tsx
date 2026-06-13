@@ -89,8 +89,9 @@ describe("Multi-Page Navigation Test", () => {
       expect(heading).toBeTruthy();
     });
 
-    test("renders the Projects Page layout elements", () => {
-      render(<ProjectsPage />);
+    test("renders the Projects Page layout elements", async () => {
+      const ResolvedPage = await ProjectsPage();
+      render(ResolvedPage);
 
       const heading = screen.getByRole("heading", { name: /projects/i });
 
