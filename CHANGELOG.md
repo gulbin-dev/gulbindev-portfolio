@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.1.0...v2.1.1) (2026-06-14)
+
+
+### Bug Fixes
+
+* fix typo on streamline license link ([#109](https://github.com/gulbin-dev/gulbindev-portfolio/issues/109)) ([7e0aad1](https://github.com/gulbin-dev/gulbindev-portfolio/commit/7e0aad12257749b02659af8e8710f8a22b507971))
+
 ## [2.1.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.0.0...v2.1.0) (2026-06-14)
 
 
