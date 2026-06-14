@@ -1,8 +1,9 @@
+import Link from "next/link";
 import HeaderLandmark from "@components/UI/HeaderLandmark";
 import PagesWrapper from "@components/PagesWrapper";
 
 export default function PrivacyPage() {
-  const sectionClassName = "w-full  relative max-w-140 px-3 pb-8";
+  const sectionClassName = "w-full relative max-w-140 px-3 pb-8";
   return (
     <PagesWrapper>
       <section className={sectionClassName}>
@@ -44,9 +45,19 @@ export default function PrivacyPage() {
       <section className={sectionClassName}>
         <HeaderLandmark level={2}>License Notice</HeaderLandmark>
         <p>
-          The content and source code of this website are licensed under the GNU
-          General Public License version 3.0 (GPL-3.0). This means the site is
-          free to use, modify, and redistribute under the same license terms.
+          The underlying source code of this website is licensed under the GNU
+          General Public License version 3.0 (GPL-3.0). This open-source
+          copyleft framework applies to the code base, but does not extend to
+          proprietary third-party design assets used on this site. For
+          comprehensive licensing rules and third-party asset exclusions, please
+          review our full{" "}
+          <Link
+            href="/terms-and-conditions"
+            className="change-on-interaction text-cta underline hover:underline dark:text-blue-400"
+          >
+            Terms and Conditions
+          </Link>
+          .
         </p>
       </section>
 
