@@ -13,5 +13,5 @@
 
 - **Source**: [streamline](https://www.streamlinehq.com/)
 - **Icons used**: `e.g., Api-Fill`
-- **License**: [CC by 4.0](hthttps://help.streamlinehq.com/en/articles/5354376-streamline-free-license)
+- **License**: [CC by 4.0](https://help.streamlinehq.com/en/articles/5354376-streamline-free-license)
 - **Attribution**: Icons by streamline (https://www.streamlinehq.com/).
