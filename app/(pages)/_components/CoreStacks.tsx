@@ -35,7 +35,8 @@ export default function CoreStacks() {
       >
         <li className="col-span-2 col-start-2 row-start-1">
           <Tag
-            className="tags text-orange-500 tablet:translate-8 tablet:scale-0 tablet:opacity-0"
+            className="tags tablet:translate-8 tablet:scale-0 tablet:opacity-0"
+            style="text-orange-500"
             icon={<HTMLIcon />}
           >
             HTML5
@@ -43,7 +44,8 @@ export default function CoreStacks() {
         </li>
         <li className="col-span-2 col-start-3 row-span-2 row-start-2 justify-self-center">
           <Tag
-            className="tags text-blue-600 tablet:-translate-x-5 tablet:translate-y-3 tablet:scale-0 tablet:opacity-0"
+            className="tags tablet:-translate-x-5 tablet:translate-y-3 tablet:scale-0 tablet:opacity-0"
+            style="text-blue-600"
             icon={<CSSIcon />}
           >
             CSS3
@@ -51,7 +53,8 @@ export default function CoreStacks() {
         </li>
         <li className="col-span-2 col-start-1 row-span-2 row-start-2 place-self-center">
           <Tag
-            className="tags text-yellow-300 tablet:translate-x-16 tablet:scale-0 tablet:opacity-0"
+            className="tags tablet:translate-x-16 tablet:scale-0 tablet:opacity-0"
+            style="text-yellow-300"
             icon={<JavascriptIcon />}
           >
             JavaScript
@@ -59,7 +62,8 @@ export default function CoreStacks() {
         </li>
         <li className="col-span-2 col-start-2 row-span-2 row-start-4">
           <Tag
-            className="tags text-orange-600 tablet:translate-x-8 tablet:-translate-y-6 tablet:scale-0 tablet:opacity-0"
+            className="tags tablet:translate-x-8 tablet:-translate-y-6 tablet:scale-0 tablet:opacity-0"
+            style="text-orange-600"
             icon={<GitIcon />}
           >
             Git
@@ -68,7 +72,8 @@ export default function CoreStacks() {
 
         <li className="col-span-2 col-start-3 row-span-2 row-start-3 place-self-center">
           <Tag
-            className="tags text-indigo-600 tablet:-translate-x-10 tablet:-translate-y-4 tablet:scale-0 tablet:opacity-0"
+            className="tags tablet:-translate-x-10 tablet:-translate-y-4 tablet:scale-0 tablet:opacity-0"
+            style="text-indigo-600"
             icon={<GithubIcon />}
           >
             Github

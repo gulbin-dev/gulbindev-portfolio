@@ -5,7 +5,7 @@ import Tag from "@components/UI/Tag";
 import Contact from "@components/Contact";
 import WorkflowCards from "./_components/WorkflowCards";
 import ProficientStacks from "./_components/ProficientStacks";
-import { VSCodeIcon, VercelIcon } from "@utils/tabler-icons";
+import { VSCodeIcon, VercelIcon, VitestIcon } from "@utils/tabler-icons";
 import Image from "next/image";
 import HeroScramblerText from "./_components/HeroScrambleText";
 import CanvasWrapper from "@components/CanvasWrapper";
@@ -105,7 +105,7 @@ export default function HomePage() {
             <h3>Experience working using </h3>
             <ul className="mt-4 flex flex-wrap gap-x-1.5 gap-y-2.5">
               <li>
-                <Tag className="text-blue-700" icon={<VSCodeIcon />}>
+                <Tag style="text-blue-400" icon={<VSCodeIcon />}>
                   VS Code
                 </Tag>
               </li>
@@ -113,13 +113,13 @@ export default function HomePage() {
                 <Tag>RestAPI</Tag>
               </li>
               <li>
-                <Tag className="text-neutral-50" icon={<VercelIcon />}>
+                <Tag style="text-neutral-50" icon={<VercelIcon />}>
                   Vercel
                 </Tag>
               </li>
               <li>
                 <Tag
-                  className="text-lime-50"
+                  style="text-lime-50"
                   icon={
                     <Image src="/gsap-icon.png" alt="" width={24} height={24} />
                   }
@@ -128,7 +128,9 @@ export default function HomePage() {
                 </Tag>
               </li>
               <li>
-                <Tag className="text-lime-400">Vitest</Tag>
+                <Tag style="text-lime-400" icon={<VitestIcon />}>
+                  Vitest
+                </Tag>
               </li>
             </ul>
           </div>
