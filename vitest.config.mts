@@ -7,6 +7,10 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "jsdom",
+    reporters: ["default", "html"],
+    coverage: {
+      reporter: ["text", "json", "html"],
+    },
     // This runs BEFORE all test files and their imports execute
     setupFiles: ["./vitest.setup.ts"],
     alias: {
