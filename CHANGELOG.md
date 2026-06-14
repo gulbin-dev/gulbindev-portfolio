@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.0.0...v2.1.0) (2026-06-14)
+
+
+### Features
+
+* Enhance sitemap, UI, and performance improvements ([#106](https://github.com/gulbin-dev/gulbindev-portfolio/issues/106)) ([f1b99bf](https://github.com/gulbin-dev/gulbindev-portfolio/commit/f1b99bf883281eda5bf1c9afb2b5d424dd52b468))
+
 ## [2.0.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v1.14.5...v2.0.0) (2026-06-13)
 
 
