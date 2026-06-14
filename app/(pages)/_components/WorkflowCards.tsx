@@ -13,7 +13,7 @@ export default function WorkflowCards() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: "0px 0px 800px 0px",
+    rootMargin: "0px 0px 600px 0px",
     triggerOnce: true,
   });
   useGSAP(

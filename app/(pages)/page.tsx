@@ -21,7 +21,7 @@ export default function HomePage() {
       <GridBackground className="hidden desktop:block" />
       <Section ariaLabel="Hero section" className="desktop:h-75">
         <GridBackground className="block desktop:hidden" />
-        <header className="relative z-1 flex flex-col tablet:col-start-1 tablet:col-end-6 tablet:row-span-3 tablet:row-start-1 desktop:col-start-1 desktop:col-end-7 desktop:row-start-2">
+        <header className="relative z-1 flex flex-col tablet:col-start-1 tablet:col-end-5 tablet:row-span-3 tablet:row-start-1 desktop:col-start-1 desktop:col-end-7 desktop:row-start-2">
           <span className="relative mt-6 ml-4 inline-block w-fit rounded-t-2xl pl-2.5 text-foreground-white before:absolute before:top-1/2 before:left-0 before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-green-500 before:drop-shadow-[0_0_4px_4px_#00ff00] before:content-['']">
             Hi, I&apos;m Joshua Glenn
           </span>
@@ -40,7 +40,7 @@ export default function HomePage() {
           aria-label="Introduction links"
           className="tablet:col-start-1 tablet:col-end-6 tablet:row-span-2 tablet:row-start-5 desktop:col-start-1 desktop:col-end-7 desktop:row-start-5"
         >
-          <ul className="@container relative z-1 my-8 flex gap-1.5 tablet:mt-10">
+          <ul className="relative z-1 mt-5 mb-9 flex flex-col gap-5 mobile-md:flex-row mobile-md:gap-1.5 tablet:mt-10">
             <li>
               <CTALinkButton
                 className="border border-stroke bg-primary text-foreground-white!"

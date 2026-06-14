@@ -20,7 +20,7 @@ export default function Projects({
   return (
     <ul
       aria-label="Project"
-      className="flex max-w-110 flex-col items-center justify-center gap-2 py-6 tablet:flex-row tablet:items-stretch desktop:items-start desktop:gap-4"
+      className="flex max-w-110 flex-col items-center justify-center gap-2 py-6 tablet:flex-row tablet:items-stretch desktop:gap-4"
     >
       {projectList.projects.map((item) => (
         <li

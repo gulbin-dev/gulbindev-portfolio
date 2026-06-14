@@ -9,10 +9,18 @@ import {
 } from "@utils/gsap";
 import { frameImages } from "@utils/imageSequence";
 import { ImageSequenceConfig } from "@utils/types";
+import { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
 export default function Canvas({ className }: { className: string }) {
   const { ref, inView } = useInView();
+
+  const { placeholderImage, playhead, images, eclipse } = frameImages;
+
+  // to cache values of frameImages across render
+  const frameImagesConfig = useMemo(() => {
+    return { placeholderImage, playhead, images, eclipse };
+  }, [placeholderImage, playhead, images, eclipse]);
 
   useGSAP(() => {
     if (!inView) return;
@@ -28,8 +36,6 @@ export default function Canvas({ className }: { className: string }) {
 
       // gsap.matchMedia conditions
       const { isTabletScreen, isDesktopScreen } = context.conditions ?? {};
-
-      const { placeholderImage, playhead, images, eclipse } = frameImages;
 
       const imageSequence = (config: ImageSequenceConfig) => {
         const canvasElements = gsap.utils.toArray(
@@ -84,7 +90,13 @@ export default function Canvas({ className }: { className: string }) {
 
           // 2. DRAW MASKED BOTTOM ZONE (Combining background + masked character)
           // LAYER A: Draw the eclipse shape as the solid background first
-          offscreenCtx.drawImage(eclipse, shapeX, shapeY, shapeW, shapeH);
+          offscreenCtx.drawImage(
+            frameImagesConfig.eclipse,
+            shapeX,
+            shapeY,
+            shapeW,
+            shapeH,
+          );
 
           // LAYER B: Draw the clipped character on top of the background
           offscreenCtx.save();
@@ -110,14 +122,23 @@ export default function Canvas({ className }: { className: string }) {
         };
 
         const updateImage = () => {
-          const currentImg = images[Math.round(playhead.frame)];
+          const currentImg =
+            frameImagesConfig.images[
+              Math.round(frameImagesConfig.playhead.frame)
+            ];
           const placeholderX = (canvasElement.width - 420) / 2;
 
           // Draw the placeholderImage with blur filter while the current frame still loads
           if (currentImg && !currentImg.complete) {
             ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
             ctx!.filter = "blur(10px)";
-            ctx!.drawImage(placeholderImage, placeholderX, 0, 420, 720);
+            ctx!.drawImage(
+              frameImagesConfig.placeholderImage,
+              placeholderX,
+              0,
+              420,
+              720,
+            );
 
             // add text on canvas
             ctx!.filter = "blur(0px)";
@@ -139,28 +160,29 @@ export default function Canvas({ className }: { className: string }) {
         };
 
         // Draw placeholder immediately if cached, otherwise on load
-        if (placeholderImage.complete) {
+        if (frameImagesConfig.placeholderImage.complete) {
           updateImage();
         } else {
-          placeholderImage.onload = updateImage;
+          frameImagesConfig.placeholderImage.onload = updateImage;
         }
 
         // Monitor if the eclipse background element loading triggers post-initialization
-        if (!eclipse.complete) {
-          eclipse.onload = updateImage;
+        if (!frameImagesConfig.eclipse.complete) {
+          frameImagesConfig.eclipse.onload = updateImage;
         }
 
-        images.forEach((img, i) => {
+        frameImagesConfig.images.forEach((img, i) => {
           img.onload = () => {
-            if (Math.floor(playhead.frame) === i) updateImage();
+            if (Math.floor(frameImagesConfig.playhead.frame) === i)
+              updateImage();
           };
         });
 
         updateImage();
 
         // The animation responsible for the frame animation
-        return gsap.to(playhead, {
-          frame: images.length - 1,
+        return gsap.to(frameImagesConfig.playhead, {
+          frame: frameImagesConfig.images.length - 1,
           ease: "none",
           onUpdate: updateImage,
           scrollTrigger: config.scrollTrigger,
