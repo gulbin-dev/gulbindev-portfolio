@@ -150,7 +150,24 @@ export default function Footer() {
             </ul>
           </nav>
         </div>
-
+        <p className="text-center">
+          Icons used provided by{" "}
+          <Link
+            href="https://tabler.io/icons"
+            target="_blank"
+            className="change-on-interaction underline"
+          >
+            Tabler-Icons
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="https://www.streamlinehq.com/"
+            target="_blank"
+            className="change-on-interaction underline"
+          >
+            Streamline
+          </Link>
+        </p>
         <p className="mt-5 text-center">
           &copy; 2026 GulbinDev - Frontend React Web Developer. All rights
           reserved.
