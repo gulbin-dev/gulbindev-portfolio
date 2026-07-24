@@ -17,6 +17,8 @@ import {
   IconBrandVercelFilled,
   IconBrandFiverr,
   IconBrandUpwork,
+  IconLoader,
+  IconPhotoAlt,
 } from "@tabler/icons-react";
 
 const LinkedInIcon = IconBrandLinkedinFilled,
@@ -36,7 +38,9 @@ const LinkedInIcon = IconBrandLinkedinFilled,
   VercelIcon = IconBrandVercelFilled,
   UpworkIcon = IconBrandUpwork,
   FiverrIcon = IconBrandFiverr,
-  NextJsIcon = IconBrandNextjs;
+  NextJsIcon = IconBrandNextjs,
+  ImageLoaderIcon = IconLoader,
+  ImageErrorIcon = IconPhotoAlt;
 
 const VitestIcon = function VitestIcon() {
   return (
@@ -111,4 +115,6 @@ export {
   UpworkIcon,
   FiverrIcon,
   RestAPIIcon,
+  ImageLoaderIcon,
+  ImageErrorIcon,
 };
