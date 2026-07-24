@@ -22,7 +22,7 @@ export default function HomePage() {
       <Section ariaLabel="Hero section" className="desktop:h-75">
         <GridBackground className="block desktop:hidden" />
         <header className="relative z-1 flex flex-col tablet:col-start-1 tablet:col-end-5 tablet:row-span-3 tablet:row-start-1 desktop:col-start-1 desktop:col-end-7 desktop:row-start-2">
-          <span className="relative mt-6 ml-4 inline-flex w-fit items-center gap-2 rounded-t-2xl pl-2.5 text-foreground-white">
+          <span className="relative mt-6 ml-0 inline-flex w-fit items-center gap-2 rounded-t-2xl pl-2.5 text-foreground-white desktop:ml-4">
             <span className="relative flex h-3.5 w-3.5 items-center justify-center">
               <span className="absolute h-full w-full animate-ping rounded-full bg-green-500/70" />
               <span className="relative h-2.5 w-2.5 rounded-full bg-green-500 shadow-[0_0_12px_#22c55e]" />
