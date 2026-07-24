@@ -8,9 +8,13 @@ import useWindowSizeListener from "@hooks/useWindowSizeListener";
 import { useGSAP, gsap, mediaQueries, Observer } from "@utils/gsap";
 import { useInView } from "react-intersection-observer";
 import TextWithUnderline from "./UI/TextWithUnderline";
+import { ImageLoaderIcon, ImageErrorIcon } from "@utils/tabler-icons";
 
 export default function Contact() {
   const windowSize = useWindowSizeListener();
+  const [imageState, setImageState] = useState<"loading" | "error" | "loaded">(
+    "loading",
+  );
   const [isBiggerScreen, setIsBiggerScreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -383,6 +387,18 @@ export default function Contact() {
                 Gmail
               </h4>
               <div className={divShadeClassName}></div>
+              {imageState === "loading" && (
+                <span className="flex place-content-center gap-1.5 place-self-center">
+                  <ImageLoaderIcon />
+                  Loading...
+                </span>
+              )}
+              {imageState === "error" && (
+                <span className="flex place-content-center gap-1.5 place-self-center">
+                  <ImageErrorIcon />
+                  Someting went wrong
+                </span>
+              )}
               <Image
                 src={
                   inView && isBiggerScreen
@@ -394,7 +410,10 @@ export default function Contact() {
                 fill
                 sizes="(max-width: 768px) 100vw, 20vw"
                 aria-hidden
-                className={imageClassName}
+                onLoadStart={() => setImageState("loading")}
+                onError={() => setImageState("error")}
+                onLoad={() => setImageState("loaded")}
+                className={`${imageClassName} transition-opacity duration-300 ${imageState === "loaded" ? "opacity-100" : "opacity-0"}`}
               />
               <div className={`tablet:bg-primary ${drawerCLassName}`}>
                 <CTALinkButton
