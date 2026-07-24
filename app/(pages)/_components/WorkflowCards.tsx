@@ -29,12 +29,13 @@ export default function WorkflowCards() {
         tl.to(card, {
           boxShadow: "0px 0px 12px 4px var(--color-secondary-orange)",
           duration: 1,
-
+          overwrite: true,
           scrollTrigger: {
             trigger: card,
             start: "10% center",
             end: "90% center",
             toggleActions: "play reverse play reverse",
+            fastScrollEnd: true,
           },
         });
       });
