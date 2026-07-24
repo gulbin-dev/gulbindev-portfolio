@@ -4,6 +4,11 @@ import CanvasWrapper from "@components/CanvasWrapper";
 import GridBackground from "@components/UI/GridBackground";
 import Section from "@components/UI/Section";
 import Assessment from "./_components/Assessment";
+import { Metadata } from "next";
+
+export const metaData: Metadata = {
+  title: "About",
+};
 
 export default function AboutPage() {
   return (
