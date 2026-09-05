@@ -2,6 +2,7 @@
 
 import { gsap, useGSAP, SplitText, mediaQueries } from "@utils/gsap";
 import { useRef } from "react";
+import useNavigationCancellation from "@hooks/useNavigationCancellation";
 
 export default function HeroSplitScramblerText({
   className,
@@ -13,8 +14,10 @@ export default function HeroSplitScramblerText({
   initialText: string;
 }) {
   const containerRef = useRef<HTMLSpanElement>(null);
+  const { signal } = useNavigationCancellation();
 
   useGSAP(() => {
+    if (!signal.aborted) return;
     const mm = gsap.matchMedia();
     mm.add(mediaQueries, (context) => {
       if (!containerRef.current) return;
@@ -73,7 +76,7 @@ export default function HeroSplitScramblerText({
         });
       }
     });
-  }, []);
+  }, [signal]);
 
   return (
     <>
