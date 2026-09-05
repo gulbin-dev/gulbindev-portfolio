@@ -92,7 +92,7 @@
   --color-secondary-orange-dead: #631f00;
   --color-secondary-red: #ee002e;
   --color-cta: #47dc00;
-  --color-this-website: #2A8400;
+  --color-this-website: #2a8400;
   --color-cta-hover: #8ef060;
   --color-foreground-white: #f9f9f9;
   --color-stroke: #4c4a4a;
@@ -105,4 +105,5 @@
   --breakpoint-mobile-md: 430px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1024px;
+  --breakpoint-med-desktop: 1200px;
 }
