@@ -358,7 +358,7 @@ export default function Contact() {
       }}
       role="region"
       aria-label="Contact"
-      className="tablet:col-span-full tablet:col-start-1 tablet:row-span-10 tablet:row-start-30"
+      className="tablet:col-span-full tablet:col-start-1 tablet:row-span-10 tablet:row-start-26"
     >
       <TextWithUnderline>
         <p className="text-size-sm">

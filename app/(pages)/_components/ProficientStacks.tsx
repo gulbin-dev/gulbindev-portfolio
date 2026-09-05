@@ -26,7 +26,7 @@ export default function ProficientStacks() {
         containerRef.current = el;
         ref(el);
       }}
-      className="relative tablet:col-start-5 tablet:col-end-10 tablet:row-span-6 tablet:row-start-1 tablet:grid-cols-subgrid tablet:grid-rows-subgrid desktop:col-start-6 desktop:col-end-12"
+      className="relative mt-5 tablet:col-start-5 tablet:col-end-10 tablet:row-span-6 tablet:row-start-1 tablet:grid-cols-subgrid tablet:grid-rows-subgrid desktop:col-start-6 desktop:col-end-12"
     >
       <ul
         aria-label="Proficient stacks"
