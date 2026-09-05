@@ -52,7 +52,7 @@ export {
 /** Media query conditions used for responsive animation with GSAP matchMedia  */
 export const mediaQueries = {
   isMobileScreen: "(max-width: 480px)",
-  isTabletScreen: "(min-width: 768px) and (max-width: 1024px)",
+  isTabletScreen: "(min-width: 768px) and (max-width: 1023px)",
   isDesktopScreen: "(min-width: 1024px)",
   isReduceMotion: "(prefers-reduced-motion: reduce)",
 };
