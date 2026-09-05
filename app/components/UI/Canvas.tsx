@@ -7,6 +7,7 @@ import {
   ScrollSmoother,
   ScrollTrigger,
 } from "@utils/gsap";
+import useNavigationCancellation from "@hooks/useNavigationCancellation";
 import { frameImages } from "@utils/imageSequence";
 import { ImageSequenceConfig } from "@utils/types";
 import { useMemo } from "react";
@@ -14,6 +15,7 @@ import { useInView } from "react-intersection-observer";
 
 export default function Canvas({ className }: { className: string }) {
   const { ref, inView } = useInView();
+  const { signal } = useNavigationCancellation();
 
   const { placeholderImage, playhead, images } = frameImages;
 
@@ -23,9 +25,11 @@ export default function Canvas({ className }: { className: string }) {
   }, [placeholderImage, playhead, images]);
 
   useGSAP(() => {
-    if (!inView) return;
+    if (!inView || !signal.aborted) return;
     const mm = gsap.matchMedia();
     mm.add(mediaQueries, (context) => {
+      if (!signal.aborted) return;
+
       // fetch and reapply ScrollSmoother effects
       const smoother = ScrollSmoother.get();
       if (smoother) smoother.effects().forEach((t) => t.kill());
@@ -52,6 +56,8 @@ export default function Canvas({ className }: { className: string }) {
         if (isDesktopScreen) canvasElement.style.scale = "0.7";
 
         const updateImage = () => {
+          if (!signal.aborted) return;
+
           const currentImg =
             frameImagesConfig.images[
               Math.round(frameImagesConfig.playhead.frame)
@@ -93,28 +99,56 @@ export default function Canvas({ className }: { className: string }) {
         };
 
         // Draw placeholder immediately if cached, otherwise when it loads.
-        if (frameImagesConfig.placeholderImage.complete) {
-          updateImage();
-        } else {
-          frameImagesConfig.placeholderImage.onload = updateImage;
-        }
-
-        frameImagesConfig.images.forEach((img, i) => {
-          img.onload = () => {
+        const handlePlaceholderLoad = updateImage;
+        const imageLoadHandlers = frameImagesConfig.images.map((img, i) => {
+          const handleImageLoad = () => {
+            if (!signal.aborted) return;
             if (Math.floor(frameImagesConfig.playhead.frame) === i)
               updateImage();
           };
+
+          return { img, handleImageLoad };
+        });
+
+        if (frameImagesConfig.placeholderImage.complete) {
+          updateImage();
+        } else {
+          frameImagesConfig.placeholderImage.addEventListener(
+            "load",
+            handlePlaceholderLoad,
+          );
+        }
+
+        imageLoadHandlers.forEach(({ img, handleImageLoad }) => {
+          img.addEventListener("load", handleImageLoad);
         });
 
         updateImage();
 
         // The animation responsible for the frame animation
-        return gsap.to(frameImagesConfig.playhead, {
+        const animation = gsap.to(frameImagesConfig.playhead, {
           frame: frameImagesConfig.images.length - 1,
           ease: "none",
           onUpdate: updateImage,
           scrollTrigger: config.scrollTrigger,
         });
+
+        signal.addEventListener(
+          "abort",
+          () => {
+            animation.kill();
+            frameImagesConfig.placeholderImage.removeEventListener(
+              "load",
+              handlePlaceholderLoad,
+            );
+            imageLoadHandlers.forEach(({ img, handleImageLoad }) => {
+              img.removeEventListener("load", handleImageLoad);
+            });
+          },
+          { once: true },
+        );
+
+        return animation;
       };
 
       imageSequence({
@@ -131,7 +165,7 @@ export default function Canvas({ className }: { className: string }) {
         },
       });
     });
-  }, [inView]);
+  }, [inView, signal]);
 
   return (
     <canvas
