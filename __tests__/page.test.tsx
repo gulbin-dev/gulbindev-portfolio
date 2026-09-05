@@ -66,7 +66,8 @@ describe("Multi-Page Navigation Test", () => {
   // --- 1. TESTING NAVIGATION LINKS FROM THE HOME PAGE ---
   describe("Home Page Links", () => {
     test("navigates to projects from the home page link", async () => {
-      render(<HomePage />);
+      const ResolvedPage = await HomePage();
+      render(ResolvedPage);
 
       const projectsLink = screen.getByRole("link", {
         name: /check my work/i,

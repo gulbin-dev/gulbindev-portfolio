@@ -28,7 +28,6 @@ export default function Canvas({ className }: { className: string }) {
     mm.add(mediaQueries, (context) => {
       // fetch and reapply ScrollSmoother effects
       const smoother = ScrollSmoother.get();
-      console.log(smoother);
       if (smoother) smoother.effects().forEach((t) => t.kill());
       smoother?.effects("[data-speed], [data-lag]");
 
