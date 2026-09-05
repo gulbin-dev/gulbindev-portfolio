@@ -25,10 +25,10 @@ export default function Canvas({ className }: { className: string }) {
   }, [placeholderImage, playhead, images]);
 
   useGSAP(() => {
-    if (!inView || !signal.aborted) return;
+    if (!inView || signal.aborted) return;
     const mm = gsap.matchMedia();
     mm.add(mediaQueries, (context) => {
-      if (!signal.aborted) return;
+      if (signal.aborted) return;
 
       // fetch and reapply ScrollSmoother effects
       const smoother = ScrollSmoother.get();
@@ -56,7 +56,7 @@ export default function Canvas({ className }: { className: string }) {
         if (isDesktopScreen) canvasElement.style.scale = "0.7";
 
         const updateImage = () => {
-          if (!signal.aborted) return;
+          if (signal.aborted) return;
 
           const currentImg =
             frameImagesConfig.images[
@@ -102,7 +102,7 @@ export default function Canvas({ className }: { className: string }) {
         const handlePlaceholderLoad = updateImage;
         const imageLoadHandlers = frameImagesConfig.images.map((img, i) => {
           const handleImageLoad = () => {
-            if (!signal.aborted) return;
+            if (signal.aborted) return;
             if (Math.floor(frameImagesConfig.playhead.frame) === i)
               updateImage();
           };
