@@ -54,12 +54,12 @@ export default async function HomePage() {
         >
           <ul className="relative z-1 mt-5 flex flex-col gap-5 mobile-md:flex-row mobile-md:gap-1.5">
             <li>
-              <CTALinkButton link="/projects">Check my work</CTALinkButton>
+              <CTALinkButton href="/projects">Check my work</CTALinkButton>
             </li>
             <li>
               <CTALinkButton
                 className="border border-stroke bg-primary text-foreground-white!"
-                link="/joshua-glenn-gulbin-resume-2026-05-16.pdf"
+                href="/joshua-glenn-gulbin-resume-2026-05-16.pdf"
                 target="_blank"
               >
                 Download CV

@@ -417,7 +417,7 @@ export default function Contact() {
               />
               <div className={`tablet:bg-primary ${drawerCLassName}`}>
                 <CTALinkButton
-                  link="mailto:gulbindev@gmail.com"
+                  href="mailto:gulbindev@gmail.com"
                   target="_blank"
                 >
                   Send an email
@@ -453,7 +453,7 @@ export default function Contact() {
               />
               <div className={`tablet:bg-primary ${drawerCLassName}`}>
                 <CTALinkButton
-                  link="https://www.fiverr.com/s/1q8R136"
+                  href="https://www.fiverr.com/s/1q8R136"
                   target="_blank"
                 >
                   Let&apos;s work together
@@ -489,7 +489,7 @@ export default function Contact() {
               />
               <div className={`tablet:bg-primary ${drawerCLassName}`}>
                 <CTALinkButton
-                  link="https://www.upwork.com/freelancers/~01971e35462d72fb44?mp_source=share"
+                  href="https://www.upwork.com/freelancers/~01971e35462d72fb44?mp_source=share"
                   target="_blank"
                 >
                   Hire me
@@ -525,7 +525,7 @@ export default function Contact() {
               />
               <div className={`tablet:bg-primary ${drawerCLassName}`}>
                 <CTALinkButton
-                  link="https://www.linkedin.com/in/joshua-glenn-gulbin/"
+                  href="https://www.linkedin.com/in/joshua-glenn-gulbin/"
                   target="_blank"
                 >
                   Connect with me

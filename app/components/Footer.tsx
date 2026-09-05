@@ -179,7 +179,7 @@ export default function Footer() {
               My Resume
             </h3>
             <CTALinkButton
-              link="/joshua-glenn-gulbin-resume-2026-05-16.pdf"
+              href="/joshua-glenn-gulbin-resume-2026-05-16.pdf"
               target="_blank"
               className="w-full text-center tablet:w-auto"
             >
