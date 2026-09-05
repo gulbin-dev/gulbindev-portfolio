@@ -25,7 +25,7 @@ export default async function HomePage() {
       <GridBackground className="hidden desktop:block" />
       <Section ariaLabel="Hero section" className="desktop:h-75">
         <GridBackground className="block desktop:hidden" />
-        <header className="relative z-1 flex flex-col tablet:col-start-1 tablet:col-end-5 tablet:row-span-3 tablet:row-start-1 desktop:col-start-1 desktop:col-end-7 desktop:row-span-2 desktop:row-start-2">
+        <header className="relative z-1 flex flex-col tablet:col-start-1 tablet:col-end-5 tablet:row-span-3 tablet:row-start-1 desktop:col-start-1 desktop:col-end-7 desktop:row-span-2 desktop:row-start-1">
           <span className="relative mt-6 ml-0 inline-flex w-fit items-center gap-2 rounded-t-2xl pl-2.5 text-foreground-white desktop:ml-4">
             <span className="relative flex h-3.5 w-3.5 items-center justify-center">
               <span className="absolute h-full w-full animate-ping rounded-full bg-green-500/70" />
@@ -33,7 +33,7 @@ export default async function HomePage() {
             </span>
             Hi, I&apos;m Joshua Glenn
           </span>
-          <h1 className="mt-2 flex flex-col text-size-lg text-secondary-red mobile-md:text-size-xl tablet:h-42">
+          <h1 className="mt-2 flex flex-col text-size-lg text-secondary-red mobile-md:text-size-lg tablet:h-42 desktop:text-size-xl">
             <span className="relative">Front-end Developer Building </span>
             <span className="relative">
               <HeroScramblerText
@@ -44,15 +44,18 @@ export default async function HomePage() {
             </span>
           </h1>
         </header>{" "}
-        <p className="relative z-1 col-start-1 mt-3 max-w-100 text-size-sm leading-5 text-foreground-white/75 tablet:col-end-5 tablet:row-span-2 tablet:row-start-4 tablet:max-w-90 tablet:pt-3 desktop:col-end-7 desktop:row-start-5">
+        <p className="relative z-1 col-start-1 mt-3 max-w-100 text-size-sm leading-5 text-foreground-white/75 tablet:col-end-5 tablet:row-span-2 tablet:row-start-6 tablet:max-w-90 tablet:pt-3 desktop:col-end-7 desktop:row-start-5 med-desktop:row-start-5">
           I turn thoughtful designs into fast, responsive interfaces that feel
           as good to use as they are to maintain.
         </p>
         <nav
           aria-label="Introduction links"
-          className="tablet:col-start-1 tablet:col-end-6 tablet:row-span-2 tablet:row-start-5 desktop:col-start-1 desktop:col-end-7 desktop:row-start-7"
+          className="tablet:col-start-1 tablet:col-end-6 tablet:row-span-2 tablet:row-start-9 desktop:col-start-1 desktop:col-end-7 desktop:row-start-8 med-desktop:row-start-7"
         >
           <ul className="relative z-1 mt-5 flex flex-col gap-5 mobile-md:flex-row mobile-md:gap-1.5">
+            <li>
+              <CTALinkButton link="/projects">Check my work</CTALinkButton>
+            </li>
             <li>
               <CTALinkButton
                 className="border border-stroke bg-primary text-foreground-white!"
@@ -61,9 +64,6 @@ export default async function HomePage() {
               >
                 Download CV
               </CTALinkButton>
-            </li>
-            <li>
-              <CTALinkButton link="/projects">Check my work</CTALinkButton>
             </li>
           </ul>
         </nav>
@@ -85,6 +85,19 @@ export default async function HomePage() {
           <Suspense fallback={<>Loading..</>}>
             <ProjectImages projects={projects} />
           </Suspense>
+          <div
+            aria-hidden
+            className="flex justify-end text-size-md text-stone-500 tablet:-col-start-1 tablet:row-start-6 desktop:-col-start-3"
+          >
+            <TextWithUnderline>
+              <span className="relative block w-fit pb-0.5 after:absolute after:right-0 after:bottom-0 after:h-0.5 after:w-full after:origin-right after:bg-secondary-orange after:content-[''] desktop:hidden">
+                TAP
+              </span>
+              <span className="relative hidden w-fit pb-0.5 after:absolute after:right-0 after:bottom-0 after:h-0.5 after:w-full after:origin-right after:bg-secondary-orange after:content-[''] desktop:block">
+                CLICK
+              </span>
+            </TextWithUnderline>
+          </div>
         </Section>
       </div>
       {/* Stacks section */}
