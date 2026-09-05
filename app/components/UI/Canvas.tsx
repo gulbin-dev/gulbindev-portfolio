@@ -8,168 +8,174 @@ import {
   ScrollTrigger,
 } from "@utils/gsap";
 import useNavigationCancellation from "@hooks/useNavigationCancellation";
-import { frameImages } from "@utils/imageSequence";
+import { frameImages, subscribeToFrameLoads } from "@utils/imageSequence";
 import { ImageSequenceConfig } from "@utils/types";
-import { useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
 export default function Canvas({ className }: { className: string }) {
   const { ref, inView } = useInView();
-  const { signal } = useNavigationCancellation();
+  const { isCancelled, signal } = useNavigationCancellation();
 
-  const { placeholderImage, playhead, images } = frameImages;
+  // Track the actual number of individual images successfully loaded across the wire
+  const [loadedCount, setLoadedCount] = useState(0);
 
-  // to cache values of frameImages across render
-  const frameImagesConfig = useMemo(() => {
-    return { placeholderImage, playhead, images };
-  }, [placeholderImage, playhead, images]);
+  // A mutable pointer to manually execute repaints outside of GSAP execution blocks
+  const triggerRepaintRef = useRef<() => void>(() => {});
 
-  useGSAP(() => {
-    if (!inView || signal.aborted) return;
-    const mm = gsap.matchMedia();
-    mm.add(mediaQueries, (context) => {
-      if (signal.aborted) return;
+  // Bind directly to the global loading micro-service event pipeline
+  useEffect(() => {
+    // Skip global events completely if running on a mobile viewport (< 768px)
+    if (
+      typeof window !== "undefined" &&
+      !window.matchMedia("(min-width: 768px)").matches
+    ) {
+      return;
+    }
 
-      // fetch and reapply ScrollSmoother effects
-      const smoother = ScrollSmoother.get();
-      if (smoother) smoother.effects().forEach((t) => t.kill());
-      smoother?.effects("[data-speed], [data-lag]");
+    const unsubscribe = subscribeToFrameLoads((count) => {
+      setLoadedCount(count);
+      // If an asset arrives while a user is idling or stalling on Slow 4G, paint it immediately
+      if (triggerRepaintRef.current) {
+        triggerRepaintRef.current();
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
-      ScrollTrigger.refresh();
+  useGSAP(
+    () => {
+      if (!inView || isCancelled || frameImages.images.length === 0) return;
 
-      // gsap.matchMedia conditions
-      const { isTabletScreen, isDesktopScreen } = context.conditions ?? {};
+      const mm = gsap.matchMedia();
+      mm.add(mediaQueries, (context) => {
+        if (isCancelled) return;
 
-      const imageSequence = (config: ImageSequenceConfig) => {
-        const canvasElements = gsap.utils.toArray(
-          config.canvas,
-        ) as HTMLCanvasElement[];
+        // Fetch and reapply ScrollSmoother effects
+        const smoother = ScrollSmoother.get();
+        if (smoother) smoother.effects().forEach((t) => t.kill());
+        smoother?.effects("[data-speed], [data-lag]");
 
-        const canvasElement = canvasElements[0];
-        if (!canvasElement) return;
+        ScrollTrigger.refresh();
 
-        const ctx = canvasElement.getContext("2d");
-        const dpr = window.devicePixelRatio || 1;
+        const { isTabletScreen, isDesktopScreen } = context.conditions ?? {};
 
-        if (dpr === 1.5) canvasElement.style.scale = "0.7";
-        if (isTabletScreen) canvasElement.style.scale = "0.9";
-        if (isDesktopScreen) canvasElement.style.scale = "0.7";
+        const imageSequence = (config: ImageSequenceConfig) => {
+          const canvasElements = gsap.utils.toArray(
+            config.canvas,
+          ) as HTMLCanvasElement[];
+          const canvasElement = canvasElements[0]; // Fixed: Extract the first canvas element node safely
+          if (!canvasElement) return;
 
-        const updateImage = () => {
-          if (signal.aborted) return;
+          const ctx = canvasElement.getContext("2d");
 
-          const currentImg =
-            frameImagesConfig.images[
-              Math.round(frameImagesConfig.playhead.frame)
-            ];
-          const placeholderX = (canvasElement.width - 625) / 2;
-          const imageIsLoaded =
-            currentImg?.complete && currentImg.naturalWidth > 0;
+          const updateImage = () => {
+            if (isCancelled) return;
 
-          ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            const targetIndex = Math.round(frameImages.playhead.frame);
+            const placeholderX = (canvasElement.width - 625) / 2;
 
-          if (imageIsLoaded) {
+            // Helper function to check if an image is completely loaded
+            const isImgLoaded = (img: HTMLImageElement | undefined) =>
+              img && (img.complete || img.naturalWidth > 0);
+
+            let displayImg: HTMLImageElement | null = null;
+            const currentImg = frameImages.images[targetIndex];
+
+            // use the exact target image requested by the scroll position
+            if (isImgLoaded(currentImg)) {
+              displayImg = currentImg;
+            } else {
+              // fallback: search backward for the closest loaded frame to maintain animation progress
+              for (let i = targetIndex - 1; i >= 0; i--) {
+                if (isImgLoaded(frameImages.images[i])) {
+                  displayImg = frameImages.images[i];
+                  break;
+                }
+              }
+            }
+
+            ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+            if (displayImg) {
+              ctx!.filter = "blur(0px)";
+              ctx!.drawImage(displayImg, placeholderX, 0, 625, 720);
+
+              if (loadedCount < 47) {
+                ctx!.fillStyle = "rgba(255, 255, 255, 0.4)";
+                ctx!.fillStyle = "white";
+                ctx!.font = "20px Arial";
+                ctx!.textAlign = "center";
+                ctx!.textBaseline = "middle";
+                ctx!.fillText(
+                  `Loading Images [${loadedCount}/47]`,
+                  canvasElement.width / 2,
+                  canvasElement.height / 2,
+                );
+              }
+            } else {
+              // absolute fallback: showplaceholder info while loading frame 0 over the wire
+              ctx!.filter = "blur(0px)";
+              ctx!.fillStyle = "white";
+              ctx!.font = "20px Arial";
+              ctx!.textAlign = "center";
+              ctx!.textBaseline = "middle";
+              ctx!.fillText(
+                `Initializing Sequence (${loadedCount}/47)...`,
+                canvasElement.width / 2,
+                canvasElement.height / 2,
+              );
+            }
+
             ctx!.filter = "blur(0px)";
-            ctx!.drawImage(currentImg, placeholderX, 0, 625, 720);
-          } else {
-            // Keep a visible frame while the current image is loading.
-            ctx!.filter = "blur(10px)";
-            ctx!.drawImage(
-              frameImagesConfig.placeholderImage,
-              placeholderX,
-              0,
-              625,
-              720,
-            );
-
-            // add text on canvas
-            ctx!.filter = "blur(0px)";
-            ctx!.fillStyle = "white";
-            ctx!.font = "20px Arial";
-            ctx!.textAlign = "center";
-            ctx!.textBaseline = "middle";
-            ctx!.fillText(
-              "Loading Frame Image...",
-              canvasElement.width / 2,
-              canvasElement.height / 2,
-            );
-          }
-
-          ctx!.filter = "blur(0px)";
-        };
-
-        // Draw placeholder immediately if cached, otherwise when it loads.
-        const handlePlaceholderLoad = updateImage;
-        const imageLoadHandlers = frameImagesConfig.images.map((img, i) => {
-          const handleImageLoad = () => {
-            if (signal.aborted) return;
-            if (Math.floor(frameImagesConfig.playhead.frame) === i)
-              updateImage();
           };
 
-          return { img, handleImageLoad };
-        });
+          // Attach current renderer pointer instance to the trigger ref
+          triggerRepaintRef.current = updateImage;
 
-        if (frameImagesConfig.placeholderImage.complete) {
+          // Paint immediately when component loads
           updateImage();
-        } else {
-          frameImagesConfig.placeholderImage.addEventListener(
-            "load",
-            handlePlaceholderLoad,
+
+          const animation = gsap.to(frameImages.playhead, {
+            frame: 46,
+            ease: "none",
+            onUpdate: updateImage,
+            scrollTrigger: config.scrollTrigger,
+          });
+
+          signal.addEventListener(
+            "abort",
+            () => {
+              animation.kill();
+              triggerRepaintRef.current = () => {};
+            },
+            { once: true },
           );
-        }
 
-        imageLoadHandlers.forEach(({ img, handleImageLoad }) => {
-          img.addEventListener("load", handleImageLoad);
-        });
+          return animation;
+        };
 
-        updateImage();
-
-        // The animation responsible for the frame animation
-        const animation = gsap.to(frameImagesConfig.playhead, {
-          frame: frameImagesConfig.images.length - 1,
-          ease: "none",
-          onUpdate: updateImage,
-          scrollTrigger: config.scrollTrigger,
-        });
-
-        signal.addEventListener(
-          "abort",
-          () => {
-            animation.kill();
-            frameImagesConfig.placeholderImage.removeEventListener(
-              "load",
-              handlePlaceholderLoad,
-            );
-            imageLoadHandlers.forEach(({ img, handleImageLoad }) => {
-              img.removeEventListener("load", handleImageLoad);
-            });
+        imageSequence({
+          canvas: "#canvas",
+          scrollTrigger: {
+            trigger: "#canvas",
+            start: isDesktopScreen
+              ? "top-=150 top"
+              : isTabletScreen
+                ? "top-=100 top"
+                : "top 60%",
+            end: isTabletScreen ? "bottom 90%" : "20% top",
+            scrub: true,
           },
-          { once: true },
-        );
-
-        return animation;
-      };
-
-      imageSequence({
-        canvas: "#canvas",
-        scrollTrigger: {
-          trigger: "#canvas",
-          start: isDesktopScreen
-            ? "top-=150 top"
-            : isTabletScreen
-              ? "top-=100 top"
-              : "top 60%",
-          end: isTabletScreen ? "bottom 90%" : "20% top",
-          scrub: true,
-        },
+        });
       });
-    });
-  }, [inView, signal]);
+    },
+    { dependencies: [inView, signal, frameImages.images.length] },
+  );
 
   return (
     <canvas
-      ref={(el) => ref(el)}
+      ref={ref}
       aria-label="Joshua Glenn R. Gulbin front-end developer"
       id="canvas"
       className={`hidden ${className}`}

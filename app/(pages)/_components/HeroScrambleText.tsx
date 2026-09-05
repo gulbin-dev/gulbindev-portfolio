@@ -14,10 +14,10 @@ export default function HeroSplitScramblerText({
   initialText: string;
 }) {
   const containerRef = useRef<HTMLSpanElement>(null);
-  const { signal } = useNavigationCancellation();
+  const { isCancelled, signal } = useNavigationCancellation();
 
   useGSAP(() => {
-    if (signal.aborted) return;
+    if (isCancelled) return;
     const mm = gsap.matchMedia();
     mm.add(mediaQueries, (context) => {
       if (!containerRef.current) return;
