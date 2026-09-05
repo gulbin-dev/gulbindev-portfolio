@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 /**
  *
@@ -14,16 +15,30 @@ export default function PreviewVideo({
   const videoRef = useRef<HTMLVideoElement>(null);
   const playPromiseRef = useRef<Promise<void> | null>(null);
 
+  const { ref: inViewRef, inView } = useInView({
+    threshold: 0,
+    rootMargin: "0px 0px 100px 0px",
+    triggerOnce: true,
+  });
+
+  // Combine both refs together
+  const setRefs = (node: HTMLVideoElement | null) => {
+    videoRef.current = node; // For play/pause control
+    inViewRef(node); // For intersection observer
+  };
+
   const url =
-      "https://d2kkupsaj7vt9n9k.public.blob.vercel-storage.com/" + folder,
-    videoPath = folder === "gulbindev-portfolio" ? "preview-1" : "preview";
+    "https://d2kkupsaj7vt9n9k.public.blob.vercel-storage.com/" + folder;
+  const videoPath = folder === "gulbindev-portfolio" ? "preview-1" : "preview";
+
   const handlePlay = () => {
-    if (videoRef.current) {
+    // Only attempt playback if the assets have been injected
+    if (videoRef.current && inView) {
       playPromiseRef.current = videoRef.current.play();
 
       playPromiseRef.current
         .then(() => {
-          videoRef.current!.style.cursor = "pointer";
+          if (videoRef.current) videoRef.current.style.cursor = "pointer";
         })
         .catch((e) => {
           console.error("Playback failed", e);
@@ -51,11 +66,11 @@ export default function PreviewVideo({
 
   return (
     <video
-      ref={videoRef}
+      ref={setRefs}
       className="relative z-3 row-start-1 aspect-video w-full justify-self-center overflow-hidden object-contain desktop:min-h-33.75 desktop:max-w-60 desktop:rounded-none"
       muted
       preload="none"
-      poster={`${url}/poster.png`}
+      poster={inView ? `${url}/poster.png` : undefined}
       playsInline
       width="100%"
       height="auto"
@@ -63,8 +78,12 @@ export default function PreviewVideo({
       onMouseEnter={handlePlay}
       onMouseLeave={handlePause}
     >
-      <source src={`${url}/${videoPath}.webm`} type="video/webm" />
-      <source src={`${url}/${videoPath}.mp4`} type="video/mp4" />
+      {inView && (
+        <>
+          <source src={`${url}/${videoPath}.webm`} type="video/webm" />
+          <source src={`${url}/${videoPath}.mp4`} type="video/mp4" />
+        </>
+      )}
       Your browser does not support the video tag.
     </video>
   );
