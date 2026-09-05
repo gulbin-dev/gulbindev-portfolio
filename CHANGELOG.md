@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.2.0...v2.2.1) (2026-09-05)
+
+
+### Bug Fixes
+
+* improve response when navigating- [#115](https://github.com/gulbin-dev/gulbindev-portfolio/issues/115) ([8531685](https://github.com/gulbin-dev/gulbindev-portfolio/commit/853168578e217c2ce97df51fa8114dd817982714))
+
 ## [2.2.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.1.1...v2.2.0) (2026-09-05)
 
 
