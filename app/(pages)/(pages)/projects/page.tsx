@@ -4,6 +4,11 @@ import { fetchProjectDemo } from "@server/project-demo";
 import Projects from "./_components/Projects";
 import { Suspense } from "react";
 import ProjectLoader from "./_components/ProjectLoader";
+import { Metadata } from "next";
+
+export const metaData: Metadata = {
+  title: "Portfolio Projects",
+};
 
 export default async function ProjectsPage() {
   const projects = fetchProjectDemo();

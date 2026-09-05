@@ -3,7 +3,7 @@ import { ListGitHubRepo, ResponseError } from "@utils/types";
 
 // fech github repos
 export const fetchProjectDemo = async () => {
-  const filterNames = ["gulbindev-portfolio", "Crunchtime"]; // only selected repos are fetched
+  const filterNames = ["gulbindev-portfolio", "Crunchtime", 'travel-explore']; // only selected repos are fetched
   const responseError: ResponseError = { status: false };
 
   let projects: ListGitHubRepo[] = [];

@@ -15,7 +15,7 @@ export default function CTALinkButton({
     <Link
       href={link}
       target={target}
-      className={`rounded-2xl bg-cta px-3 py-1.25 font-bold text-primary hover:bg-cta-hover ${className}`}
+      className={`rounded-2xl bg-cta px-3 py-1.75 font-bold text-primary hover:bg-cta-hover ${className}`}
     >
       {children}
     </Link>

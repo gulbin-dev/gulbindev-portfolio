@@ -28,47 +28,24 @@ export default function Assessment() {
             ".list",
             containerRef.current,
           );
-          gsap.defaults({
-            ease: "power1.in",
-          });
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: cardList[1],
-              start: "top center",
-              endTrigger: cardList[2],
-              end: "bottom center",
-              scrub: true,
-            },
-          });
 
-          tl.to(cardList[1], {
-            y: 0,
-          })
-            .to(
-              cardList[1],
-              {
-                filter: "blur(0px)",
+          cardList.forEach((el, index) => {
+            gsap.to(el, {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power2.out",
+              delay: index * 0.08,
+              scrollTrigger: {
+                trigger: el,
+                start: "top 80%",
+                end: "bottom 30%",
+                once: true,
+                fastScrollEnd: true,
               },
-              "<+=0.2",
-            )
-            .to(
-              cardList[2],
-              {
-                yPercent: 100,
-              },
-              "<",
-            )
-
-            .to(cardList[2], {
-              yPercent: 200,
-            })
-            .to(
-              cardList[2],
-              {
-                filter: "blur(0px)",
-              },
-              "<+=0.2",
-            );
+            });
+          });
         }
       });
     },
@@ -81,9 +58,12 @@ export default function Assessment() {
         containerRef.current = el;
         ref(el);
       }}
-      className="flex flex-col gap-3 py-5"
+      className="grid grid-cols-1 gap-3 py-5 tablet:grid-cols-8 tablet:grid-rows-[repeat(9,80px)] desktop:grid-cols-12"
     >
-      <li role="presentation" className="list z-3 tablet:w-75">
+      <li
+        role="presentation"
+        className="list col-star-1 z-3 tablet:row-span-3 tablet:row-start-1 tablet:w-75 tablet:translate-y-3 tablet:scale-0 tablet:opacity-0 desktop:col-start-2"
+      >
         <Card>
           <Quotes>
             <p>
@@ -97,7 +77,7 @@ export default function Assessment() {
       </li>
       <li
         role="presentation"
-        className="list z-2 tablet:w-75 tablet:-translate-y-full tablet:blur-xs"
+        className="list col-star-1 z-2 tablet:col-start-2 tablet:row-span-3 tablet:row-start-4 tablet:w-75 tablet:translate-y-3 tablet:scale-0 tablet:opacity-0 desktop:col-start-5"
       >
         <Card>
           <Quotes>
@@ -111,7 +91,7 @@ export default function Assessment() {
       </li>
       <li
         role="presentation"
-        className="list tablet:w-75 tablet:-translate-y-[200%] tablet:blur-xs"
+        className="list col-star-1 tablet:row-span-3 tablet:row-start-7 tablet:w-75 tablet:translate-y-3 tablet:scale-0 tablet:opacity-0 desktop:col-start-3"
       >
         <Card>
           <Quotes>

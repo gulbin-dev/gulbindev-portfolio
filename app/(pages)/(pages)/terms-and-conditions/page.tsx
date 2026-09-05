@@ -1,6 +1,11 @@
 import Link from "next/link";
 import HeaderLandmark from "@components/UI/HeaderLandmark";
 import PagesWrapper from "@components/PagesWrapper";
+import { Metadata } from "next";
+
+export const metaData: Metadata = {
+  title: "Terms and Conditions",
+};
 
 export default function TermsPage() {
   const sectionClassName = "w-full relative max-w-140 px-3 pb-8";

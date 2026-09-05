@@ -15,12 +15,12 @@ import { useInView } from "react-intersection-observer";
 export default function Canvas({ className }: { className: string }) {
   const { ref, inView } = useInView();
 
-  const { placeholderImage, playhead, images, eclipse } = frameImages;
+  const { placeholderImage, playhead, images } = frameImages;
 
   // to cache values of frameImages across render
   const frameImagesConfig = useMemo(() => {
-    return { placeholderImage, playhead, images, eclipse };
-  }, [placeholderImage, playhead, images, eclipse]);
+    return { placeholderImage, playhead, images };
+  }, [placeholderImage, playhead, images]);
 
   useGSAP(() => {
     if (!inView) return;
@@ -28,7 +28,6 @@ export default function Canvas({ className }: { className: string }) {
     mm.add(mediaQueries, (context) => {
       // fetch and reapply ScrollSmoother effects
       const smoother = ScrollSmoother.get();
-      console.log(smoother);
       if (smoother) smoother.effects().forEach((t) => t.kill());
       smoother?.effects("[data-speed], [data-lag]");
 
@@ -52,91 +51,28 @@ export default function Canvas({ className }: { className: string }) {
         if (isTabletScreen) canvasElement.style.scale = "0.9";
         if (isDesktopScreen) canvasElement.style.scale = "0.7";
 
-        // Create an offscreen canvas to handle the composite mask cleanly.
-        const offscreenCanvas = document.createElement("canvas");
-        const offscreenCtx = offscreenCanvas.getContext("2d");
-
-        // Sync offscreen dimensions to match your updated 650x720 canvas
-        offscreenCanvas.width = canvasElement.width;
-        offscreenCanvas.height = canvasElement.height;
-
-        const renderPopOutLayers = (targetImg: HTMLImageElement) => {
-          if (!ctx || !offscreenCtx) return;
-
-          // Clear both canvases for the current render frame
-          ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-          offscreenCtx.clearRect(
-            0,
-            0,
-            offscreenCanvas.width,
-            offscreenCanvas.height,
-          );
-
-          // 1. DIMENSION & CENTERING CONFIGURATION (650x720 Canvas)
-          const imgW = 420;
-          const imgH = 720;
-          const imgX = (canvasElement.width - imgW) / 2; // Exactly 115px
-          const imgY = 0;
-
-          // Eclipse asset scales to your fixed parameters
-          const shapeW = 636;
-          const shapeH = 624;
-          const shapeX = (canvasElement.width - shapeW) / 2; // Exactly 7px
-          const shapeY = canvasElement.height - shapeH; // Exactly 96px
-
-          // This is the Y coordinate where your character pops out of the shape.
-          // Adjust this number up or down to change where the unclipped top meets the masked bottom.
-          const overflowCutoffY = 350;
-
-          // 2. DRAW MASKED BOTTOM ZONE (Combining background + masked character)
-          // LAYER A: Draw the eclipse shape as the solid background first
-          offscreenCtx.drawImage(
-            frameImagesConfig.eclipse,
-            shapeX,
-            shapeY,
-            shapeW,
-            shapeH,
-          );
-
-          // LAYER B: Draw the clipped character on top of the background
-          offscreenCtx.save();
-          offscreenCtx.globalCompositeOperation = "source-atop";
-          offscreenCtx.drawImage(targetImg, imgX, imgY, imgW, imgH);
-          offscreenCtx.restore();
-
-          // Render the combined background + bottom clipped sequence back to the real canvas
-          ctx.drawImage(offscreenCanvas, 0, 0);
-
-          // 3. LAYER 1 (TOP OVERFLOW): DRAW THE UNCLIPPED OVERFLOWING PORTION
-          ctx.save();
-          ctx.beginPath();
-
-          // Restricts the unclipped image drawing region up to your cutoff mark.
-          // This keeps the unclipped legs from overlapping your crisp eclipse composite structure below.
-          ctx.rect(imgX, 0, imgW, overflowCutoffY);
-          ctx.clip();
-
-          // Paint the unclipped top half
-          ctx.drawImage(targetImg, imgX, imgY, imgW, imgH);
-          ctx.restore();
-        };
-
         const updateImage = () => {
           const currentImg =
             frameImagesConfig.images[
               Math.round(frameImagesConfig.playhead.frame)
             ];
-          const placeholderX = (canvasElement.width - 420) / 2;
+          const placeholderX = (canvasElement.width - 625) / 2;
+          const imageIsLoaded =
+            currentImg?.complete && currentImg.naturalWidth > 0;
 
-          // Draw the placeholderImage with blur filter while the current frame still loads
-          if (currentImg && !currentImg.complete) {
-            ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
+          ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+          if (imageIsLoaded) {
+            ctx!.filter = "blur(0px)";
+            ctx!.drawImage(currentImg, placeholderX, 0, 625, 720);
+          } else {
+            // Keep a visible frame while the current image is loading.
             ctx!.filter = "blur(10px)";
             ctx!.drawImage(
               frameImagesConfig.placeholderImage,
               placeholderX,
               0,
-              420,
+              625,
               720,
             );
 
@@ -152,23 +88,15 @@ export default function Canvas({ className }: { className: string }) {
               canvasElement.height / 2,
             );
           }
-          // Only draw if the image is actually loaded/exists
-          else if (currentImg && currentImg.complete) {
-            ctx!.filter = "blur(0px)";
-            renderPopOutLayers(currentImg);
-          }
+
+          ctx!.filter = "blur(0px)";
         };
 
-        // Draw placeholder immediately if cached, otherwise on load
+        // Draw placeholder immediately if cached, otherwise when it loads.
         if (frameImagesConfig.placeholderImage.complete) {
           updateImage();
         } else {
           frameImagesConfig.placeholderImage.onload = updateImage;
-        }
-
-        // Monitor if the eclipse background element loading triggers post-initialization
-        if (!frameImagesConfig.eclipse.complete) {
-          frameImagesConfig.eclipse.onload = updateImage;
         }
 
         frameImagesConfig.images.forEach((img, i) => {
@@ -194,7 +122,7 @@ export default function Canvas({ className }: { className: string }) {
         scrollTrigger: {
           trigger: "#canvas",
           start: isDesktopScreen
-            ? "top+=50 top"
+            ? "top-=150 top"
             : isTabletScreen
               ? "top-=100 top"
               : "top 60%",
