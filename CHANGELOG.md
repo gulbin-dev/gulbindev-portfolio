@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.1.1...v2.2.0) (2026-09-05)
+
+
+### Features
+
+* add controlled page loader and improve UI ([#111](https://github.com/gulbin-dev/gulbindev-portfolio/issues/111)) ([645dfd6](https://github.com/gulbin-dev/gulbindev-portfolio/commit/645dfd6807ed40e029325b2249e3b5141756e115))
+
+
+### Bug Fixes
+
+* Update release-please token to use GITHUB_TOKEN ([#112](https://github.com/gulbin-dev/gulbindev-portfolio/issues/112)) ([0ac8f72](https://github.com/gulbin-dev/gulbindev-portfolio/commit/0ac8f72ab0aa40a73fda9ec85b66e8069d1a033f))
+
 ## [2.1.1](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.1.0...v2.1.1) (2026-06-14)
 
 
