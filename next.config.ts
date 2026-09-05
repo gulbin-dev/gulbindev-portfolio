@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/frame-image/**",
       },
+      {
+        protocol: "https",
+        hostname: "**.public.blob.vercel-storage.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
     minimumCacheTTL: 2678400,
   },
