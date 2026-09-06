@@ -10,6 +10,13 @@ import { useInView } from "react-intersection-observer";
 import TextWithUnderline from "./UI/TextWithUnderline";
 import { ImageLoaderIcon, ImageErrorIcon } from "@utils/tabler-icons";
 
+type ContactCardElements = {
+  card: HTMLDivElement;
+  drawer: Element | null;
+  heading: Element | null;
+  shade: Element | null;
+};
+
 export default function Contact() {
   const windowSize = useWindowSizeListener();
   const [imageState, setImageState] = useState<"loading" | "error" | "loaded">(
@@ -43,7 +50,7 @@ export default function Contact() {
   }, [activeCardIndex]);
 
   useEffect(() => {
-    const checkSize = () => setIsBiggerScreen(window.innerWidth >= 768); // conditional resource download base on screen size
+    const checkSize = () => setIsBiggerScreen(windowSize >= 768); // conditional resource download base on screen size
     checkSize();
   }, [windowSize]);
 
@@ -60,6 +67,12 @@ export default function Contact() {
             ".card-contact",
             containerRef.current,
           );
+          const cardElements: ContactCardElements[] = contacts.map((card) => ({
+            card,
+            drawer: card.querySelector(".drawer"),
+            heading: card.querySelector(".heading"),
+            shade: card.querySelector(".shade"),
+          }));
           // individual card positions based on index
           const positionConfig = (index: number) => {
             const rotation = -25 + index * 10;
@@ -73,54 +86,53 @@ export default function Contact() {
             activeCardTimelineRef.current = null;
             setActiveCardIndex(null);
 
-            contacts.forEach((card, originalIndex) => {
-              const homeCoords = positionConfig(originalIndex);
-              const drawer = card.querySelector(".drawer");
-              const heading = card.querySelector(".heading");
-              const shade = card.querySelector(".shade");
+            cardElements.forEach(
+              ({ card, drawer, heading, shade }, originalIndex) => {
+                const homeCoords = positionConfig(originalIndex);
 
-              gsap.to(card, {
-                x: homeCoords.x,
-                y: homeCoords.y,
-                rotate: homeCoords.rotate,
-                scale: 1,
-                opacity: 1,
-                filter: "blur(0px)",
-                zIndex: originalIndex,
-                duration: 0.5,
-                ease: "power3.out",
-                overwrite: "auto",
-              });
-
-              if (drawer) {
-                gsap.to(drawer, {
-                  opacity: 0,
-                  y: "100%",
-                  duration: 0.3,
-                  ease: "power2.in",
-                  overwrite: "auto",
-                });
-              }
-
-              if (heading) {
-                gsap.to(heading, {
-                  xPercent: 0,
+                gsap.to(card, {
+                  x: homeCoords.x,
+                  y: homeCoords.y,
+                  rotate: homeCoords.rotate,
+                  scale: 1,
                   opacity: 1,
-                  duration: 0.4,
+                  filter: "blur(0px)",
+                  zIndex: originalIndex,
+                  duration: 0.5,
                   ease: "power3.out",
                   overwrite: "auto",
                 });
-              }
 
-              if (shade) {
-                gsap.to(shade, {
-                  opacity: 1,
-                  duration: 0.4,
-                  ease: "power3.out",
-                  overwrite: "auto",
-                });
-              }
-            });
+                if (drawer) {
+                  gsap.to(drawer, {
+                    opacity: 0,
+                    y: "100%",
+                    duration: 0.3,
+                    ease: "power2.in",
+                    overwrite: "auto",
+                  });
+                }
+
+                if (heading) {
+                  gsap.to(heading, {
+                    xPercent: 0,
+                    opacity: 1,
+                    duration: 0.4,
+                    ease: "power3.out",
+                    overwrite: "auto",
+                  });
+                }
+
+                if (shade) {
+                  gsap.to(shade, {
+                    opacity: 1,
+                    duration: 0.4,
+                    ease: "power3.out",
+                    overwrite: "auto",
+                  });
+                }
+              },
+            );
           };
 
           const entryAnimationTimeline = gsap.timeline({
@@ -171,9 +183,14 @@ export default function Contact() {
             activeCardTimelineRef.current?.kill();
 
             const targetCard = cardInfo.cardEl;
-            const targetDrawer = targetCard.querySelector(".drawer");
-            const targetHeading = targetCard.querySelector(".heading");
-            const targetShade = targetCard.querySelector(".shade");
+            const targetCardElements = cardElements[requestedIndex];
+            if (!targetCardElements) return;
+
+            const {
+              drawer: targetDrawer,
+              heading: targetHeading,
+              shade: targetShade,
+            } = targetCardElements;
             const otherCards = contacts.filter((card) => card !== targetCard);
 
             gsap.killTweensOf([
@@ -243,9 +260,11 @@ export default function Contact() {
             otherCards.forEach((card) => {
               const originalIndex = contacts.indexOf(card);
               const homeCoords = positionConfig(originalIndex);
-              const unselectedDrawer = card.querySelector(".drawer");
-              const heading = card.querySelector(".heading");
-              const shade = card.querySelector(".shade");
+              const {
+                drawer: unselectedDrawer,
+                heading,
+                shade,
+              } = cardElements[originalIndex];
 
               const isBelowSelected = originalIndex > cardInfo.index;
               const pushX = isBelowSelected
