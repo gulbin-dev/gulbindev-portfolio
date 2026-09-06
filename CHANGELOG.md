@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.3](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.2.2...v2.2.3) (2026-09-06)
+
+
+### Performance Improvements
+
+* improve performance by batching DOM read/write execution ([#121](https://github.com/gulbin-dev/gulbindev-portfolio/issues/121)) ([c650cc1](https://github.com/gulbin-dev/gulbindev-portfolio/commit/c650cc15c2974840c9b27d12a481e96bc5cf6478))
+
 ## [2.2.2](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.2.1...v2.2.2) (2026-09-05)
 
 
