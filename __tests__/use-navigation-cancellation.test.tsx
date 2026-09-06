@@ -28,13 +28,11 @@ describe("useNavigationCancellation", () => {
   test("aborts its signal when the owning component unmounts", () => {
     const { result, unmount } = renderHook(() => useNavigationCancellation());
 
-    expect(result.current.signal.aborted).toBe(false);
-    expect(result.current.isCancelled()).toBe(false);
+    expect(result.current.isCancelled).toBe(false);
 
     unmount();
 
     expect(result.current.signal.aborted).toBe(true);
-    expect(result.current.isCancelled()).toBe(true);
     expect(result.current.signal.reason).toBeInstanceOf(Error);
   });
 

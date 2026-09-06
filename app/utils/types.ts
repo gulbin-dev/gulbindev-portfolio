@@ -7,7 +7,9 @@ export type ListGitHubRepo = {
   description: string | null;
   html_url: string;
   homepage: string | null;
+  topics: string[];
 };
+
 /**
  * Fetch response type
  */

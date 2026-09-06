@@ -3,45 +3,52 @@
 import Card from "@components/UI/Card";
 import CardScrollProgress from "@components/UI/CardScrollProgress";
 import { useRef } from "react";
-import { gsap, useGSAP } from "@utils/gsap";
+import { gsap, useGSAP, ScrollTrigger } from "@utils/gsap";
 import { useInView } from "react-intersection-observer";
 
 export default function WorkflowCards() {
-  const cardClassStyle = "card flex h-24 flex-col gap-2 max-w-45";
+  const cardClassStyle =
+    "card flex h-24 flex-col gap-2 max-w-45 transition-shadow duration-150 will-change-[box-shadow]";
   const ulClassStyle = "ml-3 list-disc";
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
+
   const { ref, inView } = useInView({
     threshold: 0,
     rootMargin: "0px 0px 600px 0px",
     triggerOnce: true,
   });
+
   useGSAP(
     () => {
       if (!inView) return;
+
       const cardList = gsap.utils.toArray<HTMLDivElement>(
         ".card",
         containerRef.current,
       );
 
-      const tl = gsap.timeline();
-      cardList.forEach((card) => {
-        tl.to(card, {
-          boxShadow: "0px 0px 12px 4px var(--color-secondary-orange)",
-          duration: 1,
-          overwrite: true,
-          scrollTrigger: {
-            trigger: card,
-            start: "10% center",
-            end: "90% center",
-            toggleActions: "play reverse play reverse",
-            fastScrollEnd: true,
-          },
-        });
+      gsap.set(cardList, { clearProps: "boxShadow" });
+
+      ScrollTrigger.batch(cardList, {
+        start: "10% center",
+        end: "90% center",
+        onToggle: (batch, triggers) => {
+          batch.forEach((card, index) => {
+            const trigger = triggers[index];
+
+            // GSAP handles the underlying style checks safely behind the scenes
+            gsap.set(card, {
+              boxShadow: trigger.isActive
+                ? "0px 0px 12px 4px var(--color-secondary-orange)"
+                : "none",
+            });
+          });
+        },
       });
     },
-    { dependencies: [inView], scope: containerRef },
+    { dependencies: [inView], scope: containerRef, revertOnUpdate: true },
   );
+
   return (
     <div
       ref={(el) => {
@@ -58,12 +65,7 @@ export default function WorkflowCards() {
           role="presentation"
           className="col-span-4 col-start-1 row-span-2 row-start-1 desktop:col-start-2"
         >
-          <Card
-            cardRef={(el) => {
-              if (cardsRef.current) cardsRef.current[0] = el;
-            }}
-            className={cardClassStyle}
-          >
+          <Card className={cardClassStyle}>
             <h3>Globalization and Building Blocks</h3>
             <ul className={ulClassStyle}>
               <li>Configured theme colors and typography</li>
@@ -75,12 +77,7 @@ export default function WorkflowCards() {
           role="presentation"
           className="col-span-4 col-start-3 row-span-2 row-start-4 desktop:col-start-5"
         >
-          <Card
-            cardRef={(el) => {
-              if (cardsRef.current) cardsRef.current[1] = el;
-            }}
-            className={cardClassStyle}
-          >
+          <Card className={cardClassStyle}>
             <h3>Fast UI Prototyping</h3>
             <ul className={ulClassStyle}>
               <li>Built mobile-first responsive UIs</li>
@@ -93,12 +90,7 @@ export default function WorkflowCards() {
           role="presentation"
           className="col-span-4 col-start-5 row-span-2 row-start-7 desktop:col-start-8"
         >
-          <Card
-            cardRef={(el) => {
-              if (cardsRef.current) cardsRef.current[2] = el;
-            }}
-            className={cardClassStyle}
-          >
+          <Card className={cardClassStyle}>
             <h3>Interactive features</h3>
             <ul className={ulClassStyle}>
               <li>DOM Manipulation</li>
@@ -111,12 +103,7 @@ export default function WorkflowCards() {
           role="presentation"
           className="col-span-4 col-start-3 row-span-2 row-start-10 desktop:col-start-5"
         >
-          <Card
-            cardRef={(el) => {
-              if (cardsRef.current) cardsRef.current[3] = el;
-            }}
-            className={cardClassStyle}
-          >
+          <Card className={cardClassStyle}>
             <h3>Test and Optimize</h3>
             <ul className={ulClassStyle}>
               <li>Unit Testing</li>
@@ -129,12 +116,7 @@ export default function WorkflowCards() {
           role="presentation"
           className="col-span-4 col-start-1 row-span-2 row-start-13 desktop:col-start-2"
         >
-          <Card
-            cardRef={(el) => {
-              if (cardsRef.current) cardsRef.current[4] = el;
-            }}
-            className={cardClassStyle}
-          >
+          <Card className={cardClassStyle}>
             <h3>Build and Deploy</h3>
             <p>Deploying and managing production builds through Vercel</p>
           </Card>

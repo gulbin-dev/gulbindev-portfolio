@@ -73,6 +73,7 @@ export default function Footer() {
                   <Link
                     href="https://github.com/gulbin-dev"
                     target="_blank"
+                    prefetch={false}
                     rel="noopener noreferrer"
                     aria-label="Visit my Github profile"
                     className="hover:text-primary-color inline-flex size-6 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all duration-300 hover:scale-110 hover:border-cta hover:bg-cta active:scale-95"
@@ -88,6 +89,7 @@ export default function Footer() {
                   <Link
                     href="https://www.linkedin.com/in/joshua-glenn-gulbin/"
                     target="_blank"
+                    prefetch={false}
                     rel="noopener noreferrer"
                     aria-label="Let's connect on LinkedIn"
                     className="hover:text-primary-color inline-flex size-6 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all duration-300 hover:scale-110 hover:border-cta hover:bg-cta active:scale-95"
@@ -103,6 +105,7 @@ export default function Footer() {
                   <Link
                     href="https://www.fiverr.com/s/1q8R136"
                     target="_blank"
+                    prefetch={false}
                     rel="noopener noreferrer"
                     aria-label="Hire me on Fiverr"
                     className="hover:text-primary-color inline-flex size-6 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all duration-300 hover:scale-110 hover:border-cta hover:bg-cta active:scale-95"
@@ -118,6 +121,7 @@ export default function Footer() {
                   <Link
                     href="https://www.upwork.com/freelancers/~01971e35462d72fb44?mp_source=share"
                     target="_blank"
+                    prefetch={false}
                     rel="noopener noreferrer"
                     aria-label="Hire me on Upwork"
                     className="hover:text-primary-color inline-flex size-6 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all duration-300 hover:scale-110 hover:border-cta hover:bg-cta active:scale-95"
@@ -132,6 +136,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="mailto:gulbindev@gmail.com"
+                    prefetch={false}
                     aria-label="Send me an email"
                     className="hover:text-primary-color inline-flex size-6 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all duration-300 hover:scale-110 hover:border-cta hover:bg-cta active:scale-95"
                   >
@@ -156,6 +161,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/privacy-notice"
+                    prefetch={false}
                     className="inline-flex items-center gap-2 text-foreground-white/70 transition-all duration-300 hover:translate-x-1 hover:text-cta"
                   >
                     <span className="text-cta">→</span> Privacy Policy
@@ -164,6 +170,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/terms-and-conditions"
+                    prefetch={false}
                     className="inline-flex items-center gap-2 text-foreground-white/70 transition-all duration-300 hover:translate-x-1 hover:text-cta"
                   >
                     <span className="text-cta">→</span> Terms of Service
@@ -179,7 +186,8 @@ export default function Footer() {
               My Resume
             </h3>
             <CTALinkButton
-              link="/joshua-glenn-gulbin-resume-2026-05-16.pdf"
+              href="/joshua-glenn-gulbin-resume-2026-05-16.pdf"
+              prefetch={false}
               target="_blank"
               className="w-full text-center tablet:w-auto"
             >
@@ -203,6 +211,7 @@ export default function Footer() {
             Icons provided by{" "}
             <Link
               href="https://tabler.io/icons"
+              prefetch={false}
               target="_blank"
               rel="noopener noreferrer"
               className="text-cta underline underline-offset-2 transition-colors hover:text-cta-hover"
@@ -212,6 +221,7 @@ export default function Footer() {
             and{" "}
             <Link
               href="https://www.streamlinehq.com/"
+              prefetch={false}
               target="_blank"
               rel="noopener noreferrer"
               className="text-cta underline underline-offset-2 transition-colors hover:text-cta-hover"
