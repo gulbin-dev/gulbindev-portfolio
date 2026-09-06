@@ -19,59 +19,88 @@ export default function HeroSplitScramblerText({
   useGSAP(() => {
     if (isCancelled) return;
     const mm = gsap.matchMedia();
+
     mm.add(mediaQueries, (context) => {
       if (!containerRef.current) return;
       const { isTabletScreen, isDesktopScreen } = context?.conditions ?? {};
-      const scramblePool = "▂▚ ▗▐▝"; // hacker effect characters
+      const scramblePool = "▂▚ ▗▐▝";
 
       const initialGibberishDelay = 1.5;
       const staggerSpacing = 0.08;
+
       if (isTabletScreen || isDesktopScreen) {
         gsap.delayedCall(initialGibberishDelay, () => {
-          if (!containerRef.current) return;
-          containerRef.current.innerText = revealText;
-          const split = new SplitText(containerRef.current, {
+          const container = containerRef.current;
+          if (!container) return;
+
+          // 1. Single DOM mutation setup pass
+          container.innerText = revealText;
+          const split = new SplitText(container, {
             type: "chars,words,lines",
             mask: "lines",
           });
-          const chars = split.chars;
 
-          chars.forEach((el, index) => {
-            const charEl = el as HTMLElement;
-            const originalText = charEl.innerText;
+          const chars = split.chars as HTMLElement[];
+          if (!chars.length) return;
 
-            if (originalText.trim() === "") return;
+          // Save the target text data structure in memory to avoid DOM reading
+          const charData = chars.map((el) => ({
+            el,
+            original: el.textContent || "",
+            isSpace: (el.textContent || "").trim() === "",
+          }));
 
-            const state = { cycles: 0 };
-            const maxCycles = 15;
+          // 2. Centralized Proxy Object: Holds the animation values for the entire text block
+          const proxy = { progress: 0 };
+          const totalChars = chars.length;
 
-            gsap.to(state, {
-              scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top center",
-                end: "bottom center",
-              },
-              immediateRender: true,
-              cycles: maxCycles,
-              duration: 3 * staggerSpacing, // Exactly 3 characters scrambling ahead at a time (0.2s)
-              delay: index * staggerSpacing,
-              ease: "none",
-              snap: "cycles",
-              onStart: () => {
-                charEl.innerText =
-                  scramblePool[Math.floor(Math.random() * scramblePool.length)];
-              },
-              onUpdate: () => {
-                // Continually flip symbols throughout the tween
-                charEl.innerText =
-                  scramblePool[Math.floor(Math.random() * scramblePool.length)];
-              },
-              onComplete: () => {
-                // Guarantees clean execution when the animation successfully finishes
-                charEl.innerText = originalText;
-                charEl.classList.add("text-secondary-red");
-              },
-            });
+          // 3. One single ScrollTrigger to rule all characters instead of totalChars triggers
+          gsap.to(proxy, {
+            scrollTrigger: {
+              trigger: container,
+              start: "top center",
+              end: "bottom center",
+            },
+            progress: totalChars,
+            duration: totalChars * staggerSpacing,
+            ease: "none",
+            onUpdate: () => {
+              // BATCHED DOM WRITING LAYER: Iterates through memory arrays, avoiding layout thrashing
+              const currentProgress = proxy.progress;
+
+              for (let i = 0; i < totalChars; i++) {
+                const item = charData[i];
+                if (item.isSpace) continue;
+
+                if (currentProgress >= i + 3) {
+                  // Fully revealed state: execute once per character pass
+                  if (item.el.textContent !== item.original) {
+                    item.el.textContent = item.original;
+                    item.el.classList.add("text-secondary-red");
+                  }
+                } else if (currentProgress >= i) {
+                  // Scrambling state window
+                  item.el.textContent =
+                    scramblePool[
+                      Math.floor(Math.random() * scramblePool.length)
+                    ];
+                } else {
+                  // Not yet reached state
+                  if (item.el.textContent !== "") {
+                    item.el.textContent = "";
+                  }
+                }
+              }
+            },
+            onComplete: () => {
+              // Global fallback guarantee check
+              charData.forEach((item) => {
+                if (!item.isSpace) {
+                  item.el.textContent = item.original;
+                  item.el.classList.add("text-secondary-red");
+                }
+              });
+            },
           });
         });
       }

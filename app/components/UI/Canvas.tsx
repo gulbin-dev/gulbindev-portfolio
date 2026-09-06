@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  gsap,
-  useGSAP,
-  mediaQueries,
-  ScrollSmoother,
-  ScrollTrigger,
-} from "@utils/gsap";
+import { gsap, useGSAP, mediaQueries, ScrollSmoother } from "@utils/gsap";
 import useNavigationCancellation from "@hooks/useNavigationCancellation";
 import { frameImages, subscribeToFrameLoads } from "@utils/imageSequence";
 import { ImageSequenceConfig } from "@utils/types";
@@ -56,8 +50,6 @@ export default function Canvas({ className }: { className: string }) {
         if (smoother) smoother.effects().forEach((t) => t.kill());
         smoother?.effects("[data-speed], [data-lag]");
 
-        ScrollTrigger.refresh();
-
         const { isTabletScreen, isDesktopScreen } = context.conditions ?? {};
 
         const imageSequence = (config: ImageSequenceConfig) => {
@@ -68,12 +60,28 @@ export default function Canvas({ className }: { className: string }) {
           if (!canvasElement) return;
 
           const ctx = canvasElement.getContext("2d");
+          if (!ctx) return;
+
+          // --- BATCHED DOM READS & CONSTANTS ---
+          // Read width and height once. Cache them to eliminate DOM Layout Thrashing on scroll.
+          const cWidth = canvasElement.width;
+          const cHeight = canvasElement.height;
+          const placeholderX = (cWidth - 625) / 2;
+          const centerX = cWidth / 2;
+          const centerY = cHeight / 2;
+
+          // --- ONE-TIME CANVAS STATE SETTINGS ---
+          // Batch baseline context settings so they aren't redundantly re-applied every frame
+          ctx.filter = "blur(0px)";
+          ctx.fillStyle = "white";
+          ctx.font = "20px Arial";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
 
           const updateImage = () => {
             if (isCancelled) return;
 
             const targetIndex = Math.round(frameImages.playhead.frame);
-            const placeholderX = (canvasElement.width - 625) / 2;
 
             // Helper function to check if an image is completely loaded
             const isImgLoaded = (img: HTMLImageElement | undefined) =>
@@ -95,39 +103,28 @@ export default function Canvas({ className }: { className: string }) {
               }
             }
 
-            ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            // --- BATCHED WRITES (CLEAR & RENDER) ---
+            // Use local memory coordinates instead of DOM reads
+            ctx.clearRect(0, 0, cWidth, cHeight);
 
             if (displayImg) {
-              ctx!.filter = "blur(0px)";
-              ctx!.drawImage(displayImg, placeholderX, 0, 625, 720);
+              ctx.drawImage(displayImg, placeholderX, 0, 625, 720);
 
               if (loadedCount < 47) {
-                ctx!.fillStyle = "rgba(255, 255, 255, 0.4)";
-                ctx!.fillStyle = "white";
-                ctx!.font = "20px Arial";
-                ctx!.textAlign = "center";
-                ctx!.textBaseline = "middle";
-                ctx!.fillText(
+                ctx.fillText(
                   `Loading Images [${loadedCount}/47]`,
-                  canvasElement.width / 2,
-                  canvasElement.height / 2,
+                  centerX,
+                  centerY,
                 );
               }
             } else {
-              // absolute fallback: showplaceholder info while loading frame 0 over the wire
-              ctx!.filter = "blur(0px)";
-              ctx!.fillStyle = "white";
-              ctx!.font = "20px Arial";
-              ctx!.textAlign = "center";
-              ctx!.textBaseline = "middle";
-              ctx!.fillText(
+              // absolute fallback: show placeholder info while loading frame 0 over the wire
+              ctx.fillText(
                 `Initializing Sequence (${loadedCount}/47)...`,
-                canvasElement.width / 2,
-                canvasElement.height / 2,
+                centerX,
+                centerY,
               );
             }
-
-            ctx!.filter = "blur(0px)";
           };
 
           // Attach current renderer pointer instance to the trigger ref
@@ -158,6 +155,7 @@ export default function Canvas({ className }: { className: string }) {
         imageSequence({
           canvas: "#canvas",
           scrollTrigger: {
+            id: "canvas",
             trigger: "#canvas",
             start: isDesktopScreen
               ? "top-=150 top"
@@ -170,7 +168,7 @@ export default function Canvas({ className }: { className: string }) {
         });
       });
     },
-    { dependencies: [inView, signal, frameImages.images.length] },
+    { dependencies: [inView, signal, frameImages.images.length, loadedCount] },
   );
 
   return (
