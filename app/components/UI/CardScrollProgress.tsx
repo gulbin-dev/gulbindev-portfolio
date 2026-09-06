@@ -88,7 +88,7 @@ export default function CardScrollProgress({
 
       isInitializedRef.current = true;
     },
-    { dependencies: [inView], scope: svgRef },
+    { dependencies: [inView], scope: svgRef, revertOnUpdate: true },
   );
 
   // Cleanup function to remove animation and trigger when component unmounts

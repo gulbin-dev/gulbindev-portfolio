@@ -46,7 +46,7 @@ export default function WorkflowCards() {
         },
       });
     },
-    { dependencies: [inView], scope: containerRef },
+    { dependencies: [inView], scope: containerRef, revertOnUpdate: true },
   );
 
   return (
