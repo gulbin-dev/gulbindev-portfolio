@@ -1,11 +1,10 @@
 "use client";
 
-import { gsap, mediaQueries, useGSAP } from "@utils/gsap";
 import { useRef } from "react";
+import { gsap, mediaQueries, useGSAP } from "@utils/gsap";
 
-export default function GridBackground({ className }: { className: string }) {
+export default function GridBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
-
   useGSAP(
     () => {
       if (!containerRef.current) return;
@@ -57,7 +56,7 @@ export default function GridBackground({ className }: { className: string }) {
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-0 z-0 h-[110dvh] -translate-x-1 overflow-hidden bg-primary ${className}`}
+      className={`absolute inset-0 z-0 h-[110dvh] -translate-x-1 overflow-hidden bg-primary`}
     >
       {/* LAYER 1: The Dim Base Grid (Default 'dead' state from your original code) */}
       <div
