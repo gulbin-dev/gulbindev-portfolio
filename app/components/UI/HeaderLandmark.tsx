@@ -24,10 +24,6 @@ export default function HeaderLandmark({ children, level, id }: HeadingProps) {
   useGSAP(
     () => {
       if (!inView) return;
-      gsap.defaults({
-        ease: "expo.out",
-        immediateRender: true,
-      });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -35,6 +31,7 @@ export default function HeaderLandmark({ children, level, id }: HeadingProps) {
           start: "top center",
           end: "bottom+=100 center",
         },
+        defaults: { ease: "power2.out", duration: 0.3 },
       });
 
       tl.to(".header-text, .mark-icon", {

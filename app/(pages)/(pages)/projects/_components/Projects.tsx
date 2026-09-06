@@ -5,6 +5,7 @@ import { use } from "react";
 import ErrorContainer from "@components/UI/Error/ErrorContainer";
 import CTALinkButton from "@components/UI/CTALinkButton";
 import PreviewVideo from "./PreviewVideo";
+import Tag from "@/app/components/UI/Tag";
 
 export default function Projects({
   projects,
@@ -24,21 +25,28 @@ export default function Projects({
     >
       {projectList.projects.map((item) => (
         <li role="presentation" key={item.id} className="flex w-full">
-          <Card className="grid w-full grid-rows-[min-content_auto_1fr_auto]">
+          <Card className="grid w-full grid-rows-[min-content_auto_auto_1fr_auto] items-start">
             <PreviewVideo folder={item.name} />
 
             <h2 className="relative z-3 row-start-2 py-2 text-size-md">
               {item.name}
             </h2>
             <p className="relative z-3 row-start-3">{item.description}</p>
+            <ul className="row-start-4 flex flex-wrap gap-1 py-3">
+              {item?.topics.map((topic) => (
+                <li key={topic}>
+                  <Tag>{topic}</Tag>
+                </li>
+              )) ?? ""}
+            </ul>
             <nav
               aria-label={`${item.name}'s`}
-              className="relative z-3 row-start-4 py-5"
+              className="relative z-3 row-start-5 pb-3"
             >
-              <ul aria-label="navigation" className="flex gap-1">
+              <ul aria-label="navigation" className="mt-3 flex gap-1">
                 <li>
                   <CTALinkButton
-                    link={item.homepage as string}
+                    href={item.homepage as string}
                     target="_blank"
                     className={`${item.name === "gulbindev-portfolio" ? "bg-this-website" : ""}`}
                   >
@@ -48,7 +56,7 @@ export default function Projects({
                   </CTALinkButton>
                 </li>
                 <li>
-                  <CTALinkButton link={item.html_url} target="_blank">
+                  <CTALinkButton href={item.html_url} target="_blank">
                     Github
                   </CTALinkButton>
                 </li>

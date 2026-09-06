@@ -35,6 +35,8 @@ ScrollTrigger.defaults({
   toggleActions: "play none none none",
 });
 
+gsap.defaults({ lazy: true });
+
 /**
  * Exports all the Gsap plugins and Gsap itself to be used across the project.
  */

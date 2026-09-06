@@ -17,6 +17,7 @@ export default function Header() {
   const tl = useRef<gsap.core.Timeline | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
   const sideBarRef = useRef<HTMLDivElement | null>(null);
+  const headerAnimationRef = useRef<gsap.core.Tween | null>(null);
   const pathName = usePathname();
 
   // Lock body scroll when mobile nav is open
@@ -24,46 +25,53 @@ export default function Header() {
     document.body.style.overflow = isMobileNavOpen ? "hidden" : "auto";
   }, [isMobileNavOpen]);
 
+  useGSAP(() => {
+    if (!headerAnimationRef.current) return;
+  }, [headerAnimationRef]);
+
   // Header hide/show on scroll
   useGSAP(
     () => {
-      ScrollTrigger.refresh();
-      // hide header animation
-      const showHeaderAnim = gsap
+      if (!headerRef.current) return;
+      headerAnimationRef.current = gsap
         .to(headerRef.current, {
           yPercent: -100,
           duration: 0.5,
           paused: true,
         })
         .progress(0);
-
       // hadles scroll animation
       ScrollTrigger.create({
-        animation: showHeaderAnim,
+        animation: headerAnimationRef.current ?? null,
         start: 0,
         end: "max",
         onUpdate: (self) => {
-          const velocity = self.getVelocity();
+          if (!headerAnimationRef.current) return;
+          const direction = self.direction;
 
-          if (velocity < 0) {
-            showHeaderAnim.reverse(); // display header on scroll up
+          if (direction < 0) {
+            headerAnimationRef.current.reverse(); // display header on scroll up
           } else {
-            showHeaderAnim.play(); // hide header on scroll down
+            headerAnimationRef.current.play(); // hide header on scroll down
           }
         },
       });
     },
-    { dependencies: [pathName], revertOnUpdate: true, scope: headerRef },
+    {
+      scope: headerRef,
+    },
   );
 
   // Hamburger + sidebar animation timeline
-  useGSAP(
+  const { contextSafe } = useGSAP(
     () => {
       const slices = gsap.utils.toArray<HTMLElement>(".menu-icon");
-      gsap.defaults({ ease: "power2.out", duration: 0.3 });
 
       tl.current = gsap
-        .timeline({ paused: true })
+        .timeline({
+          paused: true,
+          defaults: { ease: "power2.out", duration: 0.3 },
+        })
         .to(slices[0], { autoAlpha: 0, y: 10 })
         .to(slices[1], { rotate: 45, delay: 0.3 }, "<")
         .to(slices[2], { rotate: -45 }, "<")
@@ -85,7 +93,6 @@ export default function Header() {
   }, [isMobileNavOpen]);
 
   // Toggle handler
-  const { contextSafe } = useGSAP(() => {}, { scope: sideBarRef });
   const toggleSideBarHandler = contextSafe(() =>
     setIsMobileNavOpen((prev) => !prev),
   );

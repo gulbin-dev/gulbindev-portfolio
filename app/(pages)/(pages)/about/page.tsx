@@ -13,12 +13,11 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <GridBackground className="hidden desktop:block" />
+      <GridBackground />
       <Section
         ariaLabel="About me"
         className="tablet:min-h-58.5 tablet:items-center tablet:py-10"
       >
-        <GridBackground className="block desktop:hidden" />
         <header className="relative z-1 tablet:col-start-5 tablet:col-end-9 tablet:row-span-6 tablet:row-start-1 tablet:self-center desktop:col-start-7 desktop:col-end-13">
           <p className="mb-3 text-size-xsm tracking-[0.18em] text-secondary-orange uppercase">
             The person behind the work

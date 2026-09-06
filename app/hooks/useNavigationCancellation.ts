@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+/** Error used when page-owned work is cancelled during navigation or unmount. */
 export class NavigationCancelledError extends Error {
   constructor() {
     super("The operation was cancelled because the page was left.");
@@ -15,8 +16,12 @@ type ThreadTask<T, Args extends unknown[]> = (
   ...args: [...Args, ThreadExit<T>]
 ) => void;
 type ThreadSource = (...args: unknown[]) => void;
+
+/** A worker-backed promise that can be cancelled by the caller. */
 export type CancellableThread<T> = Promise<T> & { abort: () => void };
 
+// The worker receives the function body as source, so its parameter names must
+// be available and the task must use a regular function with a block body.
 const getThreadBody = (task: ThreadSource) => {
   const source = task.toString();
   const bodyStart = source.indexOf("{");
@@ -41,6 +46,9 @@ const getThreadBody = (task: ThreadSource) => {
  *
  * The task must cooperate by checking signal.aborted between expensive steps,
  * or by passing the signal to an API that supports AbortSignal.
+ *
+ * `run` returns `undefined` when navigation cancels the task. `thread` runs
+ * synchronous CPU-heavy work in a Web Worker and rejects when it is aborted.
  */
 export default function useNavigationCancellation() {
   const [controller] = useState(() => new AbortController());
@@ -169,9 +177,13 @@ export default function useNavigationCancellation() {
 
   return {
     signal: controller.signal,
-    isCancelled,
+    /** Whether the current render observed that the page-owned work was cancelled. */
+    isCancelled: isCancelled(),
+    /** Throws the cancellation reason so a task can stop between expensive steps. */
     throwIfCancelled,
+    /** Runs an async task and suppresses its result if navigation happens first. */
     run,
+    /** Runs a regular function in a Web Worker; arguments must be structured-cloneable. */
     thread,
   };
 }

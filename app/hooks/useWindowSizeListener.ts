@@ -1,26 +1,51 @@
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 
-/** Custom hook to get window size when resizing the window  */
-export default function useWindowSizeListener() {
-  // Implementation for window size listener
-  const [resizeKey, setResizeKey] = useState(0);
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+// Cache variables sit outside the React render context entirely
+let cachedWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+let timeoutId: ReturnType<typeof setTimeout>;
+const listeners = new Set<() => void>();
 
+function subscribe(callback: () => void) {
+  listeners.add(callback);
+
+  // Singleton wrapper ensures we only ever attach ONE passive window listener globally
+  if (listeners.size === 1) {
     const handleResize = () => {
       clearTimeout(timeoutId);
-      // Only update state after user stops resizing for 200ms
+
+      // Debounce: Only read the layout geometry and inform React when dragging pauses
       timeoutId = setTimeout(() => {
-        setResizeKey((prev) => prev + 1);
-      }, 200);
+        const currentWidth = window.innerWidth;
+
+        // Critical Performance Gate: Only alert React if the integer actually changed
+        if (currentWidth !== cachedWidth) {
+          cachedWidth = currentWidth;
+          listeners.forEach((cb) => cb());
+        }
+      }, 150);
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
+  }
+
+  return () => {
+    listeners.delete(callback);
+    if (listeners.size === 0) {
+      window.removeEventListener("resize", () => {});
       clearTimeout(timeoutId);
-    };
-  }, []);
+    }
+  };
+}
 
-  return resizeKey; // Return the resizeKey to trigger re-renders in components that use this hook
+// OPTIMIZED: getSnapshot now returns a raw, static cached memory variable.
+// It performs 0 DOM layout queries, completely eliminating layout thrashing.
+const getSnapshot = () => cachedWidth;
+const getServerSnapshot = () => 0;
+
+/**
+ * Custom hook that returns only the raw numerical screen width.
+ * Completely immune to forced synchronous layout thrashing during active resizing.
+ */
+export default function useWindowSizeListener(): number {
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

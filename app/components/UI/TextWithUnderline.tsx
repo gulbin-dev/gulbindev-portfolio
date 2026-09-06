@@ -11,7 +11,7 @@ export default function TextWithUnderline({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: "0px 0px 100px 0px",
+    rootMargin: "0px 0px 200px 0px",
     triggerOnce: true,
   });
 

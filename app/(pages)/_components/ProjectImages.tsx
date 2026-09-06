@@ -22,6 +22,16 @@ export default function ProjectImages({
   const activeImageIndexRef = useRef<number | null>(null);
   const latestTouchedImageRef = useRef<number | null>(null);
   const activeImageTimelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  // Cache to store layout dimensions and prevent layout thrashing
+  const dimensionsCacheRef = useRef<{
+    containerWidth: number;
+    imageWidths: number[];
+  }>({
+    containerWidth: 0,
+    imageWidths: [],
+  });
+
   const { ref, inView } = useInView({
     threshold: 0,
     rootMargin: "75% 0px 0px 0px",
@@ -40,6 +50,21 @@ export default function ProjectImages({
 
       mm.add(mediaQueries, (context) => {
         const { isDesktopScreen } = context.conditions ?? {};
+        const images = gsap.utils.toArray<HTMLLIElement>(
+          "li",
+          containerRef.current,
+        );
+
+        // --- BATCHED DOM READS (CACHE PHASE) ---
+        // perform all client DOM layout readings up front in one batch
+        const containerWidth = containerRef.current?.clientWidth || 0;
+        const imageWidths = images.map((img) => img.offsetWidth || 0);
+
+        dimensionsCacheRef.current = {
+          containerWidth,
+          imageWidths,
+        };
+
         const positionConfig = (index: number) => {
           return {
             x: index * 84,
@@ -48,16 +73,11 @@ export default function ProjectImages({
           };
         };
 
-        const images = gsap.utils.toArray<HTMLLIElement>(
-          "li",
-          containerRef.current,
-        );
-
-        const getCenteredX = (image: HTMLLIElement) => {
-          const container = containerRef.current;
-          if (!container) return 0;
-
-          return (container.clientWidth - image.offsetWidth) / 2;
+        // Uses batched calculations from cache instead of live DOM property checking
+        const getCenteredXFromCache = (index: number) => {
+          const { containerWidth, imageWidths } = dimensionsCacheRef.current;
+          const imgWidth = imageWidths[index] || 0;
+          return (containerWidth - imgWidth) / 2;
         };
 
         const resetImageAnimationView = () => {
@@ -66,6 +86,7 @@ export default function ProjectImages({
           activeImageTimelineRef.current = null;
           setActiveImageIndex(null);
 
+          // GSAP internally batches these writes safely when layout reads aren't interleaved
           images.forEach((image, originalIndex) => {
             const homeCoords = positionConfig(originalIndex);
 
@@ -99,7 +120,6 @@ export default function ProjectImages({
           const requestedIndex = imageInfo.index;
           latestTouchedImageRef.current = requestedIndex;
 
-          // Toggle behavior for clicks
           if (
             activeImageIndexRef.current === requestedIndex &&
             interactionType === "click"
@@ -120,8 +140,9 @@ export default function ProjectImages({
           });
           activeImageTimelineRef.current = imageTl;
 
+          // --- BATCHED DOM WRITES (GSAP EXECUTION PHASE) ---
           imageTl.to(targetImage, {
-            x: getCenteredX(targetImage),
+            x: getCenteredXFromCache(requestedIndex), // Zero layout reads happen here now!
             y: 0,
             rotate: 0,
             scale: isDesktopScreen ? 1.75 : 1.5,
