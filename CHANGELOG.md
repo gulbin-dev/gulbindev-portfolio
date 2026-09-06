@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.2.1...v2.2.2) (2026-09-05)
+
+
+### Bug Fixes
+
+* fix issue on signal.abort checks in Canvas and HeroScrambleText components. ([#117](https://github.com/gulbin-dev/gulbindev-portfolio/issues/117)) ([4a54270](https://github.com/gulbin-dev/gulbindev-portfolio/commit/4a542701bc250d0ee234f029b082ad70588fd5e3))
+
 ## [2.2.1](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.2.0...v2.2.1) (2026-09-05)
 
 
