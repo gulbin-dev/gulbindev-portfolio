@@ -9,6 +9,7 @@ import { useGSAP, gsap, mediaQueries, Observer } from "@utils/gsap";
 import { useInView } from "react-intersection-observer";
 import TextWithUnderline from "./UI/TextWithUnderline";
 import { ImageLoaderIcon, ImageErrorIcon } from "@utils/tabler-icons";
+import { useContactImages } from "@hooks/useContactImages";
 
 type ContactCardElements = {
   card: HTMLDivElement;
@@ -19,9 +20,7 @@ type ContactCardElements = {
 
 export default function Contact() {
   const windowSize = useWindowSizeListener();
-  const [imageState, setImageState] = useState<"loading" | "error" | "loaded">(
-    "loading",
-  );
+
   const [isBiggerScreen, setIsBiggerScreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -34,6 +33,10 @@ export default function Contact() {
     rootMargin: "75% 0px 0px 0px",
     triggerOnce: true,
   });
+  const { status: imageStatus, srcs: contactImageSrcs } = useContactImages(
+    inView,
+    isBiggerScreen,
+  );
 
   const cardClassName =
       "card-contact flex relative items-center justify-between translate-y-0 overflow-hidden tablet:origin-bottom-left tablet:absolute tablet:bottom-0 tablet:opacity-0 tablet:translate-y-10 tablet:left-0 tablet:max-w-40 tablet:h-50",
@@ -393,7 +396,7 @@ export default function Contact() {
           aria-label="Contact list"
           className="flex h-50 w-full flex-col items-stretch gap-1.5 tablet:mt-15 tablet:ml-35 tablet:max-w-40 tablet:flex-col-reverse"
         >
-          <li role="presentation" className={liClassName}>
+          <li className={liClassName}>
             <Card
               cardRef={(el) => {
                 if (cardsRef.current) cardsRef.current[0] = el;
@@ -406,33 +409,26 @@ export default function Contact() {
                 Gmail
               </h4>
               <div className={divShadeClassName}></div>
-              {imageState === "loading" && (
+              {imageStatus === "loading" && (
                 <span className="flex place-content-center gap-1.5 place-self-center">
                   <ImageLoaderIcon />
                   Loading...
                 </span>
               )}
-              {imageState === "error" && (
+              {imageStatus === "error" && (
                 <span className="flex place-content-center gap-1.5 place-self-center">
                   <ImageErrorIcon />
                   Someting went wrong
                 </span>
               )}
               <Image
-                src={
-                  inView && isBiggerScreen
-                    ? "/images/gmail-contact.png"
-                    : "/images/gmail-contact-bg.png"
-                }
+                src={contactImageSrcs.gmail}
                 alt=""
                 loading="lazy"
                 fill
                 sizes="(max-width: 768px) 100vw, 20vw"
                 aria-hidden
-                onLoadStart={() => setImageState("loading")}
-                onError={() => setImageState("error")}
-                onLoad={() => setImageState("loaded")}
-                className={`${imageClassName} transition-opacity duration-300 ${imageState === "loaded" ? "opacity-100" : "opacity-0"}`}
+                className={imageClassName}
               />
               <div className={`tablet:bg-primary ${drawerCLassName}`}>
                 <CTALinkButton
@@ -444,7 +440,7 @@ export default function Contact() {
               </div>
             </Card>
           </li>
-          <li role="presentation" className={liClassName}>
+          <li className={liClassName}>
             <Card
               cardRef={(el) => {
                 if (cardsRef.current) cardsRef.current[1] = el;
@@ -458,11 +454,7 @@ export default function Contact() {
               </h4>
               <div className={divShadeClassName}></div>
               <Image
-                src={
-                  inView && isBiggerScreen
-                    ? "/images/fiverr-contact.png"
-                    : "/images/fiverr-contact-bg.png"
-                }
+                src={contactImageSrcs.fiverr}
                 alt=""
                 loading="lazy"
                 aria-hidden
@@ -480,7 +472,7 @@ export default function Contact() {
               </div>
             </Card>
           </li>
-          <li role="presentation" className={liClassName}>
+          <li className={liClassName}>
             <Card
               cardRef={(el) => {
                 if (cardsRef.current) cardsRef.current[2] = el;
@@ -494,11 +486,7 @@ export default function Contact() {
               </h4>
               <div className={divShadeClassName}></div>
               <Image
-                src={
-                  inView && isBiggerScreen
-                    ? "/images/upwork-contact.png"
-                    : "/images/upwork-contact-bg.png"
-                }
+                src={contactImageSrcs.upwork}
                 alt=""
                 loading="lazy"
                 aria-hidden
@@ -516,7 +504,7 @@ export default function Contact() {
               </div>
             </Card>
           </li>
-          <li role="presentation" className={liClassName}>
+          <li className={liClassName}>
             <Card
               cardRef={(el) => {
                 if (cardsRef.current) cardsRef.current[3] = el;
@@ -530,11 +518,7 @@ export default function Contact() {
               </h4>
               <div className={divShadeClassName}></div>
               <Image
-                src={
-                  inView && isBiggerScreen
-                    ? "/images/linkedin-contact.png"
-                    : "/images/linkedin-contact-bg.png"
-                }
+                src={contactImageSrcs.linkedin}
                 alt=""
                 loading="lazy"
                 aria-hidden
