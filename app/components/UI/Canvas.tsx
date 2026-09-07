@@ -2,7 +2,12 @@
 
 import { gsap, useGSAP, mediaQueries, ScrollSmoother } from "@utils/gsap";
 import useNavigationCancellation from "@hooks/useNavigationCancellation";
-import { frameImages, subscribeToFrameLoads } from "@utils/imageSequence";
+import {
+  frameImages,
+  subscribeToFrameLoads,
+  startPreloading,
+  clearFrameImages,
+} from "@utils/imageSequence";
 import { ImageSequenceConfig } from "@utils/types";
 import { useEffect, useState, useRef } from "react";
 import { useInView } from "react-intersection-observer";
@@ -17,15 +22,18 @@ export default function Canvas({ className }: { className: string }) {
   // A mutable pointer to manually execute repaints outside of GSAP execution blocks
   const triggerRepaintRef = useRef<() => void>(() => {});
 
-  // Bind directly to the global loading micro-service event pipeline
+  // Orchestrate worker loading pipelines and component lifecycle subscription
   useEffect(() => {
-    // Skip global events completely if running on a mobile viewport (< 768px)
+    // Skip completely if running on a mobile viewport (< 768px)
     if (
       typeof window !== "undefined" &&
       !window.matchMedia("(min-width: 768px)").matches
     ) {
       return;
     }
+
+    // Lazy trigger the worker background downloading thread safely on mount
+    startPreloading();
 
     const unsubscribe = subscribeToFrameLoads((count) => {
       setLoadedCount(count);
@@ -34,12 +42,18 @@ export default function Canvas({ className }: { className: string }) {
         triggerRepaintRef.current();
       }
     });
-    return () => unsubscribe();
+
+    return () => {
+      unsubscribe();
+      // Wipes memory references from the GPU texture registry to avoid Next.js route memory leaks
+      clearFrameImages();
+    };
   }, []);
 
   useGSAP(
     () => {
-      if (!inView || isCancelled || frameImages.images.length === 0) return;
+      // We check loadedCount > 0 instead of length to confirm bitmaps are ready to draw
+      if (!inView || isCancelled || loadedCount === 0) return;
 
       const mm = gsap.matchMedia();
       mm.add(mediaQueries, (context) => {
@@ -83,20 +97,16 @@ export default function Canvas({ className }: { className: string }) {
 
             const targetIndex = Math.round(frameImages.playhead.frame);
 
-            // Helper function to check if an image is completely loaded
-            const isImgLoaded = (img: HTMLImageElement | undefined) =>
-              img && (img.complete || img.naturalWidth > 0);
-
-            let displayImg: HTMLImageElement | null = null;
+            let displayImg: ImageBitmap | null = null;
             const currentImg = frameImages.images[targetIndex];
 
-            // use the exact target image requested by the scroll position
-            if (isImgLoaded(currentImg)) {
+            // An ImageBitmap object only exists in our array if it is fully decoded and ready
+            if (currentImg) {
               displayImg = currentImg;
             } else {
               // fallback: search backward for the closest loaded frame to maintain animation progress
               for (let i = targetIndex - 1; i >= 0; i--) {
-                if (isImgLoaded(frameImages.images[i])) {
+                if (frameImages.images[i]) {
                   displayImg = frameImages.images[i];
                   break;
                 }
@@ -108,6 +118,7 @@ export default function Canvas({ className }: { className: string }) {
             ctx.clearRect(0, 0, cWidth, cHeight);
 
             if (displayImg) {
+              // ImageBitmaps clear and draw natively faster than DOM images
               ctx.drawImage(displayImg, placeholderX, 0, 625, 720);
 
               if (loadedCount < 47) {
@@ -168,7 +179,7 @@ export default function Canvas({ className }: { className: string }) {
         });
       });
     },
-    { dependencies: [inView, signal, frameImages.images.length, loadedCount] },
+    { dependencies: [inView, signal, loadedCount] },
   );
 
   return (

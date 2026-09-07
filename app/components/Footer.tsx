@@ -37,7 +37,11 @@ export default function Footer() {
       <div className="relative mx-auto w-full max-w-180 px-4 py-6 tablet:py-20 desktop:py-24 sm:px-6">
         {/* Logo and Brand Section */}
         <div className="mb-3">
-          <Link href="/" className="group inline-flex items-center">
+          <Link
+            href="/"
+            className="group inline-flex items-center"
+            aria-label="Navigate to home page using logo image"
+          >
             <div className="relative">
               <Image
                 src="/logo.png"

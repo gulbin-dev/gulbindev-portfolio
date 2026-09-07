@@ -119,7 +119,7 @@ export default function Header() {
         </div>
 
         <div className="flex h-full w-full max-w-180 items-center justify-between place-self-center px-3 py-3 tablet:py-0">
-          <Link href="/">
+          <Link href="/" aria-label="Navigate to home page using logo image">
             <Image
               src="/logo.png"
               alt="logo"

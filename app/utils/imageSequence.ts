@@ -1,92 +1,101 @@
-// frame images
+// frameImages.ts
 const frameCount = 47;
 
-// Keep this reference stable so external files can always read it
-const images: HTMLImageElement[] = [];
+const images: ImageBitmap[] = [];
 const playhead = { frame: 0 };
 
-// Global event system to alert the React Canvas component instantly when ANY image loads
 let fullyLoadedFrames = 0;
 let onFrameLoadedCallback: ((count: number) => void) | null = null;
+let activeWorker: Worker | null = null; // Reference to terminate early if unmounted mid-load
 
-/**
- * Allows the React component to subscribe directly to individual image load events.
- * This completely circumvents DOM event race conditions on slow networks.
- */
 export function subscribeToFrameLoads(callback: (count: number) => void) {
   onFrameLoadedCallback = callback;
-  // Fire immediately upon subscription so the component knows the current state
   callback(fullyLoadedFrames);
   return () => {
     onFrameLoadedCallback = null;
   };
 }
 
-/**
- * Preload images in chunks to avoid overwhelming the network and main thread
- */
-async function preloadInChunks(
+function preloadInWorker(
   frameCount: number,
   chunkSize: number = 10,
   delayMs: number = 100,
-): Promise<HTMLImageElement[]> {
-  const loadedImages: HTMLImageElement[] = [];
-
-  for (let i = 0; i < frameCount; i += chunkSize) {
-    const chunkPromises = Array.from(
-      { length: Math.min(chunkSize, frameCount - i) },
-      (_, offset) => {
-        const index = i + offset;
-        return new Promise<HTMLImageElement>((resolve) => {
-          const img = new Image();
-
-          // This handler fires the exact moment a single asset arrives over the wire
-          const handleLoad = () => {
-            fullyLoadedFrames++;
-            if (onFrameLoadedCallback) {
-              onFrameLoadedCallback(fullyLoadedFrames);
-            }
-            resolve(img);
-          };
-
-          img.onload = handleLoad;
-          img.onerror = handleLoad; // Graceful degradation if an image fails (keeps queue moving)
-          img.src = `/frame-image/frame-images_${index}.webp`;
-
-          // Push into the global stable array right away so the image
-          // is accessible by index even while the rest of its chunk is downloading.
-          images[index] = img;
-        });
-      },
-    );
-
-    const loadedChunk = await Promise.all(chunkPromises);
-    loadedImages.push(...loadedChunk);
-
-    // Give the main thread and network a breather before the next batch
-    if (i + chunkSize < frameCount) {
-      await new Promise((resolve) => setTimeout(resolve, delayMs));
-    }
+): Promise<ImageBitmap[]> {
+  // If an active worker is already running from a fast double-mount, terminate it
+  if (activeWorker) {
+    activeWorker.terminate();
   }
 
-  return loadedImages;
+  return new Promise((resolve) => {
+    const worker = new Worker(
+      new URL("@workers/frameImages.worker.ts", import.meta.url),
+    );
+    activeWorker = worker;
+
+    worker.onmessage = (e: MessageEvent) => {
+      const { status, index, bitmap, error } = e.data;
+
+      if (status === "success" && bitmap) {
+        images[index] = bitmap;
+      } else {
+        console.error(`Failed to decode frame ${index}:`, error);
+      }
+
+      fullyLoadedFrames++;
+      if (onFrameLoadedCallback) {
+        onFrameLoadedCallback(fullyLoadedFrames);
+      }
+
+      if (fullyLoadedFrames === frameCount) {
+        worker.terminate();
+        activeWorker = null;
+        resolve(images);
+      }
+    };
+
+    worker.postMessage({ frameCount, chunkSize, delayMs });
+  });
 }
 
-// Check window execution environment and screen size safely during initialization
-const isNotMobile =
-  typeof window !== "undefined" &&
-  window.matchMedia("(min-width: 768px)").matches;
+// 1. Wrap this in an exportable function so React can orchestrate the loader lifetime
+let imagesReadyPromise: Promise<ImageBitmap[]> | null = null;
 
-// Only trigger preloading if we are explicitly on a non-mobile viewport (Tablet / Desktop)
-const imagesReadyPromise = isNotMobile
-  ? preloadInChunks(frameCount)
-  : Promise.resolve([]);
+export function startPreloading() {
+  const isNotMobile =
+    typeof window !== "undefined" &&
+    window.matchMedia("(min-width: 768px)").matches;
+
+  // Don't re-trigger if it's already loading or loaded successfully
+  if (!imagesReadyPromise && isNotMobile) {
+    imagesReadyPromise = preloadInWorker(frameCount);
+  }
+  return imagesReadyPromise || Promise.resolve([]);
+}
 
 export const frameImages = {
   playhead,
-  // Using a getter ensures external files always read the live, progressively populated array state
   get images() {
     return images;
   },
-  isReady: imagesReadyPromise,
+  get isReady() {
+    return imagesReadyPromise || Promise.resolve([]);
+  },
 };
+
+export function clearFrameImages() {
+  // If the user navigates away mid-download, stop the background worker instantly
+  if (activeWorker) {
+    activeWorker.terminate();
+    activeWorker = null;
+  }
+
+  images.forEach((bitmap) => {
+    if (bitmap) {
+      bitmap.close();
+    }
+  });
+
+  images.length = 0;
+  fullyLoadedFrames = 0;
+  imagesReadyPromise = null; // Clear the promise reference so it can be re-triggered next time
+}
