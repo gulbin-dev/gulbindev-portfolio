@@ -3,7 +3,7 @@ import { ListGitHubRepo, ResponseError } from "@utils/types";
 
 // fech github repos
 export const fetchProjectDemo = async () => {
-  const filterNames = ["gulbindev-portfolio", "Crunchtime", 'travel-explore']; // only selected repos are fetched
+  const filterNames = ["gulbindev-portfolio", "Crunchtime", "travel-explore"]; // only selected repos are fetched
   const responseError: ResponseError = { status: false };
 
   let projects: ListGitHubRepo[] = [];
@@ -25,8 +25,6 @@ export const fetchProjectDemo = async () => {
     responseError.status = true;
     responseError.name = error.name;
     responseError.message = error.message;
-
-    console.error("Failed to load GitHub Repos:", err);
   }
 
   const reponse = { projects, responseError };
