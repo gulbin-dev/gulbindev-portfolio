@@ -1,0 +1,14 @@
+# Joshua Glenn Gulbin | Frontend React Web Developer
+
+> Portfolio of Joshua Glenn R. Gulbin (GulbinDev), a front-end web developer who builds fast, responsive, and maintainable interfaces with React, Next.js, and TypeScript.
+
+## Main Pages
+
+- [Home](https://portfolio-gulbindev.vercel.app/): Overview of Joshua's front-end services, technical expertise, core technology stacks, workflow, and contact options.
+- [Projects](https://portfolio-gulbindev.vercel.app/projects): Portfolio of self-built projects demonstrating front-end development skills and practical experience.
+- [About](https://portfolio-gulbindev.vercel.app/about): Background, experience with React.js, server-side rendering, TypeScript, performance, SEO, soft skills, and current areas of growth.
+
+## Legal Information
+
+- [Privacy Notice](https://portfolio-gulbindev.vercel.app/privacy-notice): Privacy information for visitors to the portfolio website.
+- [Terms and Conditions](https://portfolio-gulbindev.vercel.app/terms-and-conditions): Terms governing use of the portfolio website.

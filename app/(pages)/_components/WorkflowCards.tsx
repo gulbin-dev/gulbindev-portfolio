@@ -61,10 +61,7 @@ export default function WorkflowCards() {
         aria-label="Workflow"
         className="relative z-2 col-span-3 col-start-1 row-span-20 row-start-1 flex flex-col gap-6 py-6 tablet:grid tablet:grid-flow-row tablet:auto-rows-[60px] tablet:grid-cols-8 tablet:gap-x-0 tablet:gap-y-3 desktop:grid-cols-12"
       >
-        <li
-          role="presentation"
-          className="col-span-4 col-start-1 row-span-2 row-start-1 desktop:col-start-2"
-        >
+        <li className="col-span-4 col-start-1 row-span-2 row-start-1 desktop:col-start-2">
           <Card className={cardClassStyle}>
             <h3>Globalization and Building Blocks</h3>
             <ul className={ulClassStyle}>
@@ -73,10 +70,7 @@ export default function WorkflowCards() {
             </ul>
           </Card>
         </li>
-        <li
-          role="presentation"
-          className="col-span-4 col-start-3 row-span-2 row-start-4 desktop:col-start-5"
-        >
+        <li className="col-span-4 col-start-3 row-span-2 row-start-4 desktop:col-start-5">
           <Card className={cardClassStyle}>
             <h3>Fast UI Prototyping</h3>
             <ul className={ulClassStyle}>
@@ -86,10 +80,7 @@ export default function WorkflowCards() {
             </ul>
           </Card>
         </li>
-        <li
-          role="presentation"
-          className="col-span-4 col-start-5 row-span-2 row-start-7 desktop:col-start-8"
-        >
+        <li className="col-span-4 col-start-5 row-span-2 row-start-7 desktop:col-start-8">
           <Card className={cardClassStyle}>
             <h3>Interactive features</h3>
             <ul className={ulClassStyle}>
@@ -99,10 +90,7 @@ export default function WorkflowCards() {
             </ul>
           </Card>
         </li>
-        <li
-          role="presentation"
-          className="col-span-4 col-start-3 row-span-2 row-start-10 desktop:col-start-5"
-        >
+        <li className="col-span-4 col-start-3 row-span-2 row-start-10 desktop:col-start-5">
           <Card className={cardClassStyle}>
             <h3>Test and Optimize</h3>
             <ul className={ulClassStyle}>
@@ -112,10 +100,7 @@ export default function WorkflowCards() {
             </ul>
           </Card>
         </li>
-        <li
-          role="presentation"
-          className="col-span-4 col-start-1 row-span-2 row-start-13 desktop:col-start-2"
-        >
+        <li className="col-span-4 col-start-1 row-span-2 row-start-13 desktop:col-start-2">
           <Card className={cardClassStyle}>
             <h3>Build and Deploy</h3>
             <p>Deploying and managing production builds through Vercel</p>
