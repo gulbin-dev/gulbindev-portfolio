@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "WebWorker"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,7 +26,8 @@
       "@hooks/*": ["./app/hooks/*"],
       "@styles/*": ["./app/styles/*"],
       "@utils/*": ["./app/utils/*"],
-      "@server/*": ["./app/server/*"]
+      "@server/*": ["./app/server/*"],
+      "@workers/*": ["./app/workers/*"]
     }
   },
   "include": [
