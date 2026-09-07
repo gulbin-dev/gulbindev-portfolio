@@ -1,21 +1,22 @@
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import HeroScramblerText from "./_components/HeroScrambleText";
 import Frontend from "./_components/Frontend";
-import WorkflowCards from "./_components/WorkflowCards";
 import ProficientStacks from "./_components/ProficientStacks";
 import CoreStacks from "./_components/CoreStacks";
 import GridBackground from "@components/UI/GridBackground";
 import CTALinkButton from "@components/UI/CTALinkButton";
 import HeaderLandmark from "@components/UI/HeaderLandmark";
 import Tag from "@components/UI/Tag";
-import Contact from "@components/Contact";
 import CanvasWrapper from "@components/CanvasWrapper";
 import TextWithUnderline from "@components/UI/TextWithUnderline";
 import Section from "@components/UI/Section";
 import { VSCodeIcon, VercelIcon, VitestIcon } from "@utils/tabler-icons";
 import { fetchProjectDemo } from "@server/project-demo";
 import ProjectImages from "./_components/ProjectImages";
+
+const WorkflowCards = lazy(() => import("./_components/WorkflowCards"));
+const Contact = lazy(() => import("@components/Contact"));
 
 export default async function HomePage() {
   const projects = fetchProjectDemo();
@@ -70,7 +71,7 @@ export default async function HomePage() {
       </Section>
       {/* Services section */}
       <div className="relative z-1 flex w-full justify-center bg-primary">
-        <Section className="w-full">
+        <Section className="w-full" ariaLabel="Offer Service">
           {" "}
           <header className="pt-5 tablet:col-span-3 tablet:col-start-1 tablet:row-span-2 tablet:row-start-1">
             <HeaderLandmark level={2}>Services</HeaderLandmark>
@@ -180,7 +181,11 @@ export default async function HomePage() {
         <div className="pt-5 tablet:col-span-full tablet:col-start-1 tablet:row-span-23 tablet:row-start-1">
           <HeaderLandmark level={2}>Workflow</HeaderLandmark>
           <p className="mt-3">A habit of mine as I work</p>
-          <WorkflowCards />
+          <Suspense
+            fallback={<div className="min-h-250 tablet:min-h-275"></div>}
+          >
+            <WorkflowCards />
+          </Suspense>
         </div>
         <Contact />
       </Section>

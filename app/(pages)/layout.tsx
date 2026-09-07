@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import "@styles/globals.css";
-import Header from "@components/Header";
 import { Poppins, Roboto } from "next/font/google";
+import dynamic from "next/dynamic";
 import PagesWrapper from "@components/PagesWrapper";
 import FooterWrapper from "@components/FooterWrapper";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import InitialPageLoader from "./InitialPageLoader";
+
+const Header = dynamic(() => import("@components/Header"), {
+  loading: () => <div className="h-16"></div>,
+  ssr: true,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-gulbindev.vercel.app"),
   title: "Joshua Glenn Gulbin | Frontend React Web Developer",
@@ -68,7 +74,9 @@ export default function RootLayout({
       <body>
         <SpeedInsights />
         <Analytics />
+
         <Header />
+
         <InitialPageLoader>
           <PagesWrapper>
             {children}
