@@ -6,7 +6,7 @@ const playhead = { frame: 0 };
 
 let fullyLoadedFrames = 0;
 let onFrameLoadedCallback: ((count: number) => void) | null = null;
-let activeWorker: Worker | null = null; // Reference to terminate early if unmounted mid-load
+let activeWorker: Worker | null = null;
 
 export function subscribeToFrameLoads(callback: (count: number) => void) {
   onFrameLoadedCallback = callback;
@@ -21,7 +21,7 @@ function preloadInWorker(
   chunkSize: number = 10,
   delayMs: number = 100,
 ): Promise<ImageBitmap[]> {
-  // If an active worker is already running from a fast double-mount, terminate it
+  // If an active worker is already running, terminate it before starting a new one
   if (activeWorker) {
     activeWorker.terminate();
   }
@@ -53,11 +53,16 @@ function preloadInWorker(
       }
     };
 
-    worker.postMessage({ frameCount, chunkSize, delayMs });
+    // pass the current length of fully loaded frames so the worker can resume where it left off if needed
+    worker.postMessage({
+      frameCount,
+      chunkSize,
+      delayMs,
+      startIndex: fullyLoadedFrames,
+    });
   });
 }
 
-// 1. Wrap this in an exportable function so React can orchestrate the loader lifetime
 let imagesReadyPromise: Promise<ImageBitmap[]> | null = null;
 
 export function startPreloading() {
@@ -65,10 +70,16 @@ export function startPreloading() {
     typeof window !== "undefined" &&
     window.matchMedia("(min-width: 768px)").matches;
 
-  // Don't re-trigger if it's already loading or loaded successfully
-  if (!imagesReadyPromise && isNotMobile) {
+  // Don't re-trigger if it's already completely loaded
+  if (fullyLoadedFrames === frameCount) {
+    return imagesReadyPromise || Promise.resolve(images);
+  }
+
+  // If it's not fully loaded, or was paused midway, trigger/resume loading
+  if (!activeWorker && isNotMobile) {
     imagesReadyPromise = preloadInWorker(frameCount);
   }
+
   return imagesReadyPromise || Promise.resolve([]);
 }
 
@@ -82,20 +93,17 @@ export const frameImages = {
   },
 };
 
+/**
+ * Halts active workers to prevent network waste on unmount.
+ * Retains already downloaded bitmaps and current loading progress.
+ */
 export function clearFrameImages() {
-  // If the user navigates away mid-download, stop the background worker instantly
+  // Terminate the worker instantly to stop downloading/processing frames
   if (activeWorker) {
     activeWorker.terminate();
     activeWorker = null;
   }
 
-  images.forEach((bitmap) => {
-    if (bitmap) {
-      bitmap.close();
-    }
-  });
-
-  images.length = 0;
-  fullyLoadedFrames = 0;
-  imagesReadyPromise = null; // Clear the promise reference so it can be re-triggered next time
+  // Reset the promise reference so startPreloading() knows it can attempt a resume
+  imagesReadyPromise = null;
 }
