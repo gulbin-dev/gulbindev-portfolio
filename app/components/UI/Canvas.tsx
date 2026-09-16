@@ -47,7 +47,8 @@ export default function Canvas({ className }: { className: string }) {
 
     return () => {
       unsubscribe();
-      // Wipes memory references from the GPU texture registry to avoid Next.js route memory leaks
+      // Stops the worker download thread instantly to prevent network waste,
+      // while keeping existing frames cached safely in memory.
       clearFrameImages();
     };
   }, []);
