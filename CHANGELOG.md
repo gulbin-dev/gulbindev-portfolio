@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.6](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.2.5...v2.2.6) (2026-09-16)
+
+
+### Bug Fixes
+
+* retain downloaded frame images in-memory ([#129](https://github.com/gulbin-dev/gulbindev-portfolio/issues/129)) ([d07ee99](https://github.com/gulbin-dev/gulbindev-portfolio/commit/d07ee9918428d79e27da27ebbdfaeedb3925f02d))
+
 ## [2.2.5](https://github.com/gulbin-dev/gulbindev-portfolio/compare/v2.2.4...v2.2.5) (2026-09-07)
 
 
